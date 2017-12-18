@@ -7,8 +7,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
+import org.springframework.orm.hibernate4.HibernateTransactionManager;
+import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
@@ -19,7 +19,7 @@ import java.util.Properties;
 @PropertySource("classpath:datasource.properties")
 @EnableTransactionManagement
 public class OrmConfig {
-    @Value("${hibernate.connection.driver_class_name}")
+    @Value("${hibernate.connection.driver_class}")
     private String driverClassName;
     @Value("${hibernate.connection.url}")
     private String url;
@@ -49,8 +49,8 @@ public class OrmConfig {
         return properties;
     }
 
-    @SuppressWarnings("deprecation")
     @Bean
+    @SuppressWarnings("deprecation")
     public SessionFactory sessionFactory(){
         return new LocalSessionFactoryBuilder(dataSource()).scanPackages(scanPackages)
                 .addProperties(hibernateProperties()).buildSessionFactory();

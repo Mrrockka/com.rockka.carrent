@@ -19,14 +19,12 @@ public class AppInitializer implements WebApplicationInitializer{
         //      root context
         AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
         rootContext.register(AppConfig.class);
-        rootContext.refresh();
-
+        //protip: don't use context.refresh() it's cause an exception with resourceHandler
         servletContext.addListener(new ContextLoaderListener(rootContext));
 
         //      dispatcher context
         AnnotationConfigWebApplicationContext dispatcherContext = new AnnotationConfigWebApplicationContext();
         dispatcherContext.register(MvcConfig.class);
-        dispatcherContext.refresh();
 
 
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher",

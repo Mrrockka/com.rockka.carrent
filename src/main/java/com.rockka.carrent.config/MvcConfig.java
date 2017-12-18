@@ -62,7 +62,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-//        registry.addViewController("/").setViewName("templates/index.html");
+        registry.addViewController("/").setViewName("index");
     }
 
 }
