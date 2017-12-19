@@ -1,7 +1,137 @@
 package com.rockka.carrent.domain;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
 
 @Entity
-public class Client {
+@Table(name = "client")
+public class Client implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    @Column(name = "first_name")
+    private String firstName;
+    @Column(name = "second_name")
+    private String secondName;
+    @Column(name = "last_name")
+    private String lastName;
+    @Column
+    private String address;
+    @Column(name = "about_me")
+    private String aboutMe;
+    @Column(name = "image_name")
+    private String image_name;
+    @Column
+    @Temporal(TemporalType.DATE)
+    private Date birthday;
+    @Column(name = "created_at")
+    @Temporal(TemporalType.DATE)
+    private Date createdAt;
+    @Column(name = "modified_at")
+    @Temporal(TemporalType.DATE)
+    private Date modifiedAt;
+    @Column(name = "is_deleted")
+    private char isDeleted;
+    @Column(name = "is_free")
+    private char isFree;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_id")
+    private User user;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getSecondName() {
+        return secondName;
+    }
+
+    public void setSecondName(String secondName) {
+        this.secondName = secondName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getAboutMe() {
+        return aboutMe;
+    }
+
+    public void setAboutMe(String aboutMe) {
+        this.aboutMe = aboutMe;
+    }
+
+    public String getImage_name() {
+        return image_name;
+    }
+
+    public void setImage_name(String image_name) {
+        this.image_name = image_name;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getModifiedAt() {
+        return modifiedAt;
+    }
+
+    public void setModifiedAt(Date modifiedAt) {
+        this.modifiedAt = modifiedAt;
+    }
+
+    public char getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(char isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+
+    public char getIsFree() {
+        return isFree;
+    }
+
+    public void setIsFree(char isFree) {
+        this.isFree = isFree;
+    }
 }

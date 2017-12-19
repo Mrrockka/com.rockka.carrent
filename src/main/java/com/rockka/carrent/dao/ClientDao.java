@@ -1,4 +1,5 @@
 package com.rockka.carrent.dao;
 
-public class CarDao {
+public interface ClientDao {
+
 }
