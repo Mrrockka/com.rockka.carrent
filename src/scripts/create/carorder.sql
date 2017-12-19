@@ -1,4 +1,4 @@
-CREATE TABLE car (
+CREATE TABLE carorder (
     id INT AUTO_INCREMENT,
     mark varchar(30),
     model varchar(30),
