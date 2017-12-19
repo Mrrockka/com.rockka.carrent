@@ -1,11 +1,10 @@
 package com.rockka.carrent.domain;
 
 
-import com.fasterxml.jackson.core.SerializableString;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "car")
@@ -37,6 +36,12 @@ public class Car implements Serializable {
     @Column(name = "modified_at")
     @Temporal(TemporalType.DATE)
     private Date modifiedAt;
+    @Column(name = "is_deleted")
+    private char isDeleted;
+    @Column(name = "is_free")
+    private char isFree;
+    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Order> orders;
 
     public long getId() {
         return id;
@@ -124,5 +129,29 @@ public class Car implements Serializable {
 
     public void setModifiedAt(Date modifiedAt) {
         this.modifiedAt = modifiedAt;
+    }
+
+    public char getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(char isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+
+    public char getIsFree() {
+        return isFree;
+    }
+
+    public void setIsFree(char isFree) {
+        this.isFree = isFree;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
     }
 }
