@@ -50,111 +50,125 @@ public class Car implements Serializable {
         return id;
     }
 
-    public void setId(long id) {
+    public Car setId(long id) {
         this.id = id;
+        return this;
     }
 
     public String getMark() {
         return mark;
     }
 
-    public void setMark(String mark) {
+    public Car setMark(String mark) {
         this.mark = mark;
+        return this;
     }
 
     public String getModel() {
         return model;
     }
 
-    public void setModel(String model) {
+    public Car setModel(String model) {
         this.model = model;
+        return this;
     }
 
     public String getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
+    public Car setCountry(String country) {
         this.country = country;
+        return this;
     }
 
     public String getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public Car setColor(String color) {
         this.color = color;
+        return this;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public Car setDescription(String description) {
         this.description = description;
+        return this;
     }
 
     public String getImageName() {
         return imageName;
     }
 
-    public void setImageName(String imageName) {
+    public Car setImageName(String imageName) {
         this.imageName = imageName;
+        return this;
     }
 
     public double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public Car setPrice(double price) {
         this.price = price;
+        return this;
     }
 
     public Date getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
+    public Car setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
+        return this;
     }
 
     public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public Car setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+        return this;
     }
 
     public Date getModifiedAt() {
         return modifiedAt;
     }
 
-    public void setModifiedAt(Date modifiedAt) {
+    public Car setModifiedAt(Date modifiedAt) {
         this.modifiedAt = modifiedAt;
+        return this;
     }
 
     public char getIsDeleted() {
         return isDeleted;
     }
 
-    public void setIsDeleted(char isDeleted) {
+    public Car setIsDeleted(char isDeleted) {
         this.isDeleted = isDeleted;
+        return this;
     }
 
     public char getIsFree() {
         return isFree;
     }
 
-    public void setIsFree(char isFree) {
+    public Car setIsFree(char isFree) {
         this.isFree = isFree;
+        return this;
     }
 
     public List<Order> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<Order> orders) {
+    public Car setOrders(List<Order> orders) {
         this.orders = orders;
+        return this;
     }
 }

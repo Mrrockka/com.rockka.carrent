@@ -51,7 +51,8 @@ public class CarDaoImp implements CarDao{
     @Override
     @Transactional
     public void save(final Car car) {
-
+        sessionFactory.getCurrentSession().saveOrUpdate(car);
+        logger.info("Car id " + car.getId());
     }
 
     @Override
