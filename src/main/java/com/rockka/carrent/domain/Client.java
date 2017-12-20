@@ -1,8 +1,12 @@
 package com.rockka.carrent.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "client")
@@ -35,9 +39,13 @@ public class Client implements Serializable{
     private char isDeleted;
     @Column(name = "is_free")
     private char isFree;
+    @JsonManagedReference
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     private User user;
+    @JsonBackReference
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Order> orders;
 
     public long getId() {
         return id;

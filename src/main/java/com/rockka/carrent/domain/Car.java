@@ -1,9 +1,12 @@
 package com.rockka.carrent.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -39,8 +42,9 @@ public class Car implements Serializable {
     private char isDeleted;
     @Column(name = "is_free")
     private char isFree;
+    @JsonBackReference
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Order> orders;
+    private List<Order> orders;
 
     public long getId() {
         return id;
@@ -146,11 +150,11 @@ public class Car implements Serializable {
         this.isFree = isFree;
     }
 
-    public Set<Order> getOrders() {
+    public List<Order> getOrders() {
         return orders;
     }
 
-    public void setOrders(Set<Order> orders) {
+    public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
 }

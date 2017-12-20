@@ -22,10 +22,8 @@ import org.thymeleaf.templatemode.TemplateMode;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.rockka.carrent"},
-        excludeFilters = {
-        @ComponentScan.Filter(type = FilterType.ANNOTATION, value = Configuration.class)
-})
+@ComponentScan(basePackages = {"com.rockka.carrent"})
+//Last annotation must not exclude other configurations(OrmConfig exactly)
 public class MvcConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
     private final Logger logger = LoggerFactory.getLogger(MvcConfig.class);
     private ApplicationContext context;
@@ -54,7 +52,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         logger.info("MVCCONFIG: In viewREsolver");
         ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
         viewResolver.setTemplateEngine(templateEngine());
-        viewResolver.setCharacterEncoding("UTF-8");
+//        viewResolver.setCharacterEncoding("UTF-8");
         return viewResolver;
     }
 

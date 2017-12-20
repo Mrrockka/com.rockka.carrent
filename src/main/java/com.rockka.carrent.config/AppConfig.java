@@ -1,6 +1,7 @@
 package com.rockka.carrent.config;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rockka.carrent.dao.CarDao;
 import com.rockka.carrent.dao.CarDaoImp;
 import org.slf4j.Logger;
@@ -19,5 +20,10 @@ public class AppConfig {
     public CarDao carDao(){
         logger.info("APPCONFIG: in carDao");
         return new CarDaoImp();
+    }
+    @Bean
+    public ObjectMapper objectMapper(){
+        logger.info("APPCONFIG: in objectMapper");
+        return new ObjectMapper();
     }
 }

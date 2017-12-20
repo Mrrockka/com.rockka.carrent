@@ -17,19 +17,15 @@ public class AppInitializer implements WebApplicationInitializer{
     private final Logger logger = LoggerFactory.getLogger(AppInitializer.class);
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
-        logger.debug("APPINITIALIZER: Before registering app config");
         //      root context
         AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
         rootContext.register(AppConfig.class);
         //protip: don't use context.refresh() it's cause an exception with resourceHandler
-        logger.debug("APPINITIALIZER: Before registering listener");
         servletContext.addListener(new ContextLoaderListener(rootContext));
-        logger.debug("APPINITIALIZER: Before registering dispatcher config");
         //      dispatcher context
         AnnotationConfigWebApplicationContext dispatcherContext = new AnnotationConfigWebApplicationContext();
         dispatcherContext.register(MvcConfig.class);
 
-        logger.debug("APPINITIALIZER: Before adding servlet");
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher",
                 new DispatcherServlet(dispatcherContext));
         dispatcher.setLoadOnStartup(1);

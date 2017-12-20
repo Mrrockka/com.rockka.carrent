@@ -1,0 +1,9 @@
+body {
+    font: medium/1 Verdana, Halvetica, Arial, serif;
+    background: #11A1C5;
+}
+
+div#input {
+    font-style: italic;
+    color: #555;
+}

@@ -27,8 +27,8 @@ public class CarDaoImp implements CarDao{
             cars = sessionFactory.getCurrentSession().
                     createQuery("from Car").
                     list();
-        }catch(ExceptionInInitializerError e){
-            System.err.println("Exception with initializing bean " + e);
+        }catch(Exception e){
+            logger.error("Exception " + e);
         }
         return cars;
     }
@@ -42,8 +42,8 @@ public class CarDaoImp implements CarDao{
                     createQuery("from Car where id = :id").
                     setParameter("id", id)
                     .uniqueResult();
-        }catch(ExceptionInInitializerError e){
-            System.err.println("Exception with initializing bean " + e);
+        }catch(Exception e){
+            logger.error("Exception " + e);
         }
         return car;
     }

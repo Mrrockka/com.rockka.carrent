@@ -12,6 +12,7 @@ public class CarDaoTest {
         context.refresh();
 
         showAll(context);
+        showById(context);
     }
 
     public static void showAll(ApplicationContext context){

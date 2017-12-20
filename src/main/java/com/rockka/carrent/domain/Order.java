@@ -1,5 +1,7 @@
 package com.rockka.carrent.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -10,9 +12,11 @@ public class Order implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "car_id")
     private Car car;
