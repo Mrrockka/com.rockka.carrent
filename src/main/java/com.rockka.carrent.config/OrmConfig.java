@@ -1,11 +1,10 @@
 package com.rockka.carrent.config;
 
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
@@ -15,10 +14,14 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@ComponentScan(basePackages = {"com.rockka.carrent"})
+@ComponentScan(basePackages = {"com.rockka.carrent"},
+        excludeFilters = {
+                @ComponentScan.Filter(type = FilterType.ANNOTATION, value = Configuration.class)
+        })
 @PropertySource("classpath:datasource.properties")
 @EnableTransactionManagement
 public class OrmConfig {
+    private final Logger logger = LoggerFactory.getLogger(OrmConfig.class);
     @Value("${hibernate.connection.driver_class}")
     private String driverClassName;
     @Value("${hibernate.connection.url}")
@@ -27,13 +30,14 @@ public class OrmConfig {
     private String username;
     @Value("${hibernate.connection.password}")
     private String password;
-    @Value("${hibernate.connection.scan_packages}")
+    @Value("${hibernate.scan_packages}")
     private String scanPackages;
     @Value("${hibernate.dialect}")
     private String dialect;
 
     @Bean
     public DataSource dataSource(){
+        logger.info("ORM: In datasource");
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(driverClassName);
         dataSource.setUrl(url);
@@ -44,6 +48,7 @@ public class OrmConfig {
 
     @Bean
     public Properties hibernateProperties(){
+        logger.info("ORM: in properties");
         Properties properties = new Properties();
         properties.put("hibernate.dialect", dialect);
         return properties;
@@ -52,12 +57,14 @@ public class OrmConfig {
     @Bean
     @SuppressWarnings("deprecation")
     public SessionFactory sessionFactory(){
+        logger.info("ORM: in session factory");
         return new LocalSessionFactoryBuilder(dataSource()).scanPackages(scanPackages)
                 .addProperties(hibernateProperties()).buildSessionFactory();
     }
 
     @Bean
     public HibernateTransactionManager transactionManager(SessionFactory sessionFactory){
+        logger.info("ORM: in transaction manager");
         HibernateTransactionManager htm = new HibernateTransactionManager();
         htm.setSessionFactory(sessionFactory);
         return htm;

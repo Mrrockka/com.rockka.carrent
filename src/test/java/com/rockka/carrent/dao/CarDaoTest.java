@@ -10,6 +10,8 @@ public class CarDaoTest {
         AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
         context.register(AppConfig.class);
         context.refresh();
+
+        showAll(context);
     }
 
     public static void showAll(ApplicationContext context){

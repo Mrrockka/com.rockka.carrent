@@ -2,16 +2,25 @@ package com.rockka.carrent.dao;
 
 import com.rockka.carrent.domain.Car;
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Transactional
+@Repository("carDao")
 public class CarDaoImp implements CarDao{
+    private final Logger logger = LoggerFactory.getLogger(CarDaoImp.class);
 
     @Autowired
     private SessionFactory sessionFactory;
     @Override
+    @Transactional
     public List<Car> getAll() {
         List<Car> cars = new ArrayList<>();
         try {
@@ -25,6 +34,7 @@ public class CarDaoImp implements CarDao{
     }
 
     @Override
+    @Transactional
     public Car getById(final long id) {
         Car car = null;
         try {
@@ -39,11 +49,13 @@ public class CarDaoImp implements CarDao{
     }
 
     @Override
+    @Transactional
     public void save(final Car car) {
 
     }
 
     @Override
+    @Transactional
     public void delete(final Car car) {
 
     }

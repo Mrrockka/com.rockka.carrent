@@ -9,23 +9,22 @@ import java.util.Set;
 @Entity
 @Table(name = "car")
 public class Car implements Serializable {
-    private static final long serialVersionUID = 1123123123123l;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Column
+    @Column(name = "mark")
     private String mark;
-    @Column
+    @Column(name = "model")
     private String model;
-    @Column
+    @Column(name = "country")
     private String country;
-    @Column
+    @Column(name = "color")
     private String color;
-    @Column
+    @Column(name = "description")
     private String description;
     @Column(name = "image_name")
     private String imageName;
-    @Column
+    @Column(name = "price")
     private double price;
     @Column(name = "release_date")
     @Temporal(TemporalType.DATE)
