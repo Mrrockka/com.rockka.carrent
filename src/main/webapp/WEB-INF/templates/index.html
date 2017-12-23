@@ -3,13 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <script type="text/javascript" src="js/showCar.js"></script>
-    <link rel = "stylesheet" href="css/standart.css">
+    <script type="text/javascript" src="js/load_item.js"></script>
+    <link rel="stylesheet" href="css/standart.css">
     <title>index</title>
 </head>
 <body>
-    <div id = "input">
-        Nothing here
-    </div>
-    <input type="button" value="show cars" onclick="showCars()">
+<script type="text/javascript">
+    document.onload(load_items);
+</script>
+<div id="header"></div>
+<div id="menu"></div>
+<div id="input">
+    <h2>Car</h2>
+    <img src="images/1.jpg">
+    <p>id: 1<br>mark: Nissan<br>model: Cashkai<br>release date: 2010<br>price: $200.00<br>is free</p>
+
+    <h2>Car</h2>
+    <img src="images/2.jpg">
+    <p>id: 2<br>mark: Nissan<br>model: 350z<br>release date: 2000<br>price: $100.00<br>on rent</p>
+</div>
+<input type="button" value="show cars" onclick="showCars()">
+
+<div id="footer"></div>
 </body>
 </html>
