@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <script type="text/javascript" src="js/showCar.js"></script>
@@ -7,20 +7,27 @@
     <link rel="stylesheet" href="css/standart.css">
     <title>index</title>
 </head>
-<body>
-<script type="text/javascript">
-    document.onload(load_items);
-</script>
+<body onload="load_items()">
 <div id="header"></div>
 <div id="menu"></div>
 <div id="input">
-    <h2>Car</h2>
+    <ul>
+        <li th:each="car: ${cars}">
+            <p th:text="${'id: '+${car.id}}">0</p>
+            <p th:text="${'mark: '+${car.mark}}"></p>
+            <p th:text="${'model: '+${car.model}}"></p>
+            <p th:text="${'release date: '+${car.releaseDate}}"></p>
+            <p th:text="${'price: '+${car.price}}"></p>
+            <p th:text="${'status: ' + ${car.isFree=='y' ? 'is free' : 'on rent'}}"></p>
+        </li>
+    </ul>
+   <!-- <h2>Car</h2>
     <img src="images/1.jpg">
     <p>id: 1<br>mark: Nissan<br>model: Cashkai<br>release date: 2010<br>price: $200.00<br>is free</p>
 
     <h2>Car</h2>
     <img src="images/2.jpg">
-    <p>id: 2<br>mark: Nissan<br>model: 350z<br>release date: 2000<br>price: $100.00<br>on rent</p>
+    <p>id: 2<br>mark: Nissan<br>model: 350z<br>release date: 2000<br>price: $100.00<br>on rent</p>-->
 </div>
 <input type="button" value="show cars" onclick="showCars()">
 
