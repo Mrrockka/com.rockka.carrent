@@ -37,3 +37,7 @@ function parseCars(text){
     }
 
 }
+
+function show(){
+        document.getElementById("info").innerHTML = document.forms["car"]["mark"].value;
+}
