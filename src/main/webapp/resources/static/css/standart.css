@@ -1,9 +1,9 @@
-body {
-    font: medium/1 Verdana, Halvetica, Arial, serif;
-    background: #FAFBFF;
+header {
+    background: #345678;
 }
 
-div#input {
-    font-style: italic;
-    color: #5ACC11;
+footer {
+    color: gray;
+    text-align:center;
+    background: #345678;
 }

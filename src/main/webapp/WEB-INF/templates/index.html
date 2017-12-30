@@ -2,22 +2,27 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/standart.css">
-    <title>index</title>
-    <script type="text/javascript" src="js/input_car.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Rockka car rent</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/standart.css">
+    <script type="text/javascript" src="/js/input_car.js"></script>
+    <script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-<div  th:replace="fragments/header :: header"></div>
-<div th:replace="fragments/menu :: menu"></div>
+<header  th:replace="fragments/header :: header"></header>
+<div id="menu" th:replace="fragments/menu :: menu"></div>
 <div id="info">
-    <ul>
-        <li th:each="car: ${cars}">
-            <p th:text="'id: '+${car.id}">0</p>
-            <p th:text="'mark: '+${car.mark}"></p>
-            <p th:text="'model: '+${car.model}"></p>
-            <p th:text="'release date: '+${car.releaseDate}"></p>
-            <p th:text="'price: '+${car.price}"></p>
-            <p th:text="'status: '+${car.isFree=='y' ? 'is free' : 'on rent'}"></p>
+    <ul class="list-unstyled">
+        <li class="media" th:each="car: ${cars}">
+            <img class="mr-3" th:src="@{'/images/'+${car.id}+'.jpg'}" alt="car image">
+            <div class="media-body">
+                <h2 class="mt-0 mb-1" th:text="${car.mark}+' '+${car.model}"></h2>
+                <p >th:text="'release date: '+${car.releaseDate}"</p>
+                <p th:text="'price: '+${car.price}"></p>
+                <p th:text="'status: '+${car.isFree=='y' ? 'is free' : 'on rent'}"></p>
+            </div>
         </li>
     </ul>
 </div>
@@ -30,6 +35,6 @@
         <p><input value="save" type="button" onclick="save()"></p>
     </form>
 </div>
-<div th:replace="fragments/footer :: footer"></div>
+<footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>
