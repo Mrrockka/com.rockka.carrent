@@ -16,7 +16,14 @@ public class SiteController {
         model.addAttribute("cars", carDao.getAll());
         return "index";
     }
-
+    @RequestMapping("/save")
+    public String save(){
+        return "admin/save";
+    }
+    @RequestMapping("/signin")
+    public String signin(){
+        return "security/signin";
+    }
     public CarDao getCarDao() {
         return carDao;
     }
