@@ -6,35 +6,40 @@
     <title>Rockka car rent</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/standart.css">
-    <script type="text/javascript" src="/js/input_car.js"></script>
     <script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/js/popper.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 </head>
 <body>
 <header  th:replace="fragments/header :: header"></header>
 <div id="menu" th:replace="fragments/menu :: menu"></div>
-<div id="info">
-    <ul class="list-unstyled">
-        <li class="media" th:each="car: ${cars}">
-            <img class="mr-3" th:src="@{'/images/'+${car.id}+'.jpg'}" alt="car image">
-            <div class="media-body">
-                <h2 class="mt-0 mb-1" th:text="${car.mark}+' '+${car.model}"></h2>
-                <p >th:text="'release date: '+${car.releaseDate}"</p>
-                <p th:text="'price: '+${car.price}"></p>
-                <p th:text="'status: '+${car.isFree=='y' ? 'is free' : 'on rent'}"></p>
+<main role="main">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">We offer our best cars</h1>
+            <p class="lead text-muted">To reader information about rules on our site, FAQ and payment process click button follow</p>
+            <p>
+                <a href="/info" class="btn btn-primary">Info</a>
+                <a href="/close" class="btn btn-secondary">Close</a>
+            </p>
+        </div>
+    </section>
+    <div class="album text-muted">
+        <div class="container">
+            <div class="row">
+                <div class="card" th:each="car: ${cars}">
+                    <img class="mr-3" th:src="@{'/images/'+${car.id}+'.jpg'}" alt="car image">
+                    <p class="card-text">
+                        <h3 th:text="${car.mark}+' '+${car.model}"></h3>
+                        <p th:text="'release date: '+${car.releaseDate}"></p>
+                        <p th:text="'price: '+${car.price}"></p>
+                        <span class="badge badge-info" th:text="'status: '+${car.isFree=='y' ? 'is free' : 'on rent'}"></span>
+                    </p>
+                </div>
             </div>
-        </li>
-    </ul>
-</div>
-<div id="input">
-    <form action="/car/save" method="post" name="car">
-        <p>mark: <input name="mark"></p>
-        <p>model: <input name="model"></p>
-        <p>release date: <input name="release_date"></p>
-        <p>price: <input name="price"></p>
-        <p><input value="save" type="button" onclick="save()"></p>
-    </form>
-</div>
+        </div>
+    </div>
+</main>
 <footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>
