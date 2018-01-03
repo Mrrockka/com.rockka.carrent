@@ -6,10 +6,8 @@ import com.rockka.carrent.dao.CarDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
@@ -34,15 +32,16 @@ public class CarController {
         }
         return line;
     }
-
-    @PostMapping("/save?")
+    ///{mark}/{model}/{price}/{year}
+    @PostMapping("/save")
     public String save(HttpServletRequest request){
         String line = "";
-        Enumeration <String> headers = request.getHeaderNames();
+        Enumeration headers = request.getHeaderNames();
+        logger.info("Headers\n");
         while(headers.hasMoreElements()) {
-            String head = headers.nextElement();
-            logger.info("header name: " + head + "; header value: " + request.getHeader(head));
-            line += "header name: " + head + "; header value: " + request.getHeader(head) + "\n";
+            Object head = headers.nextElement();
+            logger.info("header name: " + head + "; header value: " + request.getHeader(head.toString()));
+            line += "header name: " + head + "; header value: " + request.getHeader(head.toString()) + "\n";
         }
 
         line += "\n";
@@ -50,12 +49,6 @@ public class CarController {
         logger.info("request URI: " +request.getRequestURL());
         line += "request URI: " +request.getRequestURI() + "\n" + "request URI: " +request.getRequestURL() + "\n";
 
-        Enumeration <String> attr = request.getAttributeNames();
-        while(attr.hasMoreElements()){
-            String att = attr.nextElement();
-            logger.info("Attribute name: " + att + "; Attribute value: " + request.getAttribute(att));
-            line += "Attribute name: " + att + "; Attribute value: " + request.getAttribute(att) + "\n";
-        }
         line += "\n";
 
         Map<String,String[]> map = request.getParameterMap();
@@ -68,6 +61,8 @@ public class CarController {
                     line += "   param value: " + s + "\n";
                 }
             }
+        } else {
+            logger.info("Has no parametres\n");
         }
         return line;
     }

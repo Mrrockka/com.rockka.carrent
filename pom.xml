@@ -21,6 +21,7 @@
       <org.json-version>20171018</org.json-version>
       <org.thymeleaf-version>3.0.9.RELEASE</org.thymeleaf-version>
       <org.thymeleaf-security-version>3.0.2.RELEASE</org.thymeleaf-security-version>
+      <!--<packagesPath>src/main/</packagesPath>-->
   </properties>
 
     <dependencies>
@@ -213,7 +214,19 @@
                       <failOnMissingWebXml>false</failOnMissingWebXml>
                   </configuration>
               </plugin>
-
+              <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-clean-plugin</artifactId>
+                  <version>2.4.1</version>
+                  <configuration>
+                      <filesets>
+                          <fileset>
+                              <directory>${project.basedir}</directory>
+                              <directory>${env.CATALINA_HOME}</directory>
+                          </fileset>
+                      </filesets>
+                  </configuration>
+              </plugin>
               <plugin>
                   <groupId>org.codehaus.mojo</groupId>
                   <artifactId>exec-maven-plugin</artifactId>
