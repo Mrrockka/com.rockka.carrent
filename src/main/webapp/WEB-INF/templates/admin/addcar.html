@@ -22,7 +22,7 @@
 <header th:replace="fragments/header :: header"></header>
 <div id="menu" th:replace="fragments/menu :: menu"></div>
 <div class="container">
-    <form class="form-std" action="/car/save" method="post" name="car">
+    <form class="form-std" action="/car/info" method="post" name="car">
         <h2 class="form-std-header">Input info about new car</h2>
         <label for="mark" class="sr-only">Mark</label>
         <input type="text" id="mark" class="form-control" placeholder="Mark" required autofocus>
@@ -30,8 +30,8 @@
         <input type="text" id="model" class="form-control" placeholder="Model" required>
         <label for="price" class="sr-only">Price</label>
         <input type="number" min="0" id="price" class="form-control" placeholder="0.00" required>
-       <!-- <label for="year" class="sr-only">Year</label>
-        <input type="date" id="year" class="form-control" required>-->
+        <label for="year" class="sr-only">Year</label>
+        <input type="date" id="year" class="form-control" required>
         <input class="btn btn btn-primary btn-block" value="save" type="button" onclick="save()">
         <input class="btn btn btn-outline-secondary btn-block" value="cancel" type="button" onclick="cancel()">
     </form>

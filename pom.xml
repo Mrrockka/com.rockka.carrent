@@ -212,6 +212,7 @@
                   <version>2.4</version>
                   <configuration>
                       <failOnMissingWebXml>false</failOnMissingWebXml>
+                      <outputDirectory>${env.CATALINA_HOME}/hosts/carrent/webapps</outputDirectory>
                   </configuration>
               </plugin>
               <plugin>
@@ -222,7 +223,7 @@
                       <filesets>
                           <fileset>
                               <directory>${project.basedir}</directory>
-                              <directory>${env.CATALINA_HOME}</directory>
+                              <directory>${env.CATALINA_HOME}/hosts/carrent/webapps</directory>
                           </fileset>
                       </filesets>
                   </configuration>
