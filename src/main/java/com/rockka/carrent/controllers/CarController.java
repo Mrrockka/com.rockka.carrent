@@ -35,7 +35,7 @@ public class CarController {
         return line;
     }
 
-    @PostMapping("/save")
+    @PostMapping("/save?")
     public String save(HttpServletRequest request){
         String line = "";
         Enumeration <String> headers = request.getHeaderNames();
