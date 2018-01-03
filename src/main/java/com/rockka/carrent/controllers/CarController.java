@@ -37,29 +37,39 @@ public class CarController {
 
     @PostMapping("/save")
     public String save(HttpServletRequest request){
+        String line = "";
         Enumeration <String> headers = request.getHeaderNames();
         while(headers.hasMoreElements()) {
             String head = headers.nextElement();
             logger.info("header name: " + head + "; header value: " + request.getHeader(head));
+            line += "header name: " + head + "; header value: " + request.getHeader(head) + "\n";
         }
 
+        line += "\n";
         logger.info("request URI: " +request.getRequestURI());
         logger.info("request URI: " +request.getRequestURL());
+        line += "request URI: " +request.getRequestURI() + "\n" + "request URI: " +request.getRequestURL() + "\n";
 
         Enumeration <String> attr = request.getAttributeNames();
         while(attr.hasMoreElements()){
             String att = attr.nextElement();
             logger.info("Attribute name: " + att + "; Attribute value: " + request.getAttribute(att));
+            line += "Attribute name: " + att + "; Attribute value: " + request.getAttribute(att) + "\n";
         }
+        line += "\n";
 
         Map<String,String[]> map = request.getParameterMap();
-        for(Map.Entry<String, String[]> entry: map.entrySet()){
-            logger.info("param key: " + entry.getKey());
-            for(String s: entry.getValue()){
-                logger.info("   param value: " + s);
+        if(map!=null) {
+            for (Map.Entry<String, String[]> entry : map.entrySet()) {
+                logger.info("param key: " + entry.getKey());
+                line += "param key: " + entry.getKey() + "\n";
+                for (String s : entry.getValue()) {
+                    logger.info("   param value: " + s);
+                    line += "   param value: " + s + "\n";
+                }
             }
         }
-        return null;
+        return line;
     }
 
     public CarDao getCarDao() {
