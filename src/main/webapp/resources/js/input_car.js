@@ -19,7 +19,7 @@ function save(){
             alert(text);
         }
     }
-	xhr.open("POST", '/car/info', true);
+	xhr.open("POST", '/car/save', true);
 	xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
 	xhr.send(json);
 }
