@@ -2,17 +2,23 @@
 
 function save(){
     var xhr = new XMLHttpRequest();
-	var i = 0, json = "", doc = document.forms["car"];
+	var i = 0, json = "", doc = document.forms["car"], text = "no";
     json = "{";
     for(i=0; i<document.forms["car"].length; i++){
     	if(doc[i].type != "button"){
     		json += "\"" + doc[i].id + "\"" + ":" +"\""+ doc[i].value +"\""+ ",";
         } else {
-        	json = json.substring(0, json.length-1);
+        	json = json.slice(0, -1);
         }
     }
-    json += "}";
+    json += "\"}";
 
+    xhr.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status==200){
+            text = this.responseText;
+            alert(text);
+        }
+    }
 	xhr.open("POST", '/car/info', true);
 	xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
 	xhr.send(json);
