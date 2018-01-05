@@ -3,7 +3,9 @@ package com.rockka.carrent.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rockka.carrent.dao.CarDao;
-import com.rockka.carrent.dao.CarDaoImp;
+import com.rockka.carrent.dao.UserDao;
+import com.rockka.carrent.dao.impl.CarDaoImp;
+import com.rockka.carrent.dao.impl.UserDaoImp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.*;
@@ -25,5 +27,10 @@ public class AppConfig {
     public ObjectMapper objectMapper(){
         logger.info("APPCONFIG: in objectMapper");
         return new ObjectMapper();
+    }
+
+    @Bean
+    public UserDao userDao(){
+        return new UserDaoImp();
     }
 }

@@ -37,7 +37,7 @@ public class Client implements Serializable{
     private Date modifiedAt;
     @JsonManagedReference
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "user_id")
     private User user;
     @JsonBackReference
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)

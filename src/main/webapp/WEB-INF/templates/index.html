@@ -28,8 +28,8 @@
     <div class="album text-muted">
         <div class="container">
             <div class="row">
-                <div th:each="car: ${cars}">
-                    <div class="card" th:if="${car.getIsDeleted()=='n'}">
+                <div class="card" th:each="car: ${cars}" th:if="${car.getIsDeleted()}=='n'">
+                    <div  >
                         <img class="mr-3" th:src="@{'/images/'+${car.id}+'.jpg'}" alt="car image">
                         <p class="card-text">
                             <h3 th:text="${car.name}"></h3>
