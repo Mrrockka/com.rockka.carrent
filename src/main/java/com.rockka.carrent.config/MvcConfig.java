@@ -6,10 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.FilterType;
+import org.springframework.context.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -23,6 +20,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"com.rockka.carrent"})
+@Import(SecureConfig.class)
 //Last annotation must not exclude other configurations(OrmConfig exactly)
 public class MvcConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
     private final Logger logger = LoggerFactory.getLogger(MvcConfig.class);

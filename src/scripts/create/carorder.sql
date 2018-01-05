@@ -9,6 +9,5 @@ CREATE TABLE carorder (
     expires_at DATE NOT NULL,
     status varchar(5) NOT NULL,
     FOREIGN KEY (client_id) REFERENCES client(id),
-    FOREIGN KEY (car_id) REFERENCES car(id),
     PRIMARY KEY (id)
 );

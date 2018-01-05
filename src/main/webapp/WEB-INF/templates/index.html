@@ -11,13 +11,14 @@
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 </head>
 <body>
-<header  th:replace="fragments/header :: header"></header>
+<header th:replace="fragments/header :: header"></header>
 <div id="menu" th:replace="fragments/menu :: menu"></div>
 <main role="main">
     <section class="jumbotron text-center">
         <div class="container">
             <h1 class="jumbotron-heading">We offer our best cars</h1>
-            <p class="lead text-muted">To reader information about rules on our site, FAQ and payment process click button follow</p>
+            <p class="lead text-muted">To reader information about rules on our site, FAQ and payment process click
+                button follow</p>
             <p>
                 <a href="/info" class="btn btn-primary">Info</a>
                 <a href="/close" class="btn btn-secondary">Close</a>
@@ -27,13 +28,15 @@
     <div class="album text-muted">
         <div class="container">
             <div class="row">
-                <div class="card" th:each="car: ${cars}">
-                    <img class="mr-3" th:src="@{'/images/'+${car.id}+'.jpg'}" alt="car image">
-                    <p class="card-text">
-                        <h3 th:text="${car.name}+' '+${car.model}"></h3>
-                        <p th:text="'price: '+${car.price}"></p>
-                        <span class="badge badge-info" th:text="'status: '+${car.isFree=='y' ? 'is free' : 'on rent'}"></span>
-                    </p>
+                <div th:each="car: ${cars}">
+                    <div class="card" th:if="${car.getIsDeleted()=='n'}">
+                        <img class="mr-3" th:src="@{'/images/'+${car.id}+'.jpg'}" alt="car image">
+                        <p class="card-text">
+                            <h3 th:text="${car.name}"></h3>
+                            <p>price: <span th:text="${car.price}"></span></p>
+                            <span class="badge badge-info">free</span>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

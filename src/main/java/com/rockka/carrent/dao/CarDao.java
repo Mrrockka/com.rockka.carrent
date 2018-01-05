@@ -6,8 +6,9 @@ import java.util.List;
 
 public interface CarDao {
     public List<Car> getAll();
+    public List<Car> getAllWithoutDetails();
     public Car getById(long id);
-    public void save(Car car);
-    public void delete(Car car);
+    public Car save(Car car);
+    public Car delete(Car car);
 
 }

@@ -20,13 +20,13 @@ public class CarDaoImp implements CarDao{
 
     @Autowired
     private SessionFactory sessionFactory;
+
     @Override
-    @Transactional
-    public List<Car> getAll() {
+    public List<Car> getAllWithoutDetails() {
         List<Car> cars = new ArrayList<>();
         try {
             cars = sessionFactory.getCurrentSession().
-                    createQuery("from Car where isDeleted = 'n'").
+                    createQuery("select C.name, C.price, C.createdAt, C.modifiedAt, C.isDeleted from Car as C where isDeleted = 'n'").
                     list();
         }catch(Exception e){
             logger.error("Exception " + e);
@@ -35,12 +35,24 @@ public class CarDaoImp implements CarDao{
     }
 
     @Override
-    @Transactional
+    public List<Car> getAll() {
+        List<Car> cars = new ArrayList<>();
+        try {
+            cars = sessionFactory.getCurrentSession().
+                    createQuery("from Car").
+                    list();
+        }catch(Exception e){
+            logger.error("Exception " + e);
+        }
+        return cars;
+    }
+
+    @Override
     public Car getById(final long id) {
         Car car = null;
         try {
             car = (Car) sessionFactory.getCurrentSession().
-                    createQuery("from Car where id = :id").
+                    createQuery("from Car where id = :id and isDeleted = 'n'").
                     setParameter("id", id)
                     .uniqueResult();
         }catch(Exception e){
@@ -50,17 +62,19 @@ public class CarDaoImp implements CarDao{
     }
 
     @Override
-    @Transactional
-    public void save(final Car car) {
-        sessionFactory.getCurrentSession().saveOrUpdate(car);
-        logger.info("Car id " + car.getId());
+    public Car save(Car car) {
+        if(car.getCreatedAt() == null){
+            car.setCreatedAt(new Date());
+        }
+        sessionFactory.getCurrentSession().saveOrUpdate(car.setModifiedAt(new Date()));
+        return car;
     }
 
     @Override
-    @Transactional
-    public void delete(final Car car) {
-        car.setDeleted().setModifiedAt(new Date());
+    public Car delete(Car car) {
+        car.setDeleted();
         save(car);
+        return car;
     }
 
     public SessionFactory getSessionFactory() {

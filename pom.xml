@@ -21,7 +21,7 @@
       <org.json-version>20171018</org.json-version>
       <org.thymeleaf-version>3.0.9.RELEASE</org.thymeleaf-version>
       <org.thymeleaf-security-version>3.0.2.RELEASE</org.thymeleaf-security-version>
-      <!--<packagesPath>src/main/</packagesPath>-->
+      <junit-version>4.12</junit-version>
   </properties>
 
     <dependencies>
@@ -186,7 +186,7 @@
         <dependency>
           <groupId>junit</groupId>
           <artifactId>junit</artifactId>
-          <version>3.8.1</version>
+          <version>${junit-version}</version>
           <scope>test</scope>
         </dependency>
   </dependencies>
