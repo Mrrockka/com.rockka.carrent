@@ -19,6 +19,8 @@ public class User {
     private String nickname;
     @Column
     private String password;
+    @Column(name = "is_deleted", nullable = false, length = 1)
+    private char isDeleted;
 
     public long getId() {
         return id;

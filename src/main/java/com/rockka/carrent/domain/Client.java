@@ -35,10 +35,6 @@ public class Client implements Serializable{
     @Column(name = "modified_at")
     @Temporal(TemporalType.DATE)
     private Date modifiedAt;
-    @Column(name = "is_deleted")
-    private char isDeleted;
-    @Column(name = "is_free")
-    private char isFree;
     @JsonManagedReference
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
@@ -127,19 +123,4 @@ public class Client implements Serializable{
         this.modifiedAt = modifiedAt;
     }
 
-    public char getIsDeleted() {
-        return isDeleted;
-    }
-
-    public void setIsDeleted(char isDeleted) {
-        this.isDeleted = isDeleted;
-    }
-
-    public char getIsFree() {
-        return isFree;
-    }
-
-    public void setIsFree(char isFree) {
-        this.isFree = isFree;
-    }
 }

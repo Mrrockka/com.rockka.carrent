@@ -30,7 +30,7 @@
                 <div class="card" th:each="car: ${cars}">
                     <img class="mr-3" th:src="@{'/images/'+${car.id}+'.jpg'}" alt="car image">
                     <p class="card-text">
-                        <h3 th:text="${car.mark}+' '+${car.model}"></h3>
+                        <h3 th:text="${car.name}+' '+${car.model}"></h3>
                         <p th:text="'price: '+${car.price}"></p>
                         <span class="badge badge-info" th:text="'status: '+${car.isFree=='y' ? 'is free' : 'on rent'}"></span>
                     </p>

@@ -7,7 +7,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "car")
@@ -15,33 +14,29 @@ public class Car implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Column(name = "mark")
-    private String mark;
-    @Column(name = "model")
-    private String model;
-    @Column(name = "country")
+    @Column(name = "name", length = 30, nullable = false)
+    private String name;
+    @Column(name = "country", length = 15)
     private String country;
-    @Column(name = "color")
+    @Column(name = "color", length = 20)
     private String color;
     @Column(name = "description")
     private String description;
     @Column(name = "image_name")
     private String imageName;
-    @Column(name = "price")
+    @Column(name = "price", nullable = false)
     private double price;
     @Column(name = "release_date")
     @Temporal(TemporalType.DATE)
     private Date releaseDate;
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date createdAt;
-    @Column(name = "modified_at")
+    @Column(name = "modified_at", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date modifiedAt;
-    @Column(name = "is_deleted")
+    @Column(name = "is_deleted", nullable = false)
     private char isDeleted;
-    @Column(name = "is_free")
-    private char isFree;
     @JsonBackReference
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders;
@@ -55,21 +50,12 @@ public class Car implements Serializable {
         return this;
     }
 
-    public String getMark() {
-        return mark;
+    public String getName() {
+        return name;
     }
 
-    public Car setMark(String mark) {
-        this.mark = mark;
-        return this;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public Car setModel(String model) {
-        this.model = model;
+    public Car setName(String name) {
+        this.name = name;
         return this;
     }
 
@@ -154,12 +140,8 @@ public class Car implements Serializable {
         return this;
     }
 
-    public char getIsFree() {
-        return isFree;
-    }
-
-    public Car setIsFree(char isFree) {
-        this.isFree = isFree;
+    public Car setDeleted(){
+        isDeleted = 'y';
         return this;
     }
 

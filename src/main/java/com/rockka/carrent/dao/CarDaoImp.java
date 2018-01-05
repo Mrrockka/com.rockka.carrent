@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.Date;
 
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class CarDaoImp implements CarDao{
         List<Car> cars = new ArrayList<>();
         try {
             cars = sessionFactory.getCurrentSession().
-                    createQuery("from Car").
+                    createQuery("from Car where isDeleted = 'n'").
                     list();
         }catch(Exception e){
             logger.error("Exception " + e);
@@ -58,7 +59,8 @@ public class CarDaoImp implements CarDao{
     @Override
     @Transactional
     public void delete(final Car car) {
-
+        car.setDeleted().setModifiedAt(new Date());
+        save(car);
     }
 
     public SessionFactory getSessionFactory() {
