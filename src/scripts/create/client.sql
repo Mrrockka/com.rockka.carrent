@@ -1,5 +1,5 @@
 CREATE TABLE client (
-    id INT AUTO_INCREMENT,
+    user_id INT NOT NULL,
     first_name varchar(15),
     second_name varchar(15),
     last_name varchar(15),
@@ -9,5 +9,6 @@ CREATE TABLE client (
     birthday DATE NOT NULL,
     created_at DATE NOT NULL,
     modified_at DATE NOT NULL,
-    PRIMARY KEY (id)
+    FOREIGN KEY (user_id) REFERENCES user(id),
+    PRIMARY KEY (user_id)
 );

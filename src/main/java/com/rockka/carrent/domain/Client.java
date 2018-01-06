@@ -12,7 +12,7 @@ import java.util.List;
 @Table(name = "client")
 public class Client implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_id")
     private long id;
     @Column(name = "first_name")
     private String firstName;
@@ -36,7 +36,7 @@ public class Client implements Serializable{
     @Temporal(TemporalType.DATE)
     private Date modifiedAt;
     @JsonManagedReference
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
     @JsonBackReference
@@ -123,4 +123,19 @@ public class Client implements Serializable{
         this.modifiedAt = modifiedAt;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
 }

@@ -3,14 +3,15 @@ package com.rockka.carrent.domain;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "site_user")
-public class User {
-    @JsonBackReference
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
-    private Client client;
+@Table(name = "user")
+public class User implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
     @Column(name = "user_role", nullable = false, length = 10)
     private String userRole;
     @Column(name = "nickname", nullable = false, length = 30)
@@ -25,6 +26,17 @@ public class User {
     @Column(name = "modified_at", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date modifiedAt;
+    @JsonBackReference
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Client client;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public Client getClient() {
         return client;
