@@ -33,7 +33,7 @@ public class UserDaoImp implements UserDao {
         } catch (Exception ex) {
             logger.error("User getAll " + ex);
         }
-        return null;
+        return user;
     }
 
     @Override

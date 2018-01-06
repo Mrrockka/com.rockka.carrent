@@ -6,5 +6,6 @@ CREATE TABLE user (
     is_deleted varchar(1) NOT NULL,
     created_at DATE NOT NULL,
     modified_at DATE NOT NULL,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    UNIQUE (nickname)
 );
