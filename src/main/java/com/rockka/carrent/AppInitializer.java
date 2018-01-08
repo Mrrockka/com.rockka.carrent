@@ -7,9 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer
-//        implements WebApplicationInitializer
-{
+import javax.servlet.Filter;
+
+public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+
     private final Logger logger = LoggerFactory.getLogger(AppInitializer.class);
 
     @Override
@@ -26,25 +27,9 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
     protected String[] getServletMappings() {
         return new String[]{"/"};
     }
- /*   @Override
-    public void onStartup(ServletContext servletContext) {
-        //      root context
-        AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-        rootContext.register(AppConfig.class,SecurityConfig.class);
-//      add filter
-        FilterRegistration.Dynamic filterRegistration = servletContext.addFilter("springSecurityFilterChain",
-                org.springframework.web.filter.DelegatingFilterProxy.class);
-        filterRegistration.addMappingForUrlPatterns(null, false, "/*");
-        //protip: don't use context.refresh() it's cause an exception with resourceHandler
-        servletContext.addListener(new ContextLoaderListener(rootContext));
-        //      dispatcher context
-        AnnotationConfigWebApplicationContext dispatcherContext = new AnnotationConfigWebApplicationContext();
-        dispatcherContext.register(MvcConfig.class);
 
-
-        ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher",
-                new DispatcherServlet(dispatcherContext));
-        dispatcher.setLoadOnStartup(1);
-        dispatcher.addMapping("/");
-    }*/
+    @Override
+    protected Filter[] getServletFilters(){
+        return new Filter[] {};
+    }
 }
