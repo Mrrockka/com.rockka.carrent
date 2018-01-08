@@ -23,7 +23,6 @@ import org.thymeleaf.templatemode.TemplateMode;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"com.rockka.carrent"})
-@Import({SecurityConfiguration.class})
 //Last annotation must not exclude other configurations(OrmConfig exactly)
 public class MvcConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
     private final Logger logger = LoggerFactory.getLogger(MvcConfig.class);
@@ -62,6 +61,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         logger.info("MVCCONFIG: In resourceRegistry");
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
         registry.addResourceHandler("/images/**").addResourceLocations("/resources/static/images/");
+        registry.addResourceHandler("/thumbnails/**").addResourceLocations("/resources/static/thumbnails/");
         registry.addResourceHandler("/css/**").addResourceLocations("/resources/static/css/");
         registry.addResourceHandler("/js/**").addResourceLocations("/resources/js/");
     }

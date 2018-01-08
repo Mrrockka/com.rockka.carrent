@@ -36,7 +36,7 @@ public class Car implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date modifiedAt;
     @Column(name = "is_deleted", nullable = false)
-    private char isDeleted;
+    private int isDeleted;
     @JsonBackReference
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CarOrder> carOrders;
@@ -131,17 +131,17 @@ public class Car implements Serializable {
         return this;
     }
 
-    public char getIsDeleted() {
+    public int getIsDeleted() {
         return isDeleted;
     }
 
-    public Car setIsDeleted(char isDeleted) {
+    public Car setIsDeleted(int isDeleted) {
         this.isDeleted = isDeleted;
         return this;
     }
 
     public Car setDeleted(){
-        isDeleted = 'y';
+        isDeleted = 1;
         return this;
     }
 

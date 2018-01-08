@@ -22,7 +22,7 @@ public class SiteController {
     }
     @RequestMapping("/login")
     public String signin(){
-        return "security/login";
+        return "login";
     }
     public CarDao getCarDao() {
         return carDao;

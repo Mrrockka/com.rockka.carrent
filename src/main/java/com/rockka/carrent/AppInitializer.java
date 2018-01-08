@@ -2,6 +2,7 @@ package com.rockka.carrent;
 
 import com.rockka.carrent.config.AppConfig;
 import com.rockka.carrent.config.MvcConfig;
+import com.rockka.carrent.config.SecurityConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.WebApplicationInitializer;
@@ -9,20 +10,20 @@ import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
+import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
 public class AppInitializer implements WebApplicationInitializer{
     private final Logger logger = LoggerFactory.getLogger(AppInitializer.class);
     @Override
-    public void onStartup(ServletContext servletContext) throws ServletException {
+    public void onStartup(ServletContext servletContext) {
         //      root context
         AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-        rootContext.register(AppConfig.class);
+        rootContext.register(AppConfig.class,SecurityConfig.class);
 //      add filter
-        /*FilterRegistration.Dynamic filterRegistration = servletContext.addFilter("springSecurityFilterChain", new org.springframework.web.filter.DelegatingFilterProxy());
-        filterRegistration.addMappingForUrlPatterns(null, false, "/*");*/
+        FilterRegistration.Dynamic filterRegistration = servletContext.addFilter("springSecurityFilterChain", new org.springframework.web.filter.DelegatingFilterProxy());
+        filterRegistration.addMappingForUrlPatterns(null, false, "/*");
         //protip: don't use context.refresh() it's cause an exception with resourceHandler
         servletContext.addListener(new ContextLoaderListener(rootContext));
         //      dispatcher context
