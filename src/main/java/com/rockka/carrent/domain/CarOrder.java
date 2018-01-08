@@ -8,14 +8,14 @@ import java.util.Date;
 
 @Entity
 @Table(name = "carorder")
-public class Order implements Serializable{
+public class CarOrder implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @JsonManagedReference
     @ManyToOne
-    @JoinColumn(name = "client_id")
-    private Client client;
+    @JoinColumn(name = "user_id")
+    private User user;
     @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "car_id")
@@ -49,12 +49,12 @@ public class Order implements Serializable{
         this.id = id;
     }
 
-    public Client getClient() {
-        return client;
+    public User getUser() {
+        return user;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Car getCar() {

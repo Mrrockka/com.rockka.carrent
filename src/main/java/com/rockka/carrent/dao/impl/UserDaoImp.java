@@ -1,7 +1,6 @@
 package com.rockka.carrent.dao.impl;
 
 import com.rockka.carrent.dao.UserDao;
-import com.rockka.carrent.domain.Car;
 import com.rockka.carrent.domain.User;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -23,15 +22,15 @@ public class UserDaoImp implements UserDao {
     private SessionFactory sessionFactory;
 
     @Override
-    public User getUserByName(String name) {
+    public User getUserByNickname(String nickname) {
         User user = null;
         try {
             user = (User) sessionFactory.getCurrentSession()
-                    .createQuery("from User where nickname = :name")
-                    .setParameter("name", name)
+                    .createQuery("from User where nickname = :nickname")
+                    .setParameter("nickname", nickname)
                     .uniqueResult();
         } catch (Exception ex) {
-            logger.error("User getAll " + ex);
+            logger.error("User get by nickname " + ex);
         }
         return user;
     }
@@ -52,7 +51,7 @@ public class UserDaoImp implements UserDao {
     @Override
     public User save(User user) {
         if(user.getCreatedAt() == null){
-            user.setCreatedAt(new Date()).setIsDeleted('n');
+            user.setCreatedAt(new Date()).setIsDeleted(0);
         }
         try {
             sessionFactory.getCurrentSession()

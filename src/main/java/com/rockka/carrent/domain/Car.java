@@ -39,7 +39,7 @@ public class Car implements Serializable {
     private char isDeleted;
     @JsonBackReference
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Order> orders;
+    private List<CarOrder> carOrders;
 
     public long getId() {
         return id;
@@ -145,12 +145,12 @@ public class Car implements Serializable {
         return this;
     }
 
-    public List<Order> getOrders() {
-        return orders;
+    public List<CarOrder> getCarOrders() {
+        return carOrders;
     }
 
-    public Car setOrders(List<Order> orders) {
-        this.orders = orders;
+    public Car setCarOrders(List<CarOrder> carOrders) {
+        this.carOrders = carOrders;
         return this;
     }
 }

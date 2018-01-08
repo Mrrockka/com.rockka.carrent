@@ -8,13 +8,11 @@ import com.rockka.carrent.dao.impl.CarDaoImp;
 import com.rockka.carrent.dao.impl.UserDaoImp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 @Configuration
-@ComponentScan(basePackages = {"com.rockka.carrent"},
-        excludeFilters = {
-                @ComponentScan.Filter(type = FilterType.ANNOTATION, value = Configuration.class)
-        })
 @Import({OrmConfig.class})
 public class AppConfig {
     private final Logger logger = LoggerFactory.getLogger(AppConfig.class);
@@ -31,6 +29,7 @@ public class AppConfig {
 
     @Bean
     public UserDao userDao(){
+        logger.info("APPCONFIG: in userDao");
         return new UserDaoImp();
     }
 }

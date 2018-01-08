@@ -1,18 +1,21 @@
 package com.rockka.carrent.config;
 
 
+import com.sun.org.apache.xerces.internal.parsers.SecurityConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.thymeleaf.spring4.SpringTemplateEngine;
-import org.thymeleaf.spring4.expression.Mvc;
 import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
@@ -20,7 +23,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"com.rockka.carrent"})
-@Import(SecureConfig.class)
+@Import({SecurityConfiguration.class})
 //Last annotation must not exclude other configurations(OrmConfig exactly)
 public class MvcConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
     private final Logger logger = LoggerFactory.getLogger(MvcConfig.class);
@@ -47,7 +50,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 
     @Bean
     public ThymeleafViewResolver viewResolver(){
-        logger.info("MVCCONFIG: In viewREsolver");
+        logger.info("MVCCONFIG: In viewResolver");
         ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
         viewResolver.setTemplateEngine(templateEngine());
 //        viewResolver.setCharacterEncoding("UTF-8");
@@ -72,5 +75,4 @@ public class MvcConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     public void addViewControllers(ViewControllerRegistry registry) {
 //        registry.addViewController("/").setViewName("index");
     }
-
 }

@@ -14,12 +14,12 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
+@EnableTransactionManagement
 @ComponentScan(basePackages = {"com.rockka.carrent"},
         excludeFilters = {
                 @ComponentScan.Filter(type = FilterType.ANNOTATION, value = Configuration.class)
         })
 @PropertySource("classpath:datasource.properties")
-@EnableTransactionManagement
 public class OrmConfig {
     private final Logger logger = LoggerFactory.getLogger(OrmConfig.class);
     @Value("${hibernate.connection.driver_class}")

@@ -20,11 +20,15 @@ public class AppInitializer implements WebApplicationInitializer{
         //      root context
         AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
         rootContext.register(AppConfig.class);
+//      add filter
+        /*FilterRegistration.Dynamic filterRegistration = servletContext.addFilter("springSecurityFilterChain", new org.springframework.web.filter.DelegatingFilterProxy());
+        filterRegistration.addMappingForUrlPatterns(null, false, "/*");*/
         //protip: don't use context.refresh() it's cause an exception with resourceHandler
         servletContext.addListener(new ContextLoaderListener(rootContext));
         //      dispatcher context
         AnnotationConfigWebApplicationContext dispatcherContext = new AnnotationConfigWebApplicationContext();
         dispatcherContext.register(MvcConfig.class);
+
 
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher",
                 new DispatcherServlet(dispatcherContext));
