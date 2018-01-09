@@ -31,12 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().formLogin().loginPage("/login").defaultSuccessUrl("/admin/addcar").failureUrl("/login")
                 .and().logout().logoutSuccessUrl("/login")
                 .and().csrf().disable();
+        
     }
-
-  /*  @Override
-    public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/css/**", "/images/**", "/thumbnails/**", "/js/**");
-    }*/
 
     public UserDetailsService getUserDetailsService() {
         return userDetailsService;

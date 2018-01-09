@@ -29,7 +29,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         logger.info("MVCCONFIG: In templateResolver");
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
         templateResolver.setApplicationContext(this.context);
-        templateResolver.setPrefix("templates/");
+        templateResolver.setPrefix("/templates/");
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode(TemplateMode.HTML);
         templateResolver.setCacheable(true);
