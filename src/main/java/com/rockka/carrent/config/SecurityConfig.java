@@ -27,13 +27,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/").permitAll()
-                .antMatchers("/resources/**","/css/**", "/images/**", "/thumbnails/**", "/js/**").permitAll()
                 .antMatchers("/admin/*").hasRole("ADMIN")
                 .and().formLogin().loginPage("/login").defaultSuccessUrl("/admin/addcar").failureUrl("/login")
                 .and().logout().logoutSuccessUrl("/login")
                 .and().csrf().disable();
-//        http.addFilterAfter(new SecurityFilter(), BasicAuthenticationFilter.class);
     }
+
+  /*  @Override
+    public void configure(WebSecurity web) {
+        web.ignoring().antMatchers("/css/**", "/images/**", "/thumbnails/**", "/js/**");
+    }*/
 
     public UserDetailsService getUserDetailsService() {
         return userDetailsService;
