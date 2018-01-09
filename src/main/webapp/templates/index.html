@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Rockka car rent</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/standart.css">
     <script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="/js/popper.min.js"></script>
@@ -30,7 +30,7 @@
             <div class="row">
                 <div class="card" th:each="car: ${cars}" th:if="${car.getIsDeleted()}==0">
                     <div  >
-                        <img class="mr-3" th:src="@{'/thumbnails/'+${car.id}+'.png'}" alt="car image">
+                        <img class="mr-3" th:src="@{'/resources/thumbnails/'+${car.id}+'.png'}" alt="car image">
                         <p class="card-text">
                             <h3 th:text="${car.name}"></h3>
                             <p>price: <span th:text="${car.price}"></span></p>
