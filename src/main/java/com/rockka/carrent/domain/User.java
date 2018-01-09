@@ -13,8 +13,8 @@ public class User implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Column(name = "user_role", nullable = false, length = 10)
-    private String userRole;
+    @Column(name = "roles", nullable = false, length = 10)
+    private String roles;
     @Column(name = "nickname", nullable = false, length = 30)
     private String nickname;
     @Column(name = "password", nullable = false, length = 100)
@@ -54,12 +54,12 @@ public class User implements Serializable{
         this.id = id;
     }
 
-    public String getUserRole() {
-        return userRole;
+    public String getRoles() {
+        return roles;
     }
 
-    public User setUserRole(String userRole) {
-        this.userRole = userRole;
+    public User setRoles(String roles) {
+        this.roles = roles;
         return this;
     }
 

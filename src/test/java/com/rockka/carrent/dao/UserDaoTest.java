@@ -31,7 +31,7 @@ public class UserDaoTest extends Assert {
         assertNotNull(
                 userDao.delete(
                         userDao.save(
-                                new User().setNickname("Superman").setPassword("superman").setUserRole("user")
+                                new User().setNickname("Superman").setPassword("superman").setRoles("user")
                                 .setFirstName("Santa").setSecondName("Bremore").setAddress("LittleTinyOcean")
                                 .setBirthday(new Date(91,1,1))
                         )
@@ -49,7 +49,7 @@ public class UserDaoTest extends Assert {
     public void testGetDetails() {
         for (User user : userDao.getAll()) {
             logger.info(" nickname " + user.getNickname()
-                    + " user role " + user.getUserRole()
+                    + " user role " + user.getRoles()
                     + " created at " + user.getCreatedAt()
                     + " modified at " + user.getModifiedAt()
                     + (user.getIsDeleted() == 1 ? " deleted" : " not deleted")

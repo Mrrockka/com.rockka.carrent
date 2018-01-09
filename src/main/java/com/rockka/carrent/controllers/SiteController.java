@@ -16,10 +16,6 @@ public class SiteController {
         model.addAttribute("cars", carDao.getAll());
         return "index";
     }
-    @RequestMapping("/addcar")
-    public String save(){
-        return "admin/addcar";
-    }
     @RequestMapping("/login")
     public String signin(){
         return "login";

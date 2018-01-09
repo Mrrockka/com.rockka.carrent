@@ -1,3 +1,5 @@
+#CREATE DATABASE carrent;
+
 CREATE TABLE car (
     id INT AUTO_INCREMENT,
     name varchar(30) NOT NULL,
@@ -15,7 +17,7 @@ CREATE TABLE car (
 
 CREATE TABLE user (
     id INT AUTO_INCREMENT,
-    user_role varchar(10) NOT NULL,
+    roles varchar(10) NOT NULL,
     nickname varchar(30) NOT NULL,
     password varchar(100) NOT NULL,
     first_name varchar(30) NOT NULL,

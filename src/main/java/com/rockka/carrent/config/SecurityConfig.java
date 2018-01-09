@@ -1,6 +1,5 @@
 package com.rockka.carrent.config;
 
-import com.rockka.carrent.filters.SecurityFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
@@ -9,7 +8,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -22,7 +20,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication().withUser("user").password("123").roles("USER").and()
-                .withUser("admin").password("admin").roles("USER, ADMIN");
+                .withUser("admin").password("admin").roles("ADMIN");
 //        auth.userDetailsService(userDetailsService);
     }
 
@@ -30,11 +28,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/").permitAll()
                 .antMatchers("/resources/**","/css/**", "/images/**", "/thumbnails/**", "/js/**").permitAll()
-                .antMatchers("/admin/").access("hasRole('ROLE_ADMIN')")
-                .and().formLogin().loginPage("/login").defaultSuccessUrl("/addcar").failureUrl("/login")
+                .antMatchers("/admin/*").hasRole("ADMIN")
+                .and().formLogin().loginPage("/login").defaultSuccessUrl("/admin/addcar").failureUrl("/login")
                 .and().logout().logoutSuccessUrl("/login")
                 .and().csrf().disable();
-        http.addFilterAfter(new SecurityFilter(), BasicAuthenticationFilter.class);
+//        http.addFilterAfter(new SecurityFilter(), BasicAuthenticationFilter.class);
     }
 
     public UserDetailsService getUserDetailsService() {

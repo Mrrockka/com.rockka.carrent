@@ -5,6 +5,7 @@ import com.rockka.carrent.config.MvcConfig;
 import com.rockka.carrent.config.SecurityConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.Filter;
@@ -30,6 +31,6 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
     @Override
     protected Filter[] getServletFilters(){
-        return new Filter[] {};
+        return new Filter[] {new DelegatingFilterProxy("springSecurityFilterChain")};
     }
 }

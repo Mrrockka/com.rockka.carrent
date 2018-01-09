@@ -26,7 +26,7 @@ public class UserDetailsServiceImp implements UserDetailsService {
 
         if(user != null){
             List<GrantedAuthority> roles = Stream
-                    .of(StringUtils.commaDelimitedListToStringArray(user.getUserRole()))
+                    .of(StringUtils.commaDelimitedListToStringArray(user.getRoles()))
                     .map(r -> new SimpleGrantedAuthority(r)).collect(Collectors.toList());
             return new org.springframework.security.core.userdetails.User(user.getNickname(), user.getPassword(), roles);
         } else {

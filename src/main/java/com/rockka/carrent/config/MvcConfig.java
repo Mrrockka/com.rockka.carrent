@@ -21,7 +21,6 @@ import org.thymeleaf.templatemode.TemplateMode;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"com.rockka.carrent"})
-//Last annotation must not exclude other configurations(OrmConfig exactly)
 public class MvcConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
     private final Logger logger = LoggerFactory.getLogger(MvcConfig.class);
     private ApplicationContext context;
@@ -30,7 +29,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         logger.info("MVCCONFIG: In templateResolver");
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
         templateResolver.setApplicationContext(this.context);
-        templateResolver.setPrefix("WEB-INF/templates/");
+        templateResolver.setPrefix("templates/");
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode(TemplateMode.HTML);
         templateResolver.setCacheable(true);
@@ -58,10 +57,10 @@ public class MvcConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     public void addResourceHandlers(ResourceHandlerRegistry registry){
         logger.info("MVCCONFIG: In resourceRegistry");
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-        registry.addResourceHandler("/images/**").addResourceLocations("/resources/static/images/");
-        registry.addResourceHandler("/thumbnails/**").addResourceLocations("/resources/static/thumbnails/");
-        registry.addResourceHandler("/css/**").addResourceLocations("/resources/static/css/");
-        registry.addResourceHandler("/js/**").addResourceLocations("/resources/js/");
+        registry.addResourceHandler("/images/**").addResourceLocations("/images/");
+        registry.addResourceHandler("/thumbnails/**").addResourceLocations("/thumbnails/");
+        registry.addResourceHandler("/css/**").addResourceLocations("/css/");
+        registry.addResourceHandler("/js/**").addResourceLocations("/js/");
     }
 
     @Override
