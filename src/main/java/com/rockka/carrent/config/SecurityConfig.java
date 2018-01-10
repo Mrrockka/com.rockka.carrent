@@ -26,12 +26,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/").permitAll()
+        http.authorizeRequests().antMatchers("/", "/resources/**").permitAll()
                 .antMatchers("/admin/*").hasRole("ADMIN")
                 .and().formLogin().loginPage("/login").defaultSuccessUrl("/admin/addcar").failureUrl("/login")
                 .and().logout().logoutSuccessUrl("/login")
                 .and().csrf().disable();
-        
+
     }
 
     public UserDetailsService getUserDetailsService() {
