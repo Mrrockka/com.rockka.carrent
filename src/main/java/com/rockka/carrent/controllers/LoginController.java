@@ -23,7 +23,7 @@ public class LoginController {
         return "login";
     }
 
-    @RequestMapping()
+    @RequestMapping("/welcome")
     public String Welcome(Model model){
         UserDetails user = getPrincipal();
         String page = "access_denied";
@@ -62,6 +62,7 @@ public class LoginController {
     public String accessDenied(){
         return "access_denied";
     }
+
     private UserDetails getPrincipal(){
         return SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails ?
                 (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal() : null;

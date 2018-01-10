@@ -29,7 +29,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         logger.info("MVCCONFIG: In templateResolver");
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
         templateResolver.setApplicationContext(this.context);
-        templateResolver.setPrefix("/resources/views/");
+        templateResolver.setPrefix("/templates/");
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode(TemplateMode.HTML);
         templateResolver.setCacheable(true);
@@ -57,10 +57,10 @@ public class MvcConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     public void addResourceHandlers(ResourceHandlerRegistry registry){
         logger.info("MVCCONFIG: In resourceRegistry");
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-        registry.addResourceHandler("/images/**").addResourceLocations("/resources/images/");
-        registry.addResourceHandler("/thumbnails/**").addResourceLocations("/resources/thumbnails/");
-        registry.addResourceHandler("/css/**").addResourceLocations("/resources/css/");
-        registry.addResourceHandler("/js/**").addResourceLocations("/resources/js/");
+        registry.addResourceHandler("/images/**").addResourceLocations("/resources/static/images/");
+        registry.addResourceHandler("/thumbnails/**").addResourceLocations("/resources/static/thumbnails/");
+        registry.addResourceHandler("/css/**").addResourceLocations("/resources/static/css/");
+        registry.addResourceHandler("/js/**").addResourceLocations("/resources/static/js/");
     }
 
     @Override
