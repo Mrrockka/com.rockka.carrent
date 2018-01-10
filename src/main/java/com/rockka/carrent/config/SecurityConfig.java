@@ -1,7 +1,5 @@
 package com.rockka.carrent.config;
 
-// import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +9,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-
+// import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 
 @Configuration
 @EnableWebSecurity
@@ -22,8 +20,9 @@ public class SecurityConfig
     @Qualifier("userDetailsService")
     private UserDetailsService userDetailsService;
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication().withUser("user").password("123").roles("USER").and()
                 .withUser("admin").password("admin").roles("ADMIN");
 //        auth.userDetailsService(userDetailsService);
@@ -31,11 +30,11 @@ public class SecurityConfig
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/**").permitAll()
-                /*.antMatchers("/admin/*").hasRole("ADMIN")
+        http.authorizeRequests().antMatchers("/*").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .and().formLogin().loginPage("/login").defaultSuccessUrl("/admin/addcar").failureUrl("/login")
                 .and().logout().logoutSuccessUrl("/login")
-                .and().csrf().disable()*/
+                .and().csrf().disable()
         ;
     }
 
@@ -48,7 +47,7 @@ public class SecurityConfig
                 ,"/css/**"
                 ,"/js/**"
         );
-        web.debug(true);
+//        web.debug(true);
     }
 
     public UserDetailsService getUserDetailsService() {
