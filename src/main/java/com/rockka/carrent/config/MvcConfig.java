@@ -57,10 +57,10 @@ public class MvcConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     public void addResourceHandlers(ResourceHandlerRegistry registry){
         logger.info("MVCCONFIG: In resourceRegistry");
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-        registry.addResourceHandler("/images/**").addResourceLocations("/resources/static/images/");
-        registry.addResourceHandler("/thumbnails/**").addResourceLocations("/resources/static/thumbnails/");
-        registry.addResourceHandler("/css/**").addResourceLocations("/resources/static/css/");
-        registry.addResourceHandler("/js/**").addResourceLocations("/resources/static/js/");
+        registry.addResourceHandler("/images/**").addResourceLocations("/images/");
+        registry.addResourceHandler("/thumbs/**").addResourceLocations("/thumbnails/");
+        registry.addResourceHandler("/css/**").addResourceLocations("/css/");
+        registry.addResourceHandler("/js/**").addResourceLocations("/js/");
     }
 
     @Override

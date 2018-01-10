@@ -43,7 +43,7 @@ public class SecurityConfig
     public void configure(WebSecurity web){
         web.ignoring().antMatchers(
                 "/resources/**"
-                ,"/thumbnails/**"
+                ,"/thumbs/**"
                 ,"/images/**"
                 ,"/css/**"
                 ,"/js/**"
