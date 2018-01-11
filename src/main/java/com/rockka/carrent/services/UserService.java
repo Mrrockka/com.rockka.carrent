@@ -1,8 +1,6 @@
 package com.rockka.carrent.services;
 
-import com.rockka.carrent.dao.impl.UserDaoImp;
-import com.rockka.carrent.domain.User;
+import com.rockka.carrent.dao.UserDao;
 
-public interface UserService {
-    public User getUserByNeame(String name);
+public interface UserService extends UserDao{
 }

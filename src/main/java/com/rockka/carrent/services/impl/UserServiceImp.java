@@ -6,21 +6,30 @@ import com.rockka.carrent.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("userService")
 public class UserServiceImp implements UserService{
     @Autowired
     private UserDao userDao;
 
     @Override
-    public User getUserByNeame(String name) {
-        return userDao.getUserByNickname(name);
+    public User getUserByNickname(String nickname) {
+        return userDao.getUserByNickname(nickname);
     }
 
-    public UserDao getUserDao() {
-        return userDao;
+    @Override
+    public List<User> getAll() {
+        return userDao.getAll();
     }
 
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
+    @Override
+    public User save(User user) {
+        return userDao.save(user);
+    }
+
+    @Override
+    public User delete(User user) {
+        return userDao.delete(user);
     }
 }

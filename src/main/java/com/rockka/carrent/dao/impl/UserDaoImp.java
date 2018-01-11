@@ -26,7 +26,7 @@ public class UserDaoImp implements UserDao {
         User user = null;
         try {
             user = (User) sessionFactory.getCurrentSession()
-                    .createQuery("from User where nickname = :nickname")
+                    .createQuery("from User where nickname = :nickname and isDeleted = 0")
                     .setParameter("nickname", nickname)
                     .uniqueResult();
         } catch (Exception ex) {
@@ -40,7 +40,7 @@ public class UserDaoImp implements UserDao {
         List<User> users = new ArrayList<User>();
         try {
             users = sessionFactory.getCurrentSession()
-                    .createQuery("from User")
+                    .createQuery("from User where isDeleted = 0")
                     .list();
         } catch (Exception ex) {
             logger.error("User getAll " + ex);
@@ -58,7 +58,7 @@ public class UserDaoImp implements UserDao {
                     .saveOrUpdate(user.setModifiedAt(new Date()));
         } catch (Exception ex) {
             user.setCreatedAt(null);
-            logger.error("User getAll " + ex);
+            logger.error("User save " + ex);
         }
         return user;
     }
@@ -68,7 +68,7 @@ public class UserDaoImp implements UserDao {
         try {
             save(user.setDeleted());
         } catch (Exception ex) {
-            logger.error("User getAll " + ex);
+            logger.error("User delete " + ex);
         }
         return user;
     }

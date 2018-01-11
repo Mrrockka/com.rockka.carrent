@@ -2,6 +2,7 @@ package com.rockka.carrent.dao;
 
 import com.rockka.carrent.config.AppConfig;
 import com.rockka.carrent.domain.Car;
+import com.rockka.carrent.services.CarService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -12,7 +13,7 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 
 
 public class CarDaoTest extends Assert {
-    private static CarDao carDao;
+    private static CarService carService;
     private Logger logger = LoggerFactory.getLogger(CarDaoTest.class);
 
     @Before
@@ -20,15 +21,15 @@ public class CarDaoTest extends Assert {
         AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
         context.register(AppConfig.class);
         context.refresh();
-        carDao = context.getBean("carDao", CarDao.class);
+        carService = context.getBean("carService", CarService.class);
     }
 
     @Test
     @Ignore
     public void testSaveDelete() {
         assertNotNull(
-                carDao.delete(
-                        carDao.save(
+                carService.delete(
+                        carService.save(
                                 new Car().setColor("blue").setDeleted().setName("Supercar")
                         )
                 )
@@ -37,17 +38,13 @@ public class CarDaoTest extends Assert {
 
     @Test
     public void testConection() {
-        assertEquals(1, carDao.getById(1).getId());
+        assertEquals(1, carService.getById(1).getId());
     }
 
     @Test
     @Ignore
     public void testGetDetails() {
-//        something goes wrong with expression in Dao class
-        /*for(Car car : carDao.getAllWithoutDetails()){
-            logger.info("id " + car.getId() + " color " + car.getColor() +" created at " + car.getCreatedAt() + " modified at " + car.getModifiedAt() + (car.getIsDeleted()=='y' ? " deleted" : " not deleted"));
-        }*/
-        for (Car car : carDao.getAll()) {
+        for (Car car : carService.getAll()) {
             logger.info("id " + car.getId() + " color " + car.getColor() + " created at " + car.getCreatedAt() + " modified at " + car.getModifiedAt() + (car.getIsDeleted() == 'y' ? " deleted" : " not deleted"));
         }
     }

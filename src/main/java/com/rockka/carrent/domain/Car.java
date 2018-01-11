@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "car")
@@ -152,5 +153,26 @@ public class Car implements Serializable {
     public Car setCarOrders(List<CarOrder> carOrders) {
         this.carOrders = carOrders;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Car car = (Car) o;
+        return id == car.id &&
+                Double.compare(car.price, price) == 0 &&
+                isDeleted == car.isDeleted &&
+                Objects.equals(name, car.name) &&
+                Objects.equals(country, car.country) &&
+                Objects.equals(color, car.color) &&
+                Objects.equals(description, car.description) &&
+                Objects.equals(releaseDate, car.releaseDate);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, name, country, color, description, price, releaseDate, isDeleted);
     }
 }

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "carorder")
@@ -26,14 +27,14 @@ public class CarOrder implements Serializable{
     private double price;
     @Column(name = "created_at")
     @Temporal(TemporalType.DATE)
-    private Date createAt;
+    private Date createdAt;
     @Column(name = "modified_at")
     @Temporal(TemporalType.DATE)
     private Date modifiedAt;
     @Column(name = "starts_at")
     @Temporal(TemporalType.DATE)
     private Date startsAt;
-    @Column(name = "expires_at")
+    @Column(name = "expire")
     @Temporal(TemporalType.DATE)
     private Date expiresAt;
     @Column(name ="is_active")
@@ -81,12 +82,12 @@ public class CarOrder implements Serializable{
         this.price = price;
     }
 
-    public Date getCreateAt() {
-        return createAt;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreateAt(Date createAt) {
-        this.createAt = createAt;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     public Date getModifiedAt() {
@@ -127,5 +128,27 @@ public class CarOrder implements Serializable{
 
     public void setIsClosed(char isClosed) {
         this.isClosed = isClosed;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CarOrder carOrder = (CarOrder) o;
+        return id == carOrder.id &&
+                Double.compare(carOrder.price, price) == 0 &&
+                isActive == carOrder.isActive &&
+                isClosed == carOrder.isClosed &&
+                Objects.equals(user, carOrder.user) &&
+                Objects.equals(car, carOrder.car) &&
+                Objects.equals(description, carOrder.description) &&
+                Objects.equals(startsAt, carOrder.startsAt) &&
+                Objects.equals(expiresAt, carOrder.expiresAt);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, user, car, description, price, startsAt, expiresAt, isActive, isClosed);
     }
 }

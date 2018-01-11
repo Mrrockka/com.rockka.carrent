@@ -2,6 +2,7 @@ package com.rockka.carrent.dao;
 
 import com.rockka.carrent.config.AppConfig;
 import com.rockka.carrent.domain.User;
+import com.rockka.carrent.services.UserService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -14,7 +15,7 @@ import java.util.Date;
 
 public class UserDaoTest extends Assert {
 
-    private UserDao userDao;
+    private UserService userService;
     private Logger logger = LoggerFactory.getLogger(UserDaoTest.class);
 
     @Before
@@ -22,15 +23,15 @@ public class UserDaoTest extends Assert {
         AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
         context.register(AppConfig.class);
         context.refresh();
-        userDao = context.getBean("userDao", UserDao.class);
+        userService = context.getBean("userService", UserService.class);
     }
 
     @Test
     @Ignore
     public void testSaveDelete() {
         assertNotNull(
-                userDao.delete(
-                        userDao.save(
+                userService.delete(
+                        userService.save(
                                 new User().setNickname("Superman").setPassword("superman").setRoles("user")
                                 .setFirstName("Santa").setSecondName("Bremore").setAddress("LittleTinyOcean")
                                 .setBirthday(new Date(91,1,1))
@@ -41,13 +42,13 @@ public class UserDaoTest extends Assert {
 
     @Test
     public void testConection() {
-        assertEquals(1, userDao.getUserByNickname("somebody").getId());
+        assertEquals(1, userService.getUserByNickname("somebody").getId());
     }
 
     @Test
     @Ignore
     public void testGetDetails() {
-        for (User user : userDao.getAll()) {
+        for (User user : userService.getAll()) {
             logger.info(" nickname " + user.getNickname()
                     + " user role " + user.getRoles()
                     + " created at " + user.getCreatedAt()
