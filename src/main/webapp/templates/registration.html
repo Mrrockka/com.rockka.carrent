@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/standart.css">
     <link rel="stylesheet" href="/css/form.css">
-    <script type="text/javascript" src="/js/input_user.js"></script>
+    <script type="text/javascript" src="/js/user.js"></script>
     <title>Registration</title>
 </head>
 <body>
@@ -14,25 +14,55 @@
     <div class="container">
         <form class="form-std" action="/register" method="post" name="user">
             <h2 class="form-std-heading">Input your credentials</h2>
-            <label for="username" class="sr-only">Nickname</label>
-            <input type="text" id="username" class="form-control" placeholder="Nickname" name="username" required
-                   autofocus>
-            <label for="password" class="sr-only">Password</label>
-            <input type="password" id="password" class="form-control" placeholder="Password" name="password" required>
-            <label for="reinput_password" class="sr-only">Reinput password</label>
-            <input type="password" id="reinput_password" class="form-control" placeholder="Password" required>
-            <label for="firstname" class="sr-only">First name</label>
-            <input type="text" id="firstname" class="form-control" placeholder="First name" name="firstname" required>
-            <label for="secondname" class="sr-only">Second name</label>
-            <input type="text" id="secondname" class="form-control" placeholder="Second name" name="secondname"
-                   required>
-            <label for="lastname" class="sr-only">Last name</label>
-            <input type="text" id="lastname" class="form-control" placeholder="Last name" name="lastname">
-            <label for="address" class="sr-only">Address</label>
-            <input type="text" id="address" class="form-control" placeholder="Address" name="address"
-                   required>
-            <label for="birthday" class="sr-only">Birthday</label>
-            <input type="datetime-local" id="birthday" class="form-control" placeholder="Birthday" name="birthday">
+            <div class="row">
+                <label for="username" class="col">Nickname</label>
+                <input type="text" id="username" class="form-control" placeholder="Nickname"
+                       name="username"
+                       required
+                       autofocus>
+            </div>
+            <div class="row">
+                <label for="password" class="col">Password</label>
+                <input type="password" id="password" class="form-control" placeholder="Password"
+                       name="password"
+                       required>
+            </div>
+            <div class="row">
+                <label for="password_check" class="col-4">Reinput password</label>
+                <span class="col-4">
+                    <input type="password" id="password_check" class="form-control" placeholder="Password"
+                           required>
+                </span>
+            </div>
+            <div class="row">
+                <label for="firstname" class="col">First name</label>
+                <span class="col">
+                    <input type="text" id="firstname" class="form-control" placeholder="First name"
+                           name="firstname"
+                           required>
+                </span>
+            </div>
+            <div class="row">
+                <label for="secondname" class="col">Second name</label>
+                <input type="text" id="secondname" class="form-control" placeholder="Second name"
+                       name="secondname"
+                       required>
+            </div>
+            <div class="row">
+                <label for="lastname" class="col">Last name</label>
+                <input type="text" id="lastname" class="form-control" placeholder="Last name"
+                       name="lastname">
+            </div>
+            <div class="row">
+                <label for="address" class="col">Address</label>
+                <input type="text" id="address" class="form-control" placeholder="Address" name="address"
+                       required>
+            </div>
+            <div class="row">
+                <label for="birthday" class="sr-only">Birthday</label>
+                <input type="datetime-local" id="birthday" class="form-control" placeholder="Birthday" name="birthday">
+            </div>
+
             <input class="btn btn-lg btn-primary btn-block" value="register" type="button" onclick="save()">
         </form>
     </div>

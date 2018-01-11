@@ -5,9 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
-<header class="navbar navbar-expand-xl navbar-dark flex-column flex-md-row bd-navbar" th:fragment="header">
-    <div class="navbar-nav-scroll">
-        <ul class="navbar-nav bd-navbar-nav flex-row">
+<header class="navbar navbar-expand-md fixed-top navbar-dark" th:fragment="header">
+    <a class="navbar-brand" href="/">CarRent</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+
+        <ul class="navbar-nav mr-auto">
             <li class="nav-item">
                 <a class="nav-link" href="/">Home</a>
             </li>
@@ -26,20 +33,18 @@
                 </div>
             </li>
         </ul>
-
-    </div>
-
-    <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex" th:switch="${role}">
-        <li th:case="ROLE_USER" class="nav-item">
+        <ul class="navbar-nav ml-md-auto" th:switch="${role}">
+            <li th:case="ROLE_USER" class="nav-item">
                 Hi, <a class="nav-link" href="/user/account" th:text="${nickname}"></a>
-        </li>
-        <li th:case="ROLE_ADMIN" class="nav-item">
+            </li>
+            <li th:case="ROLE_ADMIN" class="nav-item">
                 Hi, <a class="nav-link" href="/admin/account" th:text="${nickname}"></a>
-        </li>
-        <li th:case="*" class="nav-item">
+            </li>
+            <li th:case="*" class="nav-item">
                 <a class="nav-link" href="/login">Log in</a>
-        </li>
-    </ul>
+            </li>
+        </ul>
+    </div>
 </header>
 
 </body>
