@@ -32,4 +32,12 @@ public class UserServiceImp implements UserService{
     public User delete(User user) {
         return userDao.delete(user);
     }
+
+    @Override
+    public boolean isExists(User user) {
+        if(userDao.getUserByNickname(user.getNickname()) != null){
+            return true;
+        }
+        return false;
+    }
 }

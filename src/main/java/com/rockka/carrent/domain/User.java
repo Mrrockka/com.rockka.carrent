@@ -1,6 +1,6 @@
 package com.rockka.carrent.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -43,7 +43,7 @@ public class User implements Serializable{
     @Column(name = "modified_at", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date modifiedAt;
-    @JsonBackReference
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CarOrder> carOrders;
 

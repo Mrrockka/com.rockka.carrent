@@ -2,9 +2,9 @@
 
 function save(){
     var xhr = new XMLHttpRequest();
-	var i = 0, json = "", doc = document.forms["car"], text = "no";
+	var i = 0, json = "", doc = document.forms["user"], text = "no";
     json = "{";
-    for(i=0; i<document.forms["car"].length; i++){
+    for(i=0; i<document.forms["user"].length; i++){
     	if(doc[i].type != "button"){
     		json += "\"" + doc[i].id + "\"" + ":" +"\""+ doc[i].value +"\""+ ",";
         } else {
@@ -19,7 +19,7 @@ function save(){
             alert(text);
         }
     }
-	xhr.open("POST", '/admin/car/save', true);
+	xhr.open("POST", '/register', true);
 	xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
 	xhr.send(json);
 }

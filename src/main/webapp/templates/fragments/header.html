@@ -2,11 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../../../css/standart.css">
-    <link rel="stylesheet" href="../../../css/bootstrap.min.css">
-    <script type="text/javascript" src="../../../js/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="../../../js/popper.min.js"></script>
-    <script type="text/javascript" src="../../../js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
 <header class="navbar navbar-expand-xl navbar-dark flex-column flex-md-row bd-navbar" th:fragment="header">
@@ -15,8 +11,13 @@
             <li class="nav-item">
                 <a class="nav-link" href="/">Home</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/admin/addcar">Add car</a>
+            <li class="nav-item dropdown">
+                <span class="nav-link dropdown-toggle" id="choose" data-toggle="dropdown" aria-haspopup="true"
+                      aria-expanded="false">Admin</span>
+                <div class="dropdown-menu" aria-labelledby="choose">
+                    <a class="dropdown-item" href="/admin/add_car">Add car</a>
+                    <a class="dropdown-item" href="/admin/account">somethingelse</a>
+                </div>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navddmenu" href="/" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">v1.0</a>
@@ -28,17 +29,15 @@
 
     </div>
 
-    <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex" th:switch="@{user.role}">
-        <li th:case="*" class="nav-item"><a class="nav-link" href="/login">Log in</a></li>
+    <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex" th:switch="${role}">
         <li th:case="ROLE_USER" class="nav-item">
-            <p>
-                Hi, <a class="nav-link" href="/user/account" th:text="@{user.getNickname()}"></a>
-            </p>
+                Hi, <a class="nav-link" href="/user/account" th:text="${nickname}"></a>
         </li>
         <li th:case="ROLE_ADMIN" class="nav-item">
-            <p>
-                You loged in inder the <a class="nav-link" href="/user/account" th:text="@{user.getNickname()}"></a>
-            </p>
+                Hi, <a class="nav-link" href="/admin/account" th:text="${nickname}"></a>
+        </li>
+        <li th:case="*" class="nav-item">
+                <a class="nav-link" href="/login">Log in</a>
         </li>
     </ul>
 </header>

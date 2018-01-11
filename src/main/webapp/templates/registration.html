@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/standart.css">
+    <link rel="stylesheet" href="/css/form.css">
+    <script type="text/javascript" src="/js/input_user.js"></script>
+    <title>Registration</title>
+</head>
+<body>
+    <header th:replace="fragments/header"></header>
+    <div class="container">
+        <form class="form-std" action="/register" method="post" name="user">
+            <h2 class="form-std-heading">Input your credentials</h2>
+            <label for="username" class="sr-only">Nickname</label>
+            <input type="text" id="username" class="form-control" placeholder="Nickname" name="username" required
+                   autofocus>
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" id="password" class="form-control" placeholder="Password" name="password" required>
+            <label for="reinput_password" class="sr-only">Reinput password</label>
+            <input type="password" id="reinput_password" class="form-control" placeholder="Password" required>
+            <label for="firstname" class="sr-only">First name</label>
+            <input type="text" id="firstname" class="form-control" placeholder="First name" name="firstname" required>
+            <label for="secondname" class="sr-only">Second name</label>
+            <input type="text" id="secondname" class="form-control" placeholder="Second name" name="secondname"
+                   required>
+            <label for="lastname" class="sr-only">Last name</label>
+            <input type="text" id="lastname" class="form-control" placeholder="Last name" name="lastname">
+            <label for="address" class="sr-only">Address</label>
+            <input type="text" id="address" class="form-control" placeholder="Address" name="address"
+                   required>
+            <label for="birthday" class="sr-only">Birthday</label>
+            <input type="datetime-local" id="birthday" class="form-control" placeholder="Birthday" name="birthday">
+            <input class="btn btn-lg btn-primary btn-block" value="register" type="button" onclick="save()">
+        </form>
+    </div>
+    <footer th:replace="fragments/footer"></footer>
+</body>
+</html>

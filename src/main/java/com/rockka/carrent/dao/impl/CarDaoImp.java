@@ -1,6 +1,6 @@
 package com.rockka.carrent.dao.impl;
 
-import com.rockka.carrent.dao.CarDao;
+import com.rockka.carrent.dao.CarService;
 import com.rockka.carrent.domain.Car;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -16,7 +16,7 @@ import java.util.List;
 
 @Transactional
 @Repository("carDao")
-public class CarDaoImp implements CarDao {
+public class CarDaoImp implements CarService {
     private final Logger logger = LoggerFactory.getLogger(CarDaoImp.class);
 
     @Autowired

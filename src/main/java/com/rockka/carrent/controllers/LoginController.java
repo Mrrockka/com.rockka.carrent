@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,12 +19,12 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/login")
+    @GetMapping("/login")
     public String login(){
         return "login";
     }
 
-    @RequestMapping("/welcome")
+    @GetMapping("/welcome")
     public String Welcome(Model model){
         UserDetails user = getPrincipal();
         String page = "access_denied";
@@ -31,15 +32,15 @@ public class LoginController {
         if(user != null){
 
             String role = user.getAuthorities().toArray()[0].toString();
-            model.addAttribute("user", user);
-            model.addAttribute("user.role", role);
+            model.addAttribute("nickname", user.getUsername());
+            model.addAttribute("role", role);
 
             switch (role){
                 case "ROLE_ADMIN":
-                    page = "admin/addcar";
+                    page = "admin/account";
                     break;
                 case "ROLE_USER":
-                    page = "/";
+                    page = "user/account";
                     break;
                 default:
                     break;

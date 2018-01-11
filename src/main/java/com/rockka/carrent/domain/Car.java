@@ -1,7 +1,7 @@
 package com.rockka.carrent.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -38,7 +38,7 @@ public class Car implements Serializable {
     private Date modifiedAt;
     @Column(name = "is_deleted", nullable = false)
     private int isDeleted;
-    @JsonBackReference
+    @JsonIgnore
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CarOrder> carOrders;
 

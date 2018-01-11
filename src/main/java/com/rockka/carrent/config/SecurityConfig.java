@@ -31,8 +31,9 @@ public class SecurityConfig
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/*").permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .and().formLogin().loginPage("/login").defaultSuccessUrl("/admin/addcar").failureUrl("/login")
+                .antMatchers("/admin/**", "/user/**").hasRole("ADMIN")
+                .antMatchers("/user/**").hasRole("USER")
+                .and().formLogin().loginPage("/login").defaultSuccessUrl("/welcome").failureUrl("/login")
                 .and().logout().logoutSuccessUrl("/login")
                 .and().csrf().disable()
         ;
@@ -48,13 +49,5 @@ public class SecurityConfig
                 ,"/js/**"
         );
 //        web.debug(true);
-    }
-
-    public UserDetailsService getUserDetailsService() {
-        return userDetailsService;
-    }
-
-    public void setUserDetailsService(UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
     }
 }

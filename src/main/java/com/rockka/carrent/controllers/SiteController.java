@@ -1,26 +1,29 @@
 package com.rockka.carrent.controllers;
 
-import com.rockka.carrent.dao.CarDao;
+import com.rockka.carrent.dao.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class SiteController {
     @Autowired
-    private CarDao carDao;
-    @RequestMapping("/")
+    private CarService carService;
+    @GetMapping("/")
     public String index(Model model){
 
-        model.addAttribute("cars", carDao.getAll());
+        model.addAttribute("cars", carService.getAll());
         return "index";
     }
-    public CarDao getCarDao() {
-        return carDao;
+
+    @GetMapping("/info")
+    public String info(){
+        return "info";
     }
 
-    public void setCarDao(CarDao carDao) {
-        this.carDao = carDao;
+    @GetMapping("/registration")
+    public String registratin(){
+        return "registration";
     }
 }
