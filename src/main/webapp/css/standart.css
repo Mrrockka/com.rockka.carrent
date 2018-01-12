@@ -17,3 +17,7 @@ body{
 label{
     margin-top: 0.6rem;
 }
+
+.sidebar ul{
+    padding-bottom: 1rem;
+}

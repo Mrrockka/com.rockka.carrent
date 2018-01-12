@@ -1,6 +1,6 @@
 package com.rockka.carrent.controllers;
 
-import com.rockka.carrent.dao.CarService;
+import com.rockka.carrent.dao.CarDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class SiteController {
     @Autowired
-    private CarService carService;
+    private CarDao carService;
     @GetMapping("/")
     public String index(Model model){
 

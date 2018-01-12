@@ -4,6 +4,7 @@
     max-width: 30rem;
     padding: 15px;
     margin: 0 auto;
+    text-align: center;
 }
 
 .form-std, form-std-heading,
@@ -37,4 +38,8 @@
     margin-bottom: -1px;
     border-top-right-radius: 0;
     border-top-left-radius: 0;
+}
+
+.login {
+    max-width: 15rem;
 }

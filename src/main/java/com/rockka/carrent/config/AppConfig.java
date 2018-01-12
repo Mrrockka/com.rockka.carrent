@@ -2,7 +2,7 @@ package com.rockka.carrent.config;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rockka.carrent.dao.CarService;
+import com.rockka.carrent.dao.CarDao;
 import com.rockka.carrent.dao.UserDao;
 import com.rockka.carrent.dao.impl.CarDaoImp;
 import com.rockka.carrent.dao.impl.UserDaoImp;
@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Import;
 public class AppConfig {
     private final Logger logger = LoggerFactory.getLogger(AppConfig.class);
     @Bean
-    public CarService carDao(){
+    public CarDao carDao(){
         logger.info("APPCONFIG: in carDao");
         return new CarDaoImp();
     }

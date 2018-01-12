@@ -1,5 +1,7 @@
 package com.rockka.carrent.services;
 
-public interface CarService extends com.rockka.carrent.dao.CarService {
+import com.rockka.carrent.dao.CarDao;
+
+public interface CarService extends CarDao {
 
 }
