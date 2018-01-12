@@ -10,62 +10,91 @@
     <title>Registration</title>
 </head>
 <body>
-    <header th:replace="fragments/header"></header>
-    <div class="container">
-        <form class="form-std" action="/register" method="post" name="user">
-            <h2 class="form-std-heading">Input your credentials</h2>
-            <div class="row">
-                <label for="username" class="col">Nickname</label>
-                <input type="text" id="username" class="form-control" placeholder="Nickname"
-                       name="username"
+<header th:replace="fragments/header"></header>
+<div class="container">
+    <form class="form-std" action="/register" method="post" name="user">
+        <h2 class="form-std-heading">Input your credentials</h2>
+        <div class="row">
+            <div class="col-4">
+                <label for="nickname">Nickname:</label>
+            </div>
+            <div class="col-8">
+                <input type="text" id="nickname" class="form-control" placeholder="Nickname"
+                       name="nickname"
                        required
                        autofocus>
             </div>
-            <div class="row">
-                <label for="password" class="col">Password</label>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <label for="password">Password:</label>
+            </div>
+            <div class="col-8">
                 <input type="password" id="password" class="form-control" placeholder="Password"
                        name="password"
                        required>
             </div>
-            <div class="row">
-                <label for="password_check" class="col-4">Reinput password</label>
-                <span class="col-4">
-                    <input type="password" id="password_check" class="form-control" placeholder="Password"
-                           required>
-                </span>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <label for="password_check">Repeat password:</label>
             </div>
-            <div class="row">
-                <label for="firstname" class="col">First name</label>
-                <span class="col">
-                    <input type="text" id="firstname" class="form-control" placeholder="First name"
-                           name="firstname"
+            <div class="col-8">
+                    <input type="password" id="password_check" class="form-control" placeholder="assword"
                            required>
-                </span>
             </div>
-            <div class="row">
-                <label for="secondname" class="col">Second name</label>
-                <input type="text" id="secondname" class="form-control" placeholder="Second name"
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <label for="firstName">First name:</label>
+            </div>
+            <div class="col-8">
+                <input type="text" id="firstName" class="form-control" placeholder="First name"
+                       name="firstname"
+                       required>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <label for="secondName">Second name:</label>
+            </div>
+            <div class="col-8">
+                <input type="text" id="secondName" class="form-control" placeholder="Second name"
                        name="secondname"
                        required>
             </div>
-            <div class="row">
-                <label for="lastname" class="col">Last name</label>
-                <input type="text" id="lastname" class="form-control" placeholder="Last name"
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <label for="lastName">Last name:</label>
+            </div>
+            <div class="col-8">
+                <input type="text" id="lastName" class="form-control" placeholder="Last name"
                        name="lastname">
             </div>
-            <div class="row">
-                <label for="address" class="col">Address</label>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <label for="address">Address:</label>
+            </div>
+            <div class="col-8">
                 <input type="text" id="address" class="form-control" placeholder="Address" name="address"
                        required>
             </div>
-            <div class="row">
-                <label for="birthday" class="sr-only">Birthday</label>
-                <input type="datetime-local" id="birthday" class="form-control" placeholder="Birthday" name="birthday">
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <label for="birthday">Birthday:</label>
             </div>
+            <div class="col-8">
+                <input type="date" id="birthday" class="form-control" placeholder="Birthday" name="birthday">
+            </div>
+        </div>
 
-            <input class="btn btn-lg btn-primary btn-block" value="register" type="button" onclick="save()">
-        </form>
-    </div>
-    <footer th:replace="fragments/footer"></footer>
+        <input class="btn btn-lg btn-primary btn-block" value="register" type="button" onclick="save()">
+    </form>
+</div>
+<footer th:replace="fragments/footer"></footer>
 </body>
 </html>

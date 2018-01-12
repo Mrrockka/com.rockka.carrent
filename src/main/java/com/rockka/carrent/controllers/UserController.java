@@ -20,15 +20,14 @@ public class UserController {
     @PostMapping("/register")
     public String save(@RequestBody User user){
         String answer = "";
-        logger.info("Before check");
+
         if(userService.isExists(user)){
-            answer = "registration";
+            answer = "exist";
             logger.info("user is exists, answer is : " + answer);
         } else{
             user.setRoles("ROLE_USER");
             userService.save(user);
-            answer = "user/account";
-            logger.info("user not exists, answer is : " + answer);
+            answer = "welcome";
         }
         return answer;
     }
@@ -38,4 +37,17 @@ public class UserController {
         model.addAttribute("users", userService.getAll());
         return "admin/show_users";
     }
+
+    private void showUser(User user){
+        logger.info(
+                "nickname: " + user.getNickname()
+                + " user role: " + user.getRoles()
+                + " birthday: " + user.getBirthday()
+                + " password: " + user.getPassword()
+                + " address: " + user.getAddress()
+                + " first name: " + user.getFirstName()
+                + " second name: " + user.getSecondName()
+        );
+    }
 }
+

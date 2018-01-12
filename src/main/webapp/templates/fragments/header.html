@@ -35,13 +35,13 @@
         </ul>
         <ul class="navbar-nav ml-md-auto" th:switch="${role}">
             <li th:case="ROLE_USER" class="nav-item">
-                Hi, <a class="nav-link" href="/user/account" th:text="${nickname}"></a>
+                <a class="nav-link" href="/user/account" th:text="'Hi, ' +${nickname}"></a>
             </li>
             <li th:case="ROLE_ADMIN" class="nav-item">
-                Hi, <a class="nav-link" href="/admin/account" th:text="${nickname}"></a>
+                <a class="nav-link" href="/admin/account" th:text="'Hi, ' +${nickname}"></a>
             </li>
             <li th:case="*" class="nav-item">
-                <a class="nav-link" href="/login">Log in</a>
+               <a class="nav-link" href="/login">Log in</a>
             </li>
         </ul>
     </div>

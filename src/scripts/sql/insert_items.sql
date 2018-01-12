@@ -14,7 +14,7 @@ VALUES (1, 'first order', 2000.00, curdate(), curdate(), '2017-12-21', '2017-12-
 
 #CAR
 INSERT INTO car (name, country, color, description, release_date, price, created_at, modified_at, is_deleted)
-VALUES ('Nissan Subzero', 'Japan', 'Gray', 'Very good car for riding', '2007', 200.00, CURDATE(), CURDATE(), 0);
+VALUES ('Nissan Subzero', 'Japan', 'Gray', 'Very good car for riding', '2007-10-01', 200.00, CURDATE(), CURDATE(), 0);
 
 INSERT INTO car (name, country, color, description, release_date, price, created_at, modified_at, is_deleted)
-VALUES ('Nissan Cashcai', 'Japan', 'Blue', 'Perfect car for riding', '2017', 500.00, CURDATE(), CURDATE(), 0);
+VALUES ('Nissan Cashcai', 'Japan', 'Blue', 'Perfect car for riding', '2017-10-01', 500.00, CURDATE(), CURDATE(), 0);

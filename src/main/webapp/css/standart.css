@@ -10,4 +10,10 @@ footer {
 
 body{
     background: #EEE;
+    margin-top: 5rem;
+}
+
+
+label{
+    margin-top: 0.6rem;
 }

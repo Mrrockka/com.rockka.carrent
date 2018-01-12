@@ -8,7 +8,7 @@ CREATE TABLE car (
     description TEXT,
     image_name TEXT,
     price DOUBLE NOT NULL,
-    release_date YEAR,
+    release_date DATE,
     created_at DATE NOT NULL,
     modified_at DATE NOT NULL,
     is_deleted INT NOT NULL,
