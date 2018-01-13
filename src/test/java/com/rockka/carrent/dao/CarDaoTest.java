@@ -45,7 +45,7 @@ public class CarDaoTest extends Assert {
     @Ignore
     public void testGetDetails() {
         for (Car car : carService.getAll()) {
-            logger.info("id " + car.getId() + " color " + car.getColor() + " created at " + car.getCreatedAt() + " modified at " + car.getModifiedAt() + (car.getIsDeleted() == 'y' ? " deleted" : " not deleted"));
+            logger.debug("id " + car.getId() + " color " + car.getColor() + " created at " + car.getCreatedAt() + " modified at " + car.getModifiedAt() + (car.getIsDeleted() == 'y' ? " deleted" : " not deleted"));
         }
     }
 }

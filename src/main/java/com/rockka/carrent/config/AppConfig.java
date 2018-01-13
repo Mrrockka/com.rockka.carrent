@@ -18,18 +18,18 @@ public class AppConfig {
     private final Logger logger = LoggerFactory.getLogger(AppConfig.class);
     @Bean
     public CarDao carDao(){
-        logger.info("APPCONFIG: in carDao");
+        logger.debug("APPCONFIG: in carDao");
         return new CarDaoImp();
     }
     @Bean
     public ObjectMapper objectMapper(){
-        logger.info("APPCONFIG: in objectMapper");
+        logger.debug("APPCONFIG: in objectMapper");
         return new ObjectMapper();
     }
 
     @Bean
     public UserDao userDao(){
-        logger.info("APPCONFIG: in userDao");
+        logger.debug("APPCONFIG: in userDao");
         return new UserDaoImp();
     }
 }

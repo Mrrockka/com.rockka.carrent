@@ -1,7 +1,6 @@
 package com.rockka.carrent.controllers;
 
 import com.rockka.carrent.domain.Car;
-import com.rockka.carrent.services.CarOrderService;
 import com.rockka.carrent.services.CarService;
 import com.rockka.carrent.services.UserService;
 import org.slf4j.Logger;
@@ -23,14 +22,9 @@ public class AdminController {
     private CarService carService;
     @Autowired
     private UserService userService;
-    @Autowired
-    private CarOrderService carOrderService;
+    /*@Autowired
+    private CarOrderService carOrderService;*/
     private Logger logger = LoggerFactory.getLogger(AdminController.class);
-
-    @GetMapping("/account")
-    public String account(){
-        return "admin/account";
-    }
 
     @GetMapping("/car/add_car")
     public String save(){

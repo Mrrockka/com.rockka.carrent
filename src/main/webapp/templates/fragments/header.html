@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
-<header class="navbar navbar-expand-md fixed-top navbar-dark" th:fragment="header">
+<header class="navbar navbar-expand-md fixed-top navbar-dark" th:fragment="header" >
+    <script type="text/javascript" src="/js/login.js" ></script>
+    <script type="text/javascript">
+        getUserName();
+    </script>
     <a class="navbar-brand" href="/">CarRent</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
             aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,16 +37,7 @@
                 </div>
             </li>
         </ul>
-        <ul class="navbar-nav ml-md-auto" th:switch="${role}">
-            <li th:case="ROLE_USER" class="nav-item">
-                <a class="nav-link" href="/user/account" th:text="'Hi, ' +${nickname}"></a>
-            </li>
-            <li th:case="ROLE_ADMIN" class="nav-item">
-                <a class="nav-link" href="/admin/account" th:text="'Hi, ' +${nickname}"></a>
-            </li>
-            <li th:case="*" class="nav-item">
-               <a class="nav-link" href="/login">Log in</a>
-            </li>
+        <ul id="username" class="navbar-nav ml-md-auto">
         </ul>
     </div>
 </header>

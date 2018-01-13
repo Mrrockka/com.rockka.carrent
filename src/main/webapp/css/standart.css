@@ -21,3 +21,7 @@ label{
 .sidebar ul{
     padding-bottom: 1rem;
 }
+
+.dropdown-menu {
+    margin-right: 1rem;
+}

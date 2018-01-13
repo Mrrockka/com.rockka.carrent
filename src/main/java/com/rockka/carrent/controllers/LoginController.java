@@ -1,6 +1,8 @@
 package com.rockka.carrent.controllers;
 
 import com.rockka.carrent.services.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginController {
     @Autowired
     private UserService userService;
+    private Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @GetMapping("/login")
     public String login(){
@@ -30,21 +34,7 @@ public class LoginController {
         String page = "access_denied";
 
         if(user != null){
-
-            String role = user.getAuthorities().toArray()[0].toString();
-            model.addAttribute("nickname", user.getUsername());
-            model.addAttribute("role", role);
-
-            switch (role){
-                case "ROLE_ADMIN":
-                    page = "admin/account";
-                    break;
-                case "ROLE_USER":
-                    page = "user/account";
-                    break;
-                default:
-                    break;
-            }
+            page = "user/account";
         }
         return page;
     }
@@ -69,4 +59,18 @@ public class LoginController {
                 (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal() : null;
     }
 
+    @GetMapping("/username")
+    public @ResponseBody String username(){
+        String text = "unknown";
+        UserDetails user = getPrincipal();
+
+        if(user != null) {
+            text = "{";
+            String role = user.getAuthorities().toArray()[0].toString();
+            text += "\"role\" : \"" + role+ "\", \"nickname\": \"" + user.getUsername() + "\"";
+            text += "}";
+        }
+        logger.debug("/username output: " + text);
+        return text;
+    }
 }

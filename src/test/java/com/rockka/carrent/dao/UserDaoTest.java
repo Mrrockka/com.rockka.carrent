@@ -49,7 +49,7 @@ public class UserDaoTest extends Assert {
     @Ignore
     public void testGetDetails() {
         for (User user : userService.getAll()) {
-            logger.info(" nickname " + user.getNickname()
+            logger.debug(" nickname " + user.getNickname()
                     + " user role " + user.getRoles()
                     + " created at " + user.getCreatedAt()
                     + " modified at " + user.getModifiedAt()

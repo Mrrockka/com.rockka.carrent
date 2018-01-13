@@ -37,7 +37,7 @@ public class OrmConfig {
 
     @Bean
     public DataSource dataSource(){
-        logger.info("ORM: In datasource");
+        logger.debug("ORM: In datasource");
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(driverClassName);
         dataSource.setUrl(url);
@@ -48,7 +48,7 @@ public class OrmConfig {
 
     @Bean
     public Properties hibernateProperties(){
-        logger.info("ORM: in properties");
+        logger.debug("ORM: in properties");
         Properties properties = new Properties();
         properties.put("hibernate.dialect", dialect);
         return properties;
@@ -57,14 +57,14 @@ public class OrmConfig {
     @Bean
     @SuppressWarnings("deprecation")
     public SessionFactory sessionFactory(){
-        logger.info("ORM: in session factory");
+        logger.debug("ORM: in session factory");
         return new LocalSessionFactoryBuilder(dataSource()).scanPackages(scanPackages)
                 .addProperties(hibernateProperties()).buildSessionFactory();
     }
 
     @Bean
     public HibernateTransactionManager transactionManager(SessionFactory sessionFactory){
-        logger.info("ORM: in transaction manager");
+        logger.debug("ORM: in transaction manager");
         HibernateTransactionManager htm = new HibernateTransactionManager();
         htm.setSessionFactory(sessionFactory);
         return htm;

@@ -17,13 +17,23 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/user/account")
+    public String account(Model model){
+        return "account";
+    }
+
+    @GetMapping("/user/settings")
+    public String settings(){
+        return "user/settings";
+    }
+
     @PostMapping("/register")
     public String save(@RequestBody User user){
         String answer = "";
 
         if(userService.isExists(user)){
             answer = "exist";
-            logger.info("user is exists, answer is : " + answer);
+            logger.debug("user is exists, answer is : " + answer);
         } else{
             user.setRoles("ROLE_USER");
             userService.save(user);
@@ -39,7 +49,7 @@ public class UserController {
     }
 
     private void showUser(User user){
-        logger.info(
+        logger.debug(
                 "nickname: " + user.getNickname()
                 + " user role: " + user.getRoles()
                 + " birthday: " + user.getBirthday()

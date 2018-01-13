@@ -26,7 +26,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     private ApplicationContext context;
     @Bean
     public SpringResourceTemplateResolver templateResolver(){
-        logger.info("MVCCONFIG: In templateResolver");
+        logger.debug("MVCCONFIG: In templateResolver");
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
         templateResolver.setApplicationContext(this.context);
         templateResolver.setPrefix("/templates/");
@@ -37,7 +37,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     }
     @Bean
     public SpringTemplateEngine templateEngine(){
-        logger.info("MVCCONFIG: In templateEngine");
+        logger.debug("MVCCONFIG: In templateEngine");
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(templateResolver());
         templateEngine.setEnableSpringELCompiler(true);
@@ -46,7 +46,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 
     @Bean
     public ThymeleafViewResolver viewResolver(){
-        logger.info("MVCCONFIG: In viewResolver");
+        logger.debug("MVCCONFIG: In viewResolver");
         ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
         viewResolver.setTemplateEngine(templateEngine());
 //        viewResolver.setCharacterEncoding("UTF-8");
@@ -55,7 +55,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry){
-        logger.info("MVCCONFIG: In resourceRegistry");
+        logger.debug("MVCCONFIG: In resourceRegistry");
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
         registry.addResourceHandler("/images/**").addResourceLocations("/images/");
         registry.addResourceHandler("/thumbs/**").addResourceLocations("/thumbnails/");

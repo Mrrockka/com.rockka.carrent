@@ -27,7 +27,3 @@ function save(){
 	xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
 	xhr.send(json);
 }
-
-
-function date(){
-}
