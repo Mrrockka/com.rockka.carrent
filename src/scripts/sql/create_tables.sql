@@ -1,4 +1,4 @@
-#CREATE DATABASE carrent;
+#DATABASE carrent;
 
 CREATE TABLE car (
     id INT AUTO_INCREMENT,
@@ -6,7 +6,6 @@ CREATE TABLE car (
     country varchar(15),
     color varchar(20),
     description TEXT,
-    image_name TEXT,
     price DOUBLE NOT NULL,
     release_date DATE,
     created_at DATE NOT NULL,
@@ -38,6 +37,7 @@ CREATE TABLE user (
 CREATE TABLE carorder (
     id INT AUTO_INCREMENT,
     user_id INT NOT NULL,
+    car_id INT NOT NULL,
     description TEXT NOT NULL,
     price DOUBLE NOT NULL,
     created_at DATE NOT NULL,
@@ -46,12 +46,6 @@ CREATE TABLE carorder (
     expires_at DATE NOT NULL,
     status varchar(5) NOT NULL,
     FOREIGN KEY (user_id) REFERENCES user(id),
+    FOREIGN KEY (car_id) REFERENCES car(id),
     PRIMARY KEY (id)
-);
-
-CREATE TABLE carorder_car (
-    carorder_id INT NOT NULL,
-    car_id INT NOT NULL,
-    FOREIGN KEY (carorder_id) REFERENCES carorder(id),
-    FOREIGN KEY (car_id) REFERENCES car(id)
 );

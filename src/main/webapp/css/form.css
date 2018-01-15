@@ -7,7 +7,7 @@
     text-align: center;
 }
 
-.form-std, form-std-heading,
+.form-std, .form-std-heading,
 .form-std .checkbox{
     margin-bottom: 10px;
 }

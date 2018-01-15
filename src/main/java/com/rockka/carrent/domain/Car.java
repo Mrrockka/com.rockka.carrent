@@ -23,8 +23,6 @@ public class Car implements Serializable {
     private String color;
     @Column(name = "description")
     private String description;
-    @Column(name = "image_name")
-    private String imageName;
     @Column(name = "price", nullable = false)
     private double price;
     @Column(name = "release_date")
@@ -84,15 +82,6 @@ public class Car implements Serializable {
 
     public Car setDescription(String description) {
         this.description = description;
-        return this;
-    }
-
-    public String getImageName() {
-        return imageName;
-    }
-
-    public Car setImageName(String imageName) {
-        this.imageName = imageName;
         return this;
     }
 

@@ -7,11 +7,79 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/standart.css">
     <link rel="stylesheet" href="/css/form.css">
+    <script type="text/javascript" src="/js/order.js"></script>
 </head>
 <body>
     <header th:replace="fragments/header :: header"></header>
     <div class="container">
-        <form class="form-std"></form>
+        <form class="form-std" name="order">
+            <div class="row">
+                <div class="col-4">
+                    <span class="text-left">Full name: </span>
+                </div>
+                <div class="col-8 well">
+                    <span class="text-left"
+                          th:text="${username}"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <span class="text-left">Address: </span>
+                </div>
+                <div class="col-8 well">
+                    <span class="text-left" th:text="${user_address}"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <span class="text-left"></span>
+                </div>
+                <div class="col-8 well">
+                    <span class="text-left well" th:text="${user_birthday}"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <span class="text-left">Car: </span>
+                </div>
+                <div class="col-8 well">
+                    <span class="text-left" th:text="${car.name}"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <span class="text-left">Color: </span>
+                </div>
+                <div class="col-8 well">
+                    <span class="text-left" th:text="${car.color}"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <span class="text-left">Rent in a day: </span>
+                </div>
+                <div class="col-8 well">
+                    <span class="text-left" th:text="${car.price}"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <span class="text-left"></span>
+                </div>
+                <div class="col-8 well">
+                    <span class="text-left"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <span class="text-left"></span>
+                </div>
+                <div class="col-8 well">
+                    <span class="text-left"></span>
+                </div>
+            </div>
+            <input type="button" onclick="save()">
+        </form>
     </div>
     <footer th:replace="fragments/footer :: footer"></footer>
 </body>

@@ -11,6 +11,8 @@ footer {
 body{
     background: #EEE;
     margin-top: 5rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
 }
 
 
@@ -22,6 +24,6 @@ label{
     padding-bottom: 1rem;
 }
 
-.dropdown-menu {
-    margin-right: 1rem;
+.well{
+    background-color: #FFFFE6;
 }

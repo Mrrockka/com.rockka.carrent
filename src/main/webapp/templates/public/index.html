@@ -28,7 +28,7 @@
                 <div class="card" th:each="car: ${cars}" th:if="${car.getIsDeleted()}==0">
                     <a th:href="@{'/car/'+${car.id}}">
                         <div>
-                            <img class="mr-3" th:src="@{'/thumbs/'+${car.id}+'.png'}" alt="car image">
+                            <img class="img-rounded" th:src="@{'/thumbs/'+${car.id}+'.png'}" alt="car image">
                             <p class="card-text">
                             <h3 th:text="${car.name}"></h3>
                             <p>price: <span th:text="${car.price}"></span></p>
