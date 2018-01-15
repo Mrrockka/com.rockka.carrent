@@ -10,14 +10,24 @@
 <body>
     <header th:replace = "fragments/header :: header"></header>
     <div class="container">
-        <img th:src="@{'/images/' + ${car.id}+'.png'}" atr="car image">
-        <h2 th:text="${car.name}"></h2>
-        <p th:text="'Description:<br>' + ${car.description}"></p>
-        <p th:text="'Color: '+ ${car.color}"></p>
-        <p th:text="'Country: ' +${car.country}"></p>
-        <p th:text="'Release date: ' + ${car.releaseDate}"></p>
-        <p th:text="'Price: ' + ${car.price}"></p>
-        <input type="button" value="Rent now" onclick="@{'/rent/car/'+${car.id}}">
+        <div class="">
+            <img th:src="@{'/images/' + ${car.id}+'.png'}" atr="car image">
+            <h2 th:text="${car.name}"></h2>
+            <dl>
+                <dt>Description:</dt>
+                <dd th:text="${car.description}"></dd>
+                <dt>Color:</dt>
+                <dd th:text="${car.color}"></dd>
+                <dt>Country:</dt>
+                <dd th:text="${car.country}"></dd>
+                <dt>Realease date:</dt>
+                <dd th:text="${car.releaseDate}"></dd>
+                <dt>Price:</dt>
+                <dd th:text="${car.price}"></dd>
+
+            </dl>
+            <a class="btn btn-lg btn-primary" th:href="@{'/order/car/'+${car.id}}">Rent now</a>
+        </div>
     </div>
     <footer th:replace = "fragments/footer :: footer"></footer>
 </body>

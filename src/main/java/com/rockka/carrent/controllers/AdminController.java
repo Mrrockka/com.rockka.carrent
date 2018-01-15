@@ -53,16 +53,24 @@ public class AdminController {
         model.addAttribute("orders", orderService.getAll());
         return "admin/show_orders";
     }
-
-    @GetMapping("/order/show/{id}")
-    public String showOrder(@RequestParam("id") long id, Model model){
+    @GetMapping("/car/show_all")
+    public String showCars(Model model){
+        return "admin/show_cars";
+    }
+    @GetMapping("/order/{id}")
+    public String showOrder(@PathVariable("id") long id, Model model){
         model.addAttribute("order", orderService.getById(id));
         return "admin/show_order";
     }
 
-    @GetMapping("/user/show/{nickname}")
-    public String getByNickname(@RequestParam("nickname") String nickname, Model model){
+    @GetMapping("/user/{nickname}")
+    public String showUser(@PathVariable("nickname") String nickname, Model model){
         model.addAttribute("user", userService.getUserByNickname(nickname));
         return "admin/show_user";
+    }
+
+    @GetMapping("/car/{id}")
+    public String showCar(@PathVariable("id") long id){
+        return "public/car";
     }
 }

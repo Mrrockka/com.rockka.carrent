@@ -23,12 +23,10 @@ function changeDiv(user){
                 + "aria-haspopup=\"true\" aria-expanded=\"false\">"
                 + user.nickname + "</span>"
                 + "<div class=\"dropdown-menu\" aria-labelledBy=\"userdrop\">"
-                + "<a class=\"dropdown-item\" href=\"/account\">Account</a>"
-                + "<a class=\"dropdown-item\" href=\"/settings\">Settings</a>"
+                + "<a class=\"dropdown-item\" href=\"/user/account\">Account</a>"
+                + "<a class=\"dropdown-item\" href=\"/user/settings\">Settings</a>"
                 + "<a class=\"dropdown-item\" href=\"/logout\">Log out</a>"
                 + "</div>";
-
-                document.getElementById("title").innerHTML = user.nickname;
     } else {
         text += "<a class=\"nav-link\" href=\"/login\">Log in</a>";
     }
