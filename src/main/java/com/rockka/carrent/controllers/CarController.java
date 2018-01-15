@@ -6,9 +6,12 @@ import com.rockka.carrent.dao.CarDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
+@RequestMapping("/car")
 public class CarController {
     @Autowired
     private CarDao carService;
@@ -16,8 +19,8 @@ public class CarController {
     private ObjectMapper mapper;
     private Logger logger = LoggerFactory.getLogger(CarController.class);
 
-    @GetMapping("/car/getall")
-    public String getAll() {
+    @GetMapping("/get_all")
+    public @ResponseBody String getAll() {
         String line = "failure";
         try {
             line = mapper.writeValueAsString(carService.getAll());
@@ -27,4 +30,9 @@ public class CarController {
         return line;
     }
 
+    @GetMapping("/{id}")
+    public String getById(@PathVariable("id") long id, Model model){
+        model.addAttribute("car", carService.getById(id));
+        return "public/car";
+    }
 }

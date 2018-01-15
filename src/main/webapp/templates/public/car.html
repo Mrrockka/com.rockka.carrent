@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title th:text="${car.name}"></title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/standart.css">
+</head>
+<body>
+    <header th:replace = "fragments/header :: header"></header>
+    <div class="container">
+        <img th:src="@{'/images/' + ${car.id}+'.png'}" atr="car image">
+        <h2 th:text="${car.name}"></h2>
+        <p th:text="'Description:<br>' + ${car.description}"></p>
+        <p th:text="'Color: '+ ${car.color}"></p>
+        <p th:text="'Country: ' +${car.country}"></p>
+        <p th:text="'Release date: ' + ${car.releaseDate}"></p>
+        <p th:text="'Price: ' + ${car.price}"></p>
+        <input type="button" value="Rent now" onclick="@{'/rent/car/'+${car.id}}">
+    </div>
+    <footer th:replace = "fragments/footer :: footer"></footer>
+</body>
+</html>

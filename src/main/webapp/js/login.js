@@ -15,7 +15,7 @@ function getUserName(){
 
 function changeDiv(user){
 
-    var text = "<li class=\"nav-item dropdown\">";
+    var text = "<li class=\"nav-item dropdown\">", name;
     if(user != "unknown"){
         user = JSON.parse(user);
         text += "<span class=\"nav-link dropdown-toggle\""
@@ -27,6 +27,8 @@ function changeDiv(user){
                 + "<a class=\"dropdown-item\" href=\"/settings\">Settings</a>"
                 + "<a class=\"dropdown-item\" href=\"/logout\">Log out</a>"
                 + "</div>";
+
+                document.getElementById("title").innerHTML = user.nickname;
     } else {
         text += "<a class=\"nav-link\" href=\"/login\">Log in</a>";
     }

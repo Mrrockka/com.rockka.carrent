@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "carorder")
-public class CarOrder implements Serializable{
+public class Order implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -134,7 +134,7 @@ public class CarOrder implements Serializable{
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CarOrder carOrder = (CarOrder) o;
+        Order carOrder = (Order) o;
         return id == carOrder.id &&
                 Double.compare(carOrder.price, price) == 0 &&
                 isActive == carOrder.isActive &&

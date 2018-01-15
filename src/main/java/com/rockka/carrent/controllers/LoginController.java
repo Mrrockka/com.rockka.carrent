@@ -25,13 +25,13 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login(){
-        return "login";
+        return "public/login";
     }
 
     @GetMapping("/welcome")
     public String Welcome(Model model){
         UserDetails user = getPrincipal();
-        String page = "access_denied";
+        String page = "public/access_denied";
 
         if(user != null){
             page = "user/account";
@@ -46,17 +46,12 @@ public class LoginController {
         if(auth != null){
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-        return "login";
+        return "public/login";
     }
 
     @RequestMapping("/access_denied")
     public String accessDenied(){
-        return "access_denied";
-    }
-
-    private UserDetails getPrincipal(){
-        return SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails ?
-                (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal() : null;
+        return "public/access_denied";
     }
 
     @GetMapping("/username")
@@ -73,4 +68,10 @@ public class LoginController {
         logger.debug("/username output: " + text);
         return text;
     }
+
+    private UserDetails getPrincipal(){
+        return SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails ?
+                (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal() : null;
+    }
+
 }

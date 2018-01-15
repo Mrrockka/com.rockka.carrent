@@ -1,4 +1,4 @@
 package com.rockka.carrent.controllers;
 
-public class CarorderController {
+public class OrderController {
 }

@@ -40,7 +40,7 @@ public class Car implements Serializable {
     private int isDeleted;
     @JsonIgnore
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CarOrder> carOrders;
+    private List<Order> carOrders;
 
     public long getId() {
         return id;
@@ -146,11 +146,11 @@ public class Car implements Serializable {
         return this;
     }
 
-    public List<CarOrder> getCarOrders() {
+    public List<Order> getCarOrders() {
         return carOrders;
     }
 
-    public Car setCarOrders(List<CarOrder> carOrders) {
+    public Car setCarOrders(List<Order> carOrders) {
         this.carOrders = carOrders;
         return this;
     }

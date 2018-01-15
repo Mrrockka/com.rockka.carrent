@@ -1,6 +1,7 @@
 package com.rockka.carrent.controllers;
 
 import com.rockka.carrent.domain.Car;
+import com.rockka.carrent.services.OrderService;
 import com.rockka.carrent.services.CarService;
 import com.rockka.carrent.services.UserService;
 import org.slf4j.Logger;
@@ -8,10 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
@@ -22,8 +20,8 @@ public class AdminController {
     private CarService carService;
     @Autowired
     private UserService userService;
-    /*@Autowired
-    private CarOrderService carOrderService;*/
+    @Autowired
+    private OrderService orderService;
     private Logger logger = LoggerFactory.getLogger(AdminController.class);
 
     @GetMapping("/car/add_car")
@@ -44,15 +42,27 @@ public class AdminController {
         return answer;
     }
 
-    @GetMapping("/user/show")
+    @GetMapping("/user/show_all")
     public String showUsers(Model model){
         model.addAttribute("users", userService.getAll());
-        return "show_users";
+        return "admin/show_users";
     }
 
-    @GetMapping("/order/show")
+    @GetMapping("/order/show_all")
     public String showOrder(Model model){
-//        model.addAttribute("orders", carOrderService.getAll());
-        return "show_orders";
+        model.addAttribute("orders", orderService.getAll());
+        return "admin/show_orders";
+    }
+
+    @GetMapping("/order/show/{id}")
+    public String showOrder(@RequestParam("id") long id, Model model){
+        model.addAttribute("order", orderService.getById(id));
+        return "admin/show_order";
+    }
+
+    @GetMapping("/user/show/{nickname}")
+    public String getByNickname(@RequestParam("nickname") String nickname, Model model){
+        model.addAttribute("user", userService.getUserByNickname(nickname));
+        return "admin/show_user";
     }
 }
