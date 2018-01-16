@@ -12,9 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
 
-public class CarDaoTest extends Assert {
+public class CarServiceTest extends Assert {
     private static CarService carService;
-    private Logger logger = LoggerFactory.getLogger(CarDaoTest.class);
+    private Logger logger = LoggerFactory.getLogger(CarServiceTest.class);
 
     @Before
     public void startUp() {
@@ -43,7 +43,7 @@ public class CarDaoTest extends Assert {
 
     @Test
     @Ignore
-    public void testGetDetails() {
+    public void testGetAll() {
         for (Car car : carService.getAll()) {
             logger.debug("id " + car.getId() + " color " + car.getColor() + " created at " + car.getCreatedAt() + " modified at " + car.getModifiedAt() + (car.getIsDeleted() == 'y' ? " deleted" : " not deleted"));
         }

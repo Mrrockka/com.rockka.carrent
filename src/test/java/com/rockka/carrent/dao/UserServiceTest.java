@@ -13,10 +13,10 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 
 import java.util.Date;
 
-public class UserDaoTest extends Assert {
+public class UserServiceTest extends Assert {
 
     private UserService userService;
-    private Logger logger = LoggerFactory.getLogger(UserDaoTest.class);
+    private Logger logger = LoggerFactory.getLogger(UserServiceTest.class);
 
     @Before
     public void startUp() {

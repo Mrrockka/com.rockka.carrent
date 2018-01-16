@@ -15,70 +15,95 @@
         <form class="form-std" name="order">
             <div class="row">
                 <div class="col-4">
-                    <span class="text-left">Full name: </span>
+                    <label for="nickname" class="text-left">Full name: </label>
                 </div>
                 <div class="col-8 well">
-                    <span class="text-left"
-                          th:text="${username}"></span>
+                    <span id="nickname" class="text-left"
+                          th:text="${nickname}"></span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-4">
-                    <span class="text-left">Address: </span>
+                    <label for="address" class="text-left">Address: </label>
                 </div>
                 <div class="col-8 well">
-                    <span class="text-left" th:text="${user_address}"></span>
+                    <span id="address" class="text-left" th:text="${user_address}"></span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-4">
-                    <span class="text-left"></span>
+                    <label for="birthday" class="text-left"></label>
                 </div>
                 <div class="col-8 well">
-                    <span class="text-left well" th:text="${user_birthday}"></span>
+                    <span id="birthday" class="text-left well" th:text="${user_birthday}"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-4">
+                    <label for="carid" class="sr-only">Car id: </label>
+                </div>
+                <div class="col-8 well">
+                    <span id="carid" class="sr-only" th:text="${car.id}"></span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-4">
-                    <span class="text-left">Car: </span>
+                    <label for="carname" class="text-left">Car: </label>
                 </div>
                 <div class="col-8 well">
-                    <span class="text-left" th:text="${car.name}"></span>
+                    <span id="carname" class="text-left" th:text="${car.name}"></span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-4">
-                    <span class="text-left">Color: </span>
+                    <label for="carcolor" class="text-left">Color: </label>
                 </div>
                 <div class="col-8 well">
-                    <span class="text-left" th:text="${car.color}"></span>
+                    <span id="carcolor" class="text-left" th:text="${car.color}"></span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-4">
-                    <span class="text-left">Rent in a day: </span>
+                    <label for="carprice" class="text-left">Rent in a day: </label>
                 </div>
                 <div class="col-8 well">
-                    <span class="text-left" th:text="${car.price}"></span>
+                    <span id="carprice" class="text-left" th:text="${car.price}"></span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-4">
-                    <span class="text-left"></span>
+                    <label for="startsAt" class="text-left">Starts at: </label>
                 </div>
                 <div class="col-8 well">
-                    <span class="text-left"></span>
+                    <input id="startsAt" type="date" class="text-left" onclick="setPrice()">
                 </div>
             </div>
             <div class="row">
                 <div class="col-4">
-                    <span class="text-left"></span>
+                    <label for="expiresAt" class="text-left">Expires at: </label>
                 </div>
                 <div class="col-8 well">
-                    <span class="text-left"></span>
+                    <input id="expiresAt" type="date" class="text-left" onclick="setPrice()">
                 </div>
             </div>
-            <input class="btn btn-lg btn-primary btn-block" type="button" value="Order" onclick="save()">
+            <div class="row">
+                <div class="col-4">
+                    <label for="description" class="text-left">Description: </label>
+                </div>
+                <div class="col-8 well">
+                    <input type="text" id="description" value="Rent car" class="text-left">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <label for="price" class="text-left">Order price: </label>
+                </div>
+                <div class="col-8 well">
+                    <input type="number" id="price" value="0" class="text-left" disabled>
+                </div>
+            </div>
+            <input class="btn btn-lg btn-primary btn-block" type="button" value="Save order" onclick="save()">
         </form>
     </div>
     <footer th:replace="fragments/footer :: footer"></footer>

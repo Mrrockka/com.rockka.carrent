@@ -4,7 +4,7 @@ function save(){
     var xhr = new XMLHttpRequest();
 	var i = 0, json = "", doc = document.forms["car"], text = "no";
     json = "{";
-    for(i=0; i<document.forms["car"].length; i++){
+    for(i=0; i<doc.length; i++){
     	if(doc[i].type != "button"){
     		json += "\"" + doc[i].id + "\"" + ":" +"\""+ doc[i].value +"\""+ ",";
         } else {

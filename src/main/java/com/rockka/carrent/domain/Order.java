@@ -15,121 +15,125 @@ public class Order implements Serializable{
     private long id;
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "car_id")
+    @JoinColumn(name = "car_id", nullable = false)
     private Car car;
-    @Column
+    @Column(nullable = false)
     private String description;
-    @Column
+    @Column(nullable = false)
     private double price;
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date createdAt;
-    @Column(name = "modified_at")
+    @Column(name = "modified_at", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date modifiedAt;
-    @Column(name = "starts_at")
+    @Column(name = "starts_at", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date startsAt;
-    @Column(name = "expire")
+    @Column(name = "expires_at", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date expiresAt;
-    @Column(name ="is_active")
-    private char isActive;
-    @Column(name = "is_closed")
-    private char isClosed;
+    @Column(name ="status", length = 10, nullable = false)
+    private String status;
 
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public Order setId(long id) {
         this.id = id;
+        return this;
     }
 
     public User getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public Order setUser(User user) {
         this.user = user;
+        return this;
     }
 
     public Car getCar() {
         return car;
     }
 
-    public void setCar(Car car) {
+    public Order setCar(Car car) {
         this.car = car;
+        return this;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public Order setDescription(String description) {
         this.description = description;
+        return this;
     }
 
     public double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public Order setPrice(double price) {
         this.price = price;
+        return this;
     }
 
     public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public Order setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+        return this;
     }
 
     public Date getModifiedAt() {
         return modifiedAt;
     }
 
-    public void setModifiedAt(Date modifiedAt) {
+    public Order setModifiedAt(Date modifiedAt) {
         this.modifiedAt = modifiedAt;
+        return this;
     }
 
     public Date getStartsAt() {
         return startsAt;
     }
 
-    public void setStartsAt(Date startsAt) {
+    public Order setStartsAt(Date startsAt) {
         this.startsAt = startsAt;
+        return this;
     }
 
     public Date getExpiresAt() {
         return expiresAt;
     }
 
-    public void setExpiresAt(Date expiresAt) {
+    public Order setExpiresAt(Date expiresAt) {
         this.expiresAt = expiresAt;
+        return this;
     }
 
-    public char getIsActive() {
-        return isActive;
+    public String getStatus() {
+        return status;
     }
 
-    public void setIsActive(char isActive) {
-        this.isActive = isActive;
+    public Order setStatus(String status) {
+        this.status = status;
+        return this;
     }
 
-    public char getIsClosed() {
-        return isClosed;
+    public Order setDeleted(){
+        status = "deleted";
+        return this;
     }
-
-    public void setIsClosed(char isClosed) {
-        this.isClosed = isClosed;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -137,8 +141,7 @@ public class Order implements Serializable{
         Order carOrder = (Order) o;
         return id == carOrder.id &&
                 Double.compare(carOrder.price, price) == 0 &&
-                isActive == carOrder.isActive &&
-                isClosed == carOrder.isClosed &&
+                status == carOrder.status &&
                 Objects.equals(user, carOrder.user) &&
                 Objects.equals(car, carOrder.car) &&
                 Objects.equals(description, carOrder.description) &&
@@ -149,6 +152,6 @@ public class Order implements Serializable{
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, user, car, description, price, startsAt, expiresAt, isActive, isClosed);
+        return Objects.hash(id, user, car, description, price, startsAt, expiresAt, status);
     }
 }

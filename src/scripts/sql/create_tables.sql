@@ -44,7 +44,7 @@ CREATE TABLE carorder (
     modified_at DATE NOT NULL,
     starts_at DATE NOT NULL,
     expires_at DATE NOT NULL,
-    status varchar(5) NOT NULL,
+    status varchar(10) NOT NULL,
     FOREIGN KEY (user_id) REFERENCES user(id),
     FOREIGN KEY (car_id) REFERENCES car(id),
     PRIMARY KEY (id)

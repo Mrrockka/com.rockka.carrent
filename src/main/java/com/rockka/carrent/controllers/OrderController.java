@@ -14,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+
 @Controller
 @RequestMapping("/order")
 public class OrderController {
@@ -31,21 +33,21 @@ public class OrderController {
         User user =userService.getUserByNickname((getPrincipal()).getUsername());
         String username = user.getFirstName() + " " + user.getSecondName();
         username += user.getLastName() != null ? " " +user.getLastName() : "";
-        model.addAttribute("username", username);
+        model.addAttribute("nickname", username);
         model.addAttribute("user_address", user.getAddress());
         model.addAttribute("user_birthday", user.getBirthday());
         model.addAttribute("car", carService.getById(id));
         return "user/order";
     }
 
-    @PostMapping("/save")
-    public String save(@RequestBody Order order){
-        return "success";
-    }
-
-    @GetMapping("/clean")
-    public String clean(){
-        return "user/order";
+    @PostMapping("/save/{id}")
+    public String save(@RequestBody Order order, @PathVariable("id") long id){
+        order.setCar(carService.getById(id));
+        order.setUser(userService.getUserByNickname(getPrincipal().getUsername()));
+        order.setCreatedAt(new Date()).setModifiedAt(new Date());
+        order.setStatus("unchecked");
+        orderService.save(order);
+        return "public/success";
     }
 
     private UserDetails getPrincipal(){

@@ -65,11 +65,7 @@ public class UserDaoImp implements UserDao {
 
     @Override
     public User delete(User user) {
-        try {
-            save(user.setDeleted());
-        } catch (Exception ex) {
-            logger.error("User delete " + ex);
-        }
+        save(user.setDeleted());
         return user;
     }
 }

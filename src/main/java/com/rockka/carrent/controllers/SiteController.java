@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class SiteController {
@@ -39,11 +40,11 @@ public class SiteController {
 
 
     @PostMapping("/register")
-    public String save(@RequestBody User user){
+    public @ResponseBody String save(@RequestBody User user){
         String answer = "";
 
         if(userService.isExists(user)){
-            answer = "exist";
+            answer = "User with this name already exist.";
             logger.debug("user is exists, answer is : " + answer);
         } else{
             user.setRoles("ROLE_USER");

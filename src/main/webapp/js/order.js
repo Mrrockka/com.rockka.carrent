@@ -2,24 +2,26 @@
 
 function save(){
     var xhr = new XMLHttpRequest();
-	var i = 0, json = "", doc = document.forms["car"], text = "no";
+    var url = '/order/save/' + document.getElementById("carid").innerHTML;
+	var i = 0, json = "", doc = document.forms["order"];
     json = "{";
-    for(i=0; i<document.forms["order"].length; i++){
-    	if(doc[i].type != "button"){
-    		json += "\"" + doc[i].id + "\"" + ":" +"\""+ doc[i].value +"\""+ ",";
-        } else {
-        	json = json.slice(0, -1);
+    for(i=0; i<doc.length; i++){
+    	if(doc[i].type == "button"){
+    		continue;
         }
+        json += "\"" + doc[i].id + "\"" + ":" +"\""+ doc[i].value +"\""+ ",";
     }
-    json += "\"}";
 
-    xhr.onreadystatechange = function(){
-        if(this.readyState == 4 && this.status==200){
-            text = this.responseText;
-            alert(text);
-        }
-    }
-	xhr.open("POST", '/order/save', true);
+    json = json.slice(0, -1);
+    json += "}";
+
+	xhr.open("POST", url, true);
 	xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
 	xhr.send(json);
+}
+
+function setPrice(){
+    if(document.getElementById("startsAt").value != null && document.getElementById("expiresAt").value != null){
+        document.getElementById("price").value = 200;
+    }
 }
