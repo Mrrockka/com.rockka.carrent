@@ -2,10 +2,8 @@ package com.rockka.carrent.dao.impl;
 
 import com.rockka.carrent.dao.OrderDao;
 import com.rockka.carrent.domain.Order;
-import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,16 +13,18 @@ import java.util.List;
 
 @Transactional
 @Repository("orderDao")
-public class OrderDaoImp implements OrderDao {
+public class OrderDaoImp extends GenericDaoImp<Order> implements OrderDao {
     private Logger logger = LoggerFactory.getLogger(OrderDaoImp.class);
-    @Autowired
-    private SessionFactory sessionFactory;
+
+    public OrderDaoImp() {
+        super(Order.class);
+    }
 
     @Override
     public Order getById(long id) {
         Order order = null;
         try{
-            order = (Order) sessionFactory.getCurrentSession()
+            order = (Order) getSession()
                     .createQuery("from Order where id =:id")
                     .setParameter("id", id)
                     .uniqueResult();
@@ -38,7 +38,7 @@ public class OrderDaoImp implements OrderDao {
     public List<Order> getAll() {
         List<Order> orders = null;
         try{
-            orders = sessionFactory.getCurrentSession()
+            orders = getSession()
                     .createQuery("from Order")
                     .list();
         }catch(Exception ex){
@@ -53,7 +53,7 @@ public class OrderDaoImp implements OrderDao {
             order.setCreatedAt(new Date()).setStatus("uncheked");
         }
         try{
-            sessionFactory.getCurrentSession()
+            getSession()
                     .saveOrUpdate(order.setModifiedAt(new Date()));
         }catch(Exception ex){
             logger.error("OrderDaoImp: save " + ex);
@@ -64,7 +64,18 @@ public class OrderDaoImp implements OrderDao {
     @Override
     public Order delete(Order order) {
         order.setDeleted();
-        save(order);
+        update(order);
+        return order;
+    }
+
+    @Override
+    public Order update(Order order){
+        try{
+            order.setModifiedAt(new Date());
+            update(order);
+        }catch(Exception ex){
+            logger.error("OrderDaoImp: update " +ex);
+        }
         return order;
     }
 }

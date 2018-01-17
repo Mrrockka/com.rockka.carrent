@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 function save(){
     var xhr = new XMLHttpRequest();

@@ -2,10 +2,8 @@ package com.rockka.carrent.dao.impl;
 
 import com.rockka.carrent.dao.UserDao;
 import com.rockka.carrent.domain.User;
-import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
@@ -16,16 +14,15 @@ import java.util.List;
 
 @Transactional
 @Repository("userDao")
-public class UserDaoImp implements UserDao {
+public class UserDaoImp extends GenericDaoImp<User> implements UserDao {
     private Logger logger = LoggerFactory.getLogger(UserDaoImp.class);
-    @Autowired
-    private SessionFactory sessionFactory;
+    public UserDaoImp(){super(User.class);}
 
     @Override
     public User getUserByNickname(String nickname) {
         User user = null;
         try {
-            user = (User) sessionFactory.getCurrentSession()
+            user = (User) getSession()
                     .createQuery("from User where nickname = :nickname and isDeleted = 0")
                     .setParameter("nickname", nickname)
                     .uniqueResult();
@@ -39,7 +36,7 @@ public class UserDaoImp implements UserDao {
     public List<User> getAll() {
         List<User> users = new ArrayList<User>();
         try {
-            users = sessionFactory.getCurrentSession()
+            users = getSession()
                     .createQuery("from User where isDeleted = 0")
                     .list();
         } catch (Exception ex) {
@@ -54,7 +51,7 @@ public class UserDaoImp implements UserDao {
             user.setCreatedAt(new Date()).setIsDeleted(0);
         }
         try {
-            sessionFactory.getCurrentSession()
+            getSession()
                     .saveOrUpdate(user.setModifiedAt(new Date()));
         } catch (Exception ex) {
             user.setCreatedAt(null);

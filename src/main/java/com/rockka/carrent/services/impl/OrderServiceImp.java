@@ -31,4 +31,7 @@ public class OrderServiceImp implements OrderService{
     public Order delete(Order order) {
         return orderDao.delete(order);
     }
+
+    @Override
+    public Order update(Order order){return orderDao.update(order);}
 }

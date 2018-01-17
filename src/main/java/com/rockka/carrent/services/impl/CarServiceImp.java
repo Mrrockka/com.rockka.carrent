@@ -2,13 +2,14 @@ package com.rockka.carrent.services.impl;
 
 import com.rockka.carrent.dao.CarDao;
 import com.rockka.carrent.domain.Car;
+import com.rockka.carrent.services.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service("carService")
-public class CarServiceImp implements com.rockka.carrent.services.CarService {
+public class CarServiceImp implements CarService {
     @Autowired
     private CarDao carDao;
     @Override
@@ -30,4 +31,6 @@ public class CarServiceImp implements com.rockka.carrent.services.CarService {
     public Car delete(Car car) {
         return carDao.delete(car);
     }
+    @Override
+    public Car update(Car car) {return carDao.update(car);}
 }
