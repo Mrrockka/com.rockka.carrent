@@ -1,6 +1,7 @@
 package com.rockka.carrent.controllers;
 
 import com.rockka.carrent.services.UserService;
+import com.rockka.carrent.util.UserUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
-public class LoginController {
+public class LoginController extends UserUtil {
     @Autowired
     private UserService userService;
     private Logger logger = LoggerFactory.getLogger(LoginController.class);
@@ -34,7 +35,15 @@ public class LoginController {
         String page = "public/access_denied";
 
         if(user != null){
-            page = "user/account";
+            switch(user.getAuthorities().toArray()[0].toString()){
+                case "ROLE_USER":
+                    page = "user/account";
+                    break;
+                case "ROLE_ADMIN":
+                    page = "admin/show_orders";
+                    break;
+                default: break;
+            }
         }
         return page;
     }
@@ -69,9 +78,5 @@ public class LoginController {
         return text;
     }
 
-    private UserDetails getPrincipal(){
-        return SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails ?
-                (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal() : null;
-    }
 
 }

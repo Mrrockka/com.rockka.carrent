@@ -10,19 +10,26 @@ footer {
 
 body{
     background: #EEE;
-    margin-top: 5rem;
-    padding-left: 5rem;
-    padding-right: 5rem;
+    margin-top: 4rem;
 }
 
-
+main{
+    margin-left: 5rem;
+    margin-right: 5rem;
+}
 label{
     margin-top: 0.6rem;
 }
 
-.sidebar ul{
-    padding-bottom: 1rem;
+li{
+    margin-bottom: 0.5rem;
 }
 
-.well{
+.menu{
+    max-width: 8rem;
+    margin-left: -3.5rem;
+}
+.menu .nav-pills{
+    margin-left: -1rem;
+    margin-right: -1rem;
 }

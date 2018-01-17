@@ -1,9 +1,11 @@
 package com.rockka.carrent.controllers;
 
 import com.rockka.carrent.domain.Car;
-import com.rockka.carrent.services.OrderService;
+import com.rockka.carrent.domain.Order;
 import com.rockka.carrent.services.CarService;
+import com.rockka.carrent.services.OrderService;
 import com.rockka.carrent.services.UserService;
+import com.rockka.carrent.util.UserUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,16 +14,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminController {
+public class AdminController extends UserUtil {
     @Autowired
     private CarService carService;
     @Autowired
     private UserService userService;
     @Autowired
     private OrderService orderService;
+
     private Logger logger = LoggerFactory.getLogger(AdminController.class);
 
     @GetMapping("/car/add_car")
@@ -42,35 +46,44 @@ public class AdminController {
         return answer;
     }
 
+    @GetMapping("/order/show_all")
+    public String showOrder(Model model){
+        List<Order> orders = orderService.getAll();
+        //TODO write json with info
+        for(Order o: orders){
+            o.getCar().getName();
+        }
+        model.addAttribute("orders", orders);
+        model.addAttribute("username", getPrincipal().getUsername());
+        return "admin/show_orders";
+    }
+
+    @GetMapping("/order/{id}")
+    public String showOrder(@PathVariable("id") long id, Model model){
+        model.addAttribute("orders", orderService.getById(id));
+        model.addAttribute("username", getPrincipal().getUsername());
+        return "admin/show_order";
+    }
+
     @GetMapping("/user/show_all")
     public String showUsers(Model model){
         model.addAttribute("users", userService.getAll());
         return "admin/show_users";
     }
-
-    @GetMapping("/order/show_all")
-    public String showOrder(Model model){
-        model.addAttribute("orders", orderService.getAll());
-        return "admin/show_orders";
-    }
-    @GetMapping("/car/show_all")
-    public String showCars(Model model){
-        return "admin/show_cars";
-    }
-    @GetMapping("/order/{id}")
-    public String showOrder(@PathVariable("id") long id, Model model){
-        model.addAttribute("order", orderService.getById(id));
-        return "admin/show_order";
-    }
-
     @GetMapping("/user/{nickname}")
     public String showUser(@PathVariable("nickname") String nickname, Model model){
         model.addAttribute("user", userService.getUserByNickname(nickname));
         return "admin/show_user";
     }
 
+    @GetMapping("/car/show_all")
+    public String showCars(Model model){
+        model.addAttribute("cars", carService.getAll());
+        return "admin/show_cars";
+    }
     @GetMapping("/car/{id}")
-    public String showCar(@PathVariable("id") long id){
+    public String showCar(@PathVariable("id") long id, Model model){
+        model.addAttribute("role", "ROLE_ADMIN");
         return "public/car";
     }
 }

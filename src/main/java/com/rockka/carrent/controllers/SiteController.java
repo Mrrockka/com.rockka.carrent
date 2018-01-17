@@ -42,7 +42,7 @@ public class SiteController {
     @PostMapping("/register")
     public @ResponseBody String save(@RequestBody User user){
         String answer = "";
-
+        //TODO: write js for page
         if(userService.isExists(user)){
             answer = "User with this name already exist.";
             logger.debug("user is exists, answer is : " + answer);

@@ -6,38 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/standart.css">
-    <link rel="stylesheet" href="../../css/form.css">
 </head>
 <body>
-<div class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar" th:fragment="menu">
+<div class="col-sm-3 col-md-2 d-none d-sm-block bg-light menu" th:fragment="menu">
     <ul class="nav nav-pills flex-column">
-        <li class="nav-item">
-            <a class="nav-link active" href="/admin/order/show">Orders</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/admin/user/show">Users</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/admin/car/show">Cars</a>
-        </li>
-    </ul>
-    <ul class="nav nav-pills flex-column">
-        <li class="nav-item">
-            <a class="nav-link" href="/">One link</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/">Other link</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/">One more</a>
-        </li>
+		<li class="nav-item">
+			<a class="nav-link active" href="/admin/order/show_all">Orders</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="/admin/user/show_all">Users</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="/admin/car/show_all">Cars</a>
+		</li>
     </ul>
 </div>
 
 <!--TODO: two different menus to different roles-->
-<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="/js/popper.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../../js/popper.min.js"></script>
+<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
 </body>
 
 </html>

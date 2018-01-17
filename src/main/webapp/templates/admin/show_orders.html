@@ -1,10 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/standart.css">
+	<title>Orders</title>
 </head>
 <body>
-
+<header th:replace="fragments/header :: header"></header>
+<main>
+	<div class="row">
+		<div th:replace="fragments/menu :: menu"></div>
+		<div>
+			<h2>Orders</h2>
+			<div class="table-responsive">
+				<table class="table table-striped">
+					<thead>
+					<tr>
+						<th>Id</th>
+						<th>User</th>
+						<th>Car</th>
+						<th>Start at</th>
+						<th>Expires at</th>
+						<th>Price</th>
+						<th>Status</th>
+					</tr>
+					</thead>
+					<tbody>
+					<div th:each="order : ${orders}">
+						<tr>
+							<a th:href="@('/admin/order/'+${order.id}}">
+								<td th:text="${order.id}"></td>
+								<td th:text="${username}"></td>
+								<td th:text="${order.getCar().getName()}"></td>
+								<td th:text="${order.startsAt}"></td>
+								<td th:text="${order.expiresAt}"></td>
+								<td th:text="${order.price}"></td>
+								<td th:text="${order.status}"></td>
+							</a>
+						</tr>
+					</div>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</main>
+<footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>
