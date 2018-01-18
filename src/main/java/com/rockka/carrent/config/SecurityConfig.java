@@ -23,8 +23,6 @@ public class SecurityConfig
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-      /*  auth.inMemoryAuthentication().withUser("user").password("123").roles("USER").and()
-                .withUser("admin").password("admin").roles("ADMIN");*/
         auth.userDetailsService(userDetailsService);
     }
 

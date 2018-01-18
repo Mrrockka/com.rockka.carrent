@@ -14,7 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin")
@@ -34,7 +36,7 @@ public class AdminController extends UserUtil {
     }
 
     @PostMapping("/car/save")
-    public String save(@RequestBody Car car) {
+    public @ResponseBody String save(@RequestBody Car car) {
         String answer = "failure";
         car.setModifiedAt(new Date()).setCreatedAt(new Date());
         try {
@@ -47,15 +49,20 @@ public class AdminController extends UserUtil {
     }
 
     @GetMapping("/order/show_all")
-    public String showOrder(Model model){
+    public @ResponseBody Map<String, String> showOrder(Model model){
         List<Order> orders = orderService.getAll();
-        //TODO write json with info
-        for(Order o: orders){
-            o.getCar().getName();
+        String jso = "";
+        Map<String, String> json = new HashMap<String ,String>();
+        for(Order order: orders){
+            json.put("order_id", "" +order.getId());
+            json.put("username", order.getUser().getNickname());
+            json.put("car_name", order.getCar().getName());
+            json.put("starts_at", order.getStartsAt().toString());
+            json.put("expires_at", order.getExpiresAt().toString());
+            json.put("price", "" + order.getPrice());
+            json.put("status", order.getStatus());
         }
-        model.addAttribute("orders", orders);
-        model.addAttribute("username", getPrincipal().getUsername());
-        return "admin/show_orders";
+        return json;
     }
 
     @GetMapping("/order/{id}")

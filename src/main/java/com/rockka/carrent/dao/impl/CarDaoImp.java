@@ -35,7 +35,7 @@ public class CarDaoImp extends GenericDaoImp<Car> implements CarDao {
         Car car = null;
         try {
             car = (Car) getSession()
-                    .createQuery("from Car where id = :id and isDeleted = 'n'")
+                    .createQuery("from Car where id = :id and isDeleted = 0")
                     .setParameter("id", id)
                     .uniqueResult();
         }catch(Exception e){
@@ -48,7 +48,7 @@ public class CarDaoImp extends GenericDaoImp<Car> implements CarDao {
     public Car save(Car car) {
         try{
             if(car.getCreatedAt() == null){
-                car.setCreatedAt(new Date()).setIsDeleted('n');
+                car.setCreatedAt(new Date()).setIsDeleted(0);
             }
             getSession()
                     .save(car.setModifiedAt(new Date()));

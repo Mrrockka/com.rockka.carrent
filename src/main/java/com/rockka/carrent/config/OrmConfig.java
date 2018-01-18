@@ -15,10 +15,11 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan(basePackages = {"com.rockka.carrent"},
-        excludeFilters = {
-                @ComponentScan.Filter(type = FilterType.ANNOTATION, value = Configuration.class)
-        })
+@ComponentScan(basePackages = {
+        "com.rockka.carrent.services",
+        "com.rockka.carrent.dao",
+        "com.rockka.carrent.domain"
+})
 @PropertySource("classpath:datasource.properties")
 public class OrmConfig {
     private final Logger logger = LoggerFactory.getLogger(OrmConfig.class);
@@ -31,7 +32,7 @@ public class OrmConfig {
     @Value("${hibernate.connection.password}")
     private String password;
     @Value("${hibernate.scan_packages}")
-    private String scanPackages;
+    private String [] scanPackages;
     @Value("${hibernate.dialect}")
     private String dialect;
 
