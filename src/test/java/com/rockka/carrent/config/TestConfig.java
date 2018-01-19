@@ -10,17 +10,17 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class TestConfig {
 	@Bean
-	public UserService userServiceTest(){
-		return Mockito.mock(UserService.class);
+	public UserService userService(){
+		return Mockito.spy(UserService.class);
 	}
 
 	@Bean
-	public CarService carServiceTest(){
-		return Mockito.mock(CarService.class);
+	public CarService carService(){
+		return Mockito.spy(CarService.class);
 	}
 
 	@Bean
-	public OrderService orderServiceTest(){
-		return Mockito.mock(OrderService.class);
+	public OrderService orderService(){
+		return Mockito.spy(OrderService.class);
 	}
 }

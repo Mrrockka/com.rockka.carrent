@@ -40,7 +40,7 @@ public class LoginController extends UserUtil {
                     page = "user/account";
                     break;
                 case "ROLE_ADMIN":
-                    page = "admin/show_orders";
+                    page = "admin/account";
                     break;
                 default: break;
             }

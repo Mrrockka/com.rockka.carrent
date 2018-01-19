@@ -8,16 +8,20 @@
     <link rel="stylesheet" href="../../css/standart.css">
 </head>
 <body>
-<div class="col-sm-3 col-md-2 d-none d-sm-block bg-light menu" th:fragment="menu">
+<div class="col-sm-3 col-md-2 d-none d-sm-block bg-light menu" th:fragment="admin_menu">
+	<script type="text/javascript" src="/js/admin_account.js"></script>
+	<script type="text/javascript">
+		addInfoTable();
+	</script>
     <ul class="nav nav-pills flex-column">
 		<li class="nav-item">
-			<a class="nav-link active" href="/admin/order/show_all">Orders</a>
+			<span class="nav-link active" onclick="showOrders()">Orders</span>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="/admin/user/show_all">Users</a>
+			<span class="nav-link" onclick="showUsers()">Users</span>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="/admin/car/show_all">Cars</a>
+			<span class="nav-link" onclick="showCars()">Cars</span>
 		</li>
     </ul>
 </div>

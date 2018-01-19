@@ -19,11 +19,7 @@ public class CarController {
 
     @GetMapping("/{id}")
     public String getById(@PathVariable("id") long id, Model model) {
-        try{
-            model.addAttribute("car", carService.getById(id));
-        }catch(Exception ex){
-            logger.error("" +ex);
-        }
-        return "public/car";
+        model.addAttribute("car", carService.getById(id));
+        return "public/show_car";
     }
 }
