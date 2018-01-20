@@ -3,16 +3,19 @@ package com.rockka.carrent.services.impl;
 import com.rockka.carrent.dao.UserDao;
 import com.rockka.carrent.domain.User;
 import com.rockka.carrent.services.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service("userService")
 public class UserServiceImp implements UserService{
     @Autowired
     private UserDao userDao;
-
+    private Logger logger = LoggerFactory.getLogger(UserServiceImp.class);
     @Override
     public User getUserByNickname(String nickname) {
         return userDao.getUserByNickname(nickname);
@@ -25,17 +28,40 @@ public class UserServiceImp implements UserService{
 
     @Override
     public User save(User user) {
-        return userDao.save(user);
+        if(user != null ) {
+            if(!isExists(user)) {
+                userDao.save(user.setModifiedAt(new Date()));
+            } else {
+                logger.error("UserServiceImp: USER IS EXISTS!");
+            }
+        } else{
+            logger.error("UserServiceImp: USER IS NULL");
+        }
+        return user;
     }
 
     @Override
-    public User update(User o) {
-        return userDao.update(o);
+    public User update(User user) {
+        if (user != null) {
+            if(isExists(user)) {
+                userDao.update(user.setModifiedAt(new Date()));
+            } else {
+                logger.error("UserServiceImp: USER IS NOT EXISTS!");
+            }
+        } else{
+            logger.error("UserServiceImp: USER IS NULL");
+        }
+        return user;
     }
 
     @Override
     public User delete(User user) {
-        return userDao.delete(user);
+        if(user != null) {
+            update(user.setDeleted());
+        } else{
+            logger.error("UserServiceImp: USER IS NULL");
+        }
+        return user;
     }
 
     @Override

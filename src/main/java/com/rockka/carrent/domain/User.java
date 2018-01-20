@@ -15,7 +15,7 @@ public class User implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @Column(name = "roles", nullable = false, length = 10)
-    private String roles;
+    private String roles = "ROLE_USER";
     @Column(name = "nickname", nullable = false, length = 30)
     private String nickname;
     @Column(name = "password", nullable = false, length = 100)
@@ -30,19 +30,20 @@ public class User implements Serializable{
     private String address;
     @Column(name = "about_me")
     private String aboutMe;
+//    TODO delete unneded fields
     @Column(name = "image_name")
     private String image_name;
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date birthday;
     @Column(name = "is_deleted", nullable = false, length = 1)
-    private int isDeleted;
+    private int isDeleted = 0;
     @Column(name = "created_at", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date createdAt;
+    private Date createdAt = new Date();
     @Column(name = "modified_at", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date modifiedAt;
+    private Date modifiedAt = new Date();
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> carOrders;

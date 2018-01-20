@@ -33,49 +33,4 @@ public class OrderDaoImp extends GenericDaoImp<Order> implements OrderDao {
         }
         return order;
     }
-
-    @Override
-    public List<Order> getAll() {
-        List<Order> orders = null;
-        try{
-            orders = getSession()
-                    .createQuery("from Order")
-                    .list();
-        }catch(Exception ex){
-            logger.error("OrderDaoImp: getAll " + ex);
-        }
-        return orders;
-    }
-
-    @Override
-    public Order save(Order order) {
-        if(order.getCreatedAt() == null){
-            order.setCreatedAt(new Date()).setStatus("uncheked");
-        }
-        try{
-            getSession()
-                    .saveOrUpdate(order.setModifiedAt(new Date()));
-        }catch(Exception ex){
-            logger.error("OrderDaoImp: save " + ex);
-        }
-        return order;
-    }
-
-    @Override
-    public Order delete(Order order) {
-        order.setDeleted();
-        update(order);
-        return order;
-    }
-
-    @Override
-    public Order update(Order order){
-        try{
-            order.setModifiedAt(new Date());
-            update(order);
-        }catch(Exception ex){
-            logger.error("OrderDaoImp: update " +ex);
-        }
-        return order;
-    }
 }

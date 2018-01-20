@@ -31,38 +31,4 @@ public class UserDaoImp extends GenericDaoImp<User> implements UserDao {
         }
         return user;
     }
-
-    @Override
-    public List<User> getAll() {
-        List<User> users = new ArrayList<User>();
-        try {
-            users = getSession()
-                    .createQuery("from User where isDeleted = 0")
-                    .list();
-        } catch (Exception ex) {
-            logger.error("User getAll " + ex);
-        }
-        return users;
-    }
-
-    @Override
-    public User save(User user) {
-        if(user.getCreatedAt() == null){
-            user.setCreatedAt(new Date()).setIsDeleted(0);
-        }
-        try {
-            getSession()
-                    .saveOrUpdate(user.setModifiedAt(new Date()));
-        } catch (Exception ex) {
-            user.setCreatedAt(null);
-            logger.error("User save " + ex);
-        }
-        return user;
-    }
-
-    @Override
-    public User delete(User user) {
-        save(user.setDeleted());
-        return user;
-    }
 }

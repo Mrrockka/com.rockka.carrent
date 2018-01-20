@@ -9,10 +9,13 @@ import com.rockka.carrent.domain.User;
 import com.rockka.carrent.services.CarService;
 import com.rockka.carrent.services.OrderService;
 import com.rockka.carrent.services.UserService;
+import com.rockka.carrent.test_categories.BasicTest;
+import com.rockka.carrent.test_categories.DetailTest;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +39,7 @@ import java.util.Date;
 				, MvcConfig.class
 		})
 @WebAppConfiguration
-public class AdminControllerTest {
+public class AdminAccountControllerTest {
 
 	@Autowired
 	private CarService carService;
@@ -57,6 +60,7 @@ public class AdminControllerTest {
 	}
 
 	@Test
+	@Category(BasicTest.class)
 	public void show_all_orders() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.get("/admin/order/show_all"))
 				.andExpect(MockMvcResultMatchers.status().isOk())
@@ -67,6 +71,7 @@ public class AdminControllerTest {
 	}
 
 	@Test
+	@Category(BasicTest.class)
 	public void show_all_users() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.get("/admin/user/show_all"))
 				.andExpect(MockMvcResultMatchers.status().isOk())
@@ -77,6 +82,7 @@ public class AdminControllerTest {
 	}
 
 	@Test
+	@Category(BasicTest.class)
 	public void show_all_cars() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.get("/admin/car/show_all"))
 				.andExpect(MockMvcResultMatchers.status().isOk())
@@ -87,6 +93,7 @@ public class AdminControllerTest {
 	}
 
 	@Test
+	@Category(DetailTest.class)
 	public void show_car() throws Exception {
 		Car car = new Car()
 				.setName("Batmobile v1000")
@@ -107,6 +114,7 @@ public class AdminControllerTest {
 	}
 
 	@Test
+	@Category(DetailTest.class)
 	public void show_user() throws Exception {
 		User user = new User()
 				.setNickname("Abdula")
@@ -131,6 +139,7 @@ public class AdminControllerTest {
 	}
 
 	@Test
+	@Category(DetailTest.class)
 	@Ignore
 	public void show_order() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.get("/admin/order/1"))

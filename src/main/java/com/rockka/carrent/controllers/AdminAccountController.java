@@ -14,13 +14,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminController extends UserUtil {
+public class AdminAccountController extends UserUtil {
 	@Autowired
 	private CarService carService;
 	@Autowired
@@ -28,7 +26,7 @@ public class AdminController extends UserUtil {
 	@Autowired
 	private OrderService orderService;
 
-	private Logger logger = LoggerFactory.getLogger(AdminController.class);
+	private Logger logger = LoggerFactory.getLogger(AdminAccountController.class);
 
 	@GetMapping("/car/add_car")
 	public String save() {

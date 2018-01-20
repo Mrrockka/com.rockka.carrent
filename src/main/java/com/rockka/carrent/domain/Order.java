@@ -27,10 +27,10 @@ public class Order implements Serializable{
     private double price;
     @Column(name = "created_at", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date createdAt;
+    private Date createdAt = new Date();
     @Column(name = "modified_at", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date modifiedAt;
+    private Date modifiedAt = new Date();
     @Column(name = "starts_at", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date startsAt;
@@ -38,7 +38,7 @@ public class Order implements Serializable{
     @Temporal(TemporalType.DATE)
     private Date expiresAt;
     @Column(name ="status", length = 10, nullable = false)
-    private String status;
+    private String status = "unchecked";
 
     public long getId() {
         return id;

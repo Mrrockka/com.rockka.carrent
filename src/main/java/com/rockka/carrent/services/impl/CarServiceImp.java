@@ -6,31 +6,46 @@ import com.rockka.carrent.services.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service("carService")
 public class CarServiceImp implements CarService {
-    @Autowired
-    private CarDao carDao;
-    @Override
-    public List<Car> getAll() {
-        return carDao.getAll();
-    }
+	@Autowired
+	private CarDao carDao;
 
-    @Override
-    public Car getById(long id) {
-        return carDao.getById(id);
-    }
+	@Override
+	public List<Car> getAll() {
+		return carDao.getAll();
+	}
 
-    @Override
-    public Car save(Car car) {
-        return carDao.save(car);
-    }
+	@Override
+	public Car getById(long id) {
+		return carDao.getById(id);
+	}
 
-    @Override
-    public Car delete(Car car) {
-        return carDao.delete(car);
-    }
-    @Override
-    public Car update(Car car) {return carDao.update(car);}
+	@Override
+	public Car save(Car car) {
+		if (car != null) {
+			carDao.save(car);
+		}
+		return car;
+	}
+
+	@Override
+	public Car delete(Car car) {
+		if (car != null) {
+			update(car.setDeleted());
+		}
+		return car;
+	}
+
+	@Override
+	public Car update(Car car) {
+		if (car != null) {
+			carDao.update(car.setModifiedAt(new Date()));
+		}
+        return car;
+	}
+
 }

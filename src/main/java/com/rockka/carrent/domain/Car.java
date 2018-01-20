@@ -30,12 +30,12 @@ public class Car implements Serializable {
     private Date releaseDate;
     @Column(name = "created_at", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date createdAt;
+    private Date createdAt = new Date();
     @Column(name = "modified_at", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date modifiedAt;
+    private Date modifiedAt = new Date();
     @Column(name = "is_deleted", nullable = false)
-    private int isDeleted;
+    private int isDeleted = 0;
     @JsonIgnore
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> carOrders;

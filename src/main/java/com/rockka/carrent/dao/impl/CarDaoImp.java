@@ -17,19 +17,8 @@ public class CarDaoImp extends GenericDaoImp<Car> implements CarDao {
     private final Logger logger = LoggerFactory.getLogger(CarDaoImp.class);
 
     public CarDaoImp(){super(Car.class);}
-    @Override
-    public List<Car> getAll() {
-        List<Car> cars = new ArrayList<>();
-        try {
-            cars = getSession()
-                    .createQuery("from Car")
-                    .list();
-        }catch(Exception e){
-            logger.error("Exception " + e);
-        }
-        return cars;
-    }
 
+//    TODO rewrite with criteria
     @Override
     public Car getById(final long id) {
         Car car = null;
@@ -44,34 +33,4 @@ public class CarDaoImp extends GenericDaoImp<Car> implements CarDao {
         return car;
     }
 
-    @Override
-    public Car save(Car car) {
-        try{
-            if(car.getCreatedAt() == null){
-                car.setCreatedAt(new Date()).setIsDeleted(0);
-            }
-            getSession()
-                    .save(car.setModifiedAt(new Date()));
-        }catch(Exception ex){
-            logger.error("" + ex);
-        }
-        return car;
-    }
-
-    @Override
-    public Car delete(Car car) {
-        update(car.setDeleted());
-        return car;
-    }
-
-    @Override
-    public Car update(Car car){
-        try {
-            car.setModifiedAt(new Date());
-            getSession().update(car);
-        }catch(Exception ex){
-            logger.error("" + ex);
-        }
-        return car;
-    }
 }

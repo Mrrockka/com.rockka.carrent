@@ -20,6 +20,7 @@ function save(){
 	xhr.send(json);
 }
 
+
 function setPrice(){
     if(document.getElementById("startsAt").value != null && document.getElementById("expiresAt").value != null){
         document.getElementById("price").value = 200;

@@ -44,7 +44,6 @@ public class OrderController {
     public String save(@RequestBody Order order, @PathVariable("id") long id){
         order.setCar(carService.getById(id));
         order.setUser(userService.getUserByNickname(getPrincipal().getUsername()));
-        order.setCreatedAt(new Date()).setModifiedAt(new Date());
         order.setStatus("unchecked");
         orderService.save(order);
         return "public/success";

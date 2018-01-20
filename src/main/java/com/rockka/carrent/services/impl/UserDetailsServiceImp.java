@@ -35,11 +35,4 @@ public class UserDetailsServiceImp implements UserDetailsService {
 
     }
 
-    public UserService getUserService() {
-        return userService;
-    }
-
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
 }

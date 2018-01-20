@@ -6,6 +6,7 @@ import com.rockka.carrent.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service("orderService")
@@ -24,14 +25,25 @@ public class OrderServiceImp implements OrderService{
 
     @Override
     public Order save(Order order) {
-        return orderDao.save(order);
+        if(order != null){
+            orderDao.save(order);
+        }
+        return order;
     }
 
     @Override
     public Order delete(Order order) {
-        return orderDao.delete(order);
+        if(order != null) {
+            update(order.setDeleted());
+        }
+        return order;
     }
 
     @Override
-    public Order update(Order order){return orderDao.update(order);}
+    public Order update(Order order){
+        if(order != null) {
+            orderDao.update(order.setModifiedAt(new Date()));
+        }
+        return order;
+    }
 }

@@ -4,19 +4,23 @@ import com.rockka.carrent.dao.GenericDao;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Transactional
 public class GenericDaoImp<T> implements GenericDao<T> {
     @Autowired
     private SessionFactory sessionFactory;
+    private Class<T> type;
+    private final Logger logger = LoggerFactory.getLogger(GenericDaoImp.class);
 
     public GenericDaoImp (Class<T> type) { this.type = type;}
 
     protected Session getSession() {return sessionFactory.getCurrentSession();}
-
-    private Class<T> type;
 
     @Override
     public T save(T o) {
@@ -29,7 +33,6 @@ public class GenericDaoImp<T> implements GenericDao<T> {
         getSession().update(o);
         return o;
     }
-
 
     @Override
     public T delete(T o) {
