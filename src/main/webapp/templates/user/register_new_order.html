@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/standart.css">
     <link rel="stylesheet" href="/css/form.css">
-    <script type="text/javascript" src="/js/order.js"></script>
+    <script type="text/javascript" src="/js/register_new_order.js"></script>
 </head>
 <body>
     <header th:replace="fragments/header :: header"></header>
@@ -103,7 +103,7 @@
                     <input type="number" id="price" value="0" class="text-left" disabled>
                 </div>
             </div>
-            <input class="btn btn-lg btn-primary btn-block" type="button" value="Save order" onclick="save()">
+            <input class="btn btn-lg btn-primary btn-block" type="button" value="Save order" onclick="registerNewOrder()">
         </form>
     </div>
     <footer th:replace="fragments/footer :: footer"></footer>

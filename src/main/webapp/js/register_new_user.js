@@ -1,6 +1,6 @@
 'use strict';
 
-function save(){
+function registerNewUser(){
     var xhr = new XMLHttpRequest();
 	var i = 0, json = "", doc = document.forms["user"], text = "no";
     json = "{";
@@ -20,13 +20,13 @@ function save(){
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 && this.status==200){
             text = this.responseText;
-            if(text == "welcome"){
-                window.open("/account")
-            }
             alert(text);
+            if(text == "welcome"){
+                window.location.href = '/login';
+            }
         }
     }
-	xhr.open("POST", '/register', true);
+	xhr.open("POST", '/register_new_user', true);
 	xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
 	xhr.send(json);
 }

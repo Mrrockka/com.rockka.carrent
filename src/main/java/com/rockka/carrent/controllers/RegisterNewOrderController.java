@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/order")
-public class UserOrderController extends UserUtil{
+public class RegisterNewOrderController extends UserUtil{
     @Autowired
     private OrderService orderService;
     @Autowired
@@ -23,7 +23,7 @@ public class UserOrderController extends UserUtil{
     @Autowired
     private CarService carService;
 
-    private Logger logger = LoggerFactory.getLogger(UserOrderController.class);
+    private Logger logger = LoggerFactory.getLogger(RegisterNewOrderController.class);
 
     @GetMapping("/car/{id}")
     public String getOrderForCar(@PathVariable("id") long id, Model model){
@@ -34,7 +34,7 @@ public class UserOrderController extends UserUtil{
         model.addAttribute("user_address", user.getAddress());
         model.addAttribute("user_birthday", user.getBirthday());
         model.addAttribute("car", carService.getById(id));
-        return "user/order";
+        return "user/register_new_order";
     }
 
     @PostMapping("/save/{id}")

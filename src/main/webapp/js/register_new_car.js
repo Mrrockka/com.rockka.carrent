@@ -1,6 +1,6 @@
 'use strict'
 
-function saveCar(){
+function registerNewCar(){
     var xhr = new XMLHttpRequest();
 	var i = 0, json = "", doc = document.forms["car"], text = "no";
     json = "{";
@@ -11,12 +11,15 @@ function saveCar(){
         	json = json.slice(0, -1);
         }
     }
-    json += "\"}";
+    json += "}";
 
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 && this.status==200){
             text = this.responseText;
             alert(text);
+            if(text == "success"){
+                window.location.href = '#';
+            }
         }
     }
 	xhr.open("POST", '/admin/car/save', true);

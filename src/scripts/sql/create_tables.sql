@@ -15,8 +15,8 @@ CREATE TABLE car (
 );
 
 CREATE TABLE user (
-    roles varchar(10) NOT NULL,
     username varchar(30) NOT NULL,
+    roles varchar(10) NOT NULL,
     password varchar(100) NOT NULL,
     first_name varchar(30) NOT NULL,
     second_name varchar(30) NOT NULL,

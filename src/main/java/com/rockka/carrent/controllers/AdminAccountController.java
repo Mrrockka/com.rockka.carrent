@@ -101,6 +101,24 @@ public class AdminAccountController extends UserUtil {
 		return "admin/car";
 	}
 
+    @GetMapping("/car/register_new_car")
+    public String registerNewCar() {
+        return "admin/register_new_car";
+    }
+
+    @RequestMapping("/car/save")
+    @ResponseBody
+    public String saveCar(@RequestBody Car car) {
+        String answer = "failure";
+        try {
+            carService.save(car);
+            answer = "Success";
+        } catch (Exception ex) {
+            logger.error("Save exception " + ex);
+        }
+        return answer;
+    }
+
 	@GetMapping("/account")
 	public String account(){
 		return "admin/account";

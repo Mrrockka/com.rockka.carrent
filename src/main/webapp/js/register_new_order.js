@@ -1,6 +1,6 @@
 'use strict';
 
-function save(){
+function registerNewOrder(){
     var xhr = new XMLHttpRequest();
     var url = '/order/save/' + document.getElementById("carid").innerHTML;
 	var i = 0, json = "", doc = document.forms["order"];
@@ -15,6 +15,14 @@ function save(){
     json = json.slice(0, -1);
     json += "}";
 
+    xhr.onreadystatechange= function(){
+        if(this.readyState==4 && this.status==200){
+            text =this.responseText;
+            if(text == "success"){
+                newCar();
+            }
+        }
+    }
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
 	xhr.send(json);

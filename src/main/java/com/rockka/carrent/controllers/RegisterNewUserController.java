@@ -5,17 +5,19 @@ import com.rockka.carrent.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-public class RegistrationController {
+@Controller
+public class RegisterNewUserController {
 
 	@Autowired
 	private UserService userService;
-	private Logger logger = LoggerFactory.getLogger(RegistrationController.class);
+	private Logger logger = LoggerFactory.getLogger(RegisterNewUserController.class);
 
-	@PostMapping("/register")
+	@RequestMapping("/register_new_user")
 	@ResponseBody
 	public String registerNewUser(@RequestBody User user){
 		String answer = "";

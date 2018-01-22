@@ -15,7 +15,7 @@ public class Order implements Serializable{
     private long id;
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "username", nullable = false)
     private User user;
     @JsonIgnore
     @ManyToOne

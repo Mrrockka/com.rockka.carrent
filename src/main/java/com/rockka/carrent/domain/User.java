@@ -12,10 +12,10 @@ import java.util.Objects;
 @Table(name = "user")
 public class User implements Serializable{
     @Id
-    @Column(name = "roles", nullable = false, length = 10)
-    private String roles = "ROLE_USER";
     @Column(name = "username", nullable = false, length = 30)
     private String username;
+    @Column(name = "roles", nullable = false, length = 10)
+    private String roles = "ROLE_USER";
     @Column(name = "password", nullable = false, length = 100)
     private String password;
     @Column(name = "first_name", nullable = false, length = 30)

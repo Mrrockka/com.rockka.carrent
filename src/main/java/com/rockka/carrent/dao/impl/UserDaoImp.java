@@ -7,9 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 
 @Transactional
@@ -19,15 +16,15 @@ public class UserDaoImp extends GenericDaoImp<User> implements UserDao {
     public UserDaoImp(){super(User.class);}
 
     @Override
-    public User getUserByUsername(String nickname) {
+    public User getUserByUsername(String username) {
         User user = null;
         try {
             user = (User) getSession()
-                    .createQuery("from User where nickname = :nickname")
-                    .setParameter("nickname", nickname)
+                    .createQuery("from User where username = :username")
+                    .setParameter("username", username)
                     .uniqueResult();
         } catch (Exception ex) {
-            logger.error("User get by nickname " + ex);
+            logger.error("User get by username " + ex);
         }
         return user;
     }

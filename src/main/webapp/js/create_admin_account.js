@@ -1,10 +1,10 @@
 'use strict'
 
-function addInfoTable(){
+function createAdminAccount(){
     showOrders();
 }
 
-function addCar(){
+function newCar(){
     var info = ""
         + "<div class=\"container\">"
         + "<form class=\"form-std\" name=\"car\">"
@@ -15,7 +15,7 @@ function addCar(){
         + "<input type=\"number\" min=\"0\" id=\"price\" class=\"form-control\" placeholder=\"0.00\" required>"
         + "<label for=\"releaseDate\" class=\"sr-only\">Year</label>"
         + "<input type=\"date\" id=\"releaseDate\" class=\"form-control\" required>"
-        + "<input class=\"btn btn-lg btn-primary btn-block\" value=\"save\" type=\"button\" onclick=\"saveCar()\">"
+        + "<input class=\"btn btn-lg btn-primary btn-block\" value=\"save\" type=\"button\" onclick=\"registerNewCar()\">"
         + "</form></div>";
     document.getElementById("info_div").innerHTML = info;
 }

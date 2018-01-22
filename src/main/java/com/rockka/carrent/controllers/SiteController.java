@@ -1,8 +1,6 @@
 package com.rockka.carrent.controllers;
 
-import com.rockka.carrent.domain.User;
 import com.rockka.carrent.services.CarService;
-import com.rockka.carrent.services.UserService;
 import com.rockka.carrent.util.UserUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,8 +10,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -58,6 +57,11 @@ public class SiteController extends UserUtil{
     @RequestMapping("/access_denied")
     public String accessDenied(){
         return "public/access_denied";
+    }
+
+    @RequestMapping("/success")
+    public String success(){
+        return "public/success";
     }
 
 }

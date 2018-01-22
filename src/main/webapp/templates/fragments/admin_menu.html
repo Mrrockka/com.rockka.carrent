@@ -9,10 +9,6 @@
 </head>
 <body>
 <div class="col-sm-12 col-md-12 d-none d-sm-block bg-light menu" th:fragment="admin_menu">
-	<script type="text/javascript" src="/js/admin_account.js"></script>
-	<script type="text/javascript">
-		addInfoTable();
-	</script>
     <ul class="nav nav-tabs">
 		<li class="nav-item">
 			<a onclick="showOrders(); return false;" data-toggle="tab" role="tab" aria-selected="true" class="nav-link active" href="#">
@@ -25,7 +21,7 @@
 			<a id="dropdown-cars" data-toggle="dropdown" role="tab" aria-expanded="false" aria-selected="false" class="nav-link dropdown-toggle" href="#">Cars</a>
 			<div class="dropdown-menu" aria-labelledby="dropdown-cars">
 				<a onclick="showCars(); return false;" class="dropdown-item" data-toggle="tab" role="tab" aria-selected="false" href="#" >Show cars</a>
-				<a onclick="addCar(); return false;" class="dropdown-item" data-toggle="tab" role="tab" aria-selected="false" href="#" >Add car</a>
+				<a onclick="newCar(); return false;" class="dropdown-item" data-toggle="tab" role="tab" aria-selected="false" href="#" >Add car</a>
 			</div>
 		</li>
     </ul>

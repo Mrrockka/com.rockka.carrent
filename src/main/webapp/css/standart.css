@@ -8,10 +8,14 @@ header.navbar{
     padding-right: 10%;
 }
 
-footer {
+.footer .container {
     color: gray;
     text-align:center;
     background: #EEE;
+    position: absolute;
+    bottom: 2rem;
+    max-width: 100%;
+    width: 80%;
 }
 
 body{
