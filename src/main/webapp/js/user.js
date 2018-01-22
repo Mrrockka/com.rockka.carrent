@@ -21,7 +21,7 @@ function save(){
         if(this.readyState == 4 && this.status==200){
             text = this.responseText;
             if(text == "welcome"){
-                window.open("/welcome")
+                window.open("/account")
             }
             alert(text);
         }

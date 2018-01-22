@@ -19,11 +19,11 @@ public class UserDaoImp extends GenericDaoImp<User> implements UserDao {
     public UserDaoImp(){super(User.class);}
 
     @Override
-    public User getUserByNickname(String nickname) {
+    public User getUserByUsername(String nickname) {
         User user = null;
         try {
             user = (User) getSession()
-                    .createQuery("from User where nickname = :nickname and isDeleted = 0")
+                    .createQuery("from User where nickname = :nickname")
                     .setParameter("nickname", nickname)
                     .uniqueResult();
         } catch (Exception ex) {

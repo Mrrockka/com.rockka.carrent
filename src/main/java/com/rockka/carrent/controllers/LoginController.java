@@ -20,8 +20,6 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class LoginController extends UserUtil {
-    @Autowired
-    private UserService userService;
     private Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @GetMapping("/login")
@@ -29,7 +27,7 @@ public class LoginController extends UserUtil {
         return "public/login";
     }
 
-    @GetMapping("/welcome")
+    @GetMapping("/account")
     public String Welcome(Model model){
         UserDetails user = getPrincipal();
         String page = "public/access_denied";
@@ -48,35 +46,9 @@ public class LoginController extends UserUtil {
         return page;
     }
 
-    @RequestMapping("/logout")
-    public String logout(HttpServletRequest request, HttpServletResponse response){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-        if(auth != null){
-            new SecurityContextLogoutHandler().logout(request, response, auth);
-        }
-        return "public/login";
+    @GetMapping("/registration")
+    public String registratin(){
+        return "public/registration";
     }
-
-    @RequestMapping("/access_denied")
-    public String accessDenied(){
-        return "public/access_denied";
-    }
-
-    @GetMapping("/username")
-    public @ResponseBody String username(){
-        String text = "unknown";
-        UserDetails user = getPrincipal();
-
-        if(user != null) {
-            text = "{";
-            String role = user.getAuthorities().toArray()[0].toString();
-            text += "\"role\" : \"" + role+ "\", \"nickname\": \"" + user.getUsername() + "\"";
-            text += "}";
-        }
-        logger.debug("/username output: " + text);
-        return text;
-    }
-
 
 }

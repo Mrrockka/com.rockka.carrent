@@ -8,7 +8,6 @@ import com.rockka.carrent.test_categories.DetailTest;
 import com.rockka.carrent.test_categories.TransactionalTest;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.slf4j.Logger;
@@ -39,7 +38,7 @@ public class UserServiceTest extends Assert {
         assertNotNull(
                 user = userService.delete(
                         userService.save(
-                                new User().setNickname("Superman").setPassword("superman").setRoles("ROLE_USER")
+                                new User().setUsername("Superman").setPassword("superman").setRoles("ROLE_USER")
                                 .setFirstName("Santa").setSecondName("Bremore").setAddress("LittleTinyOcean")
                                 .setBirthday(new Date(91,1,1))
                         )
@@ -52,18 +51,18 @@ public class UserServiceTest extends Assert {
     @Test
     @Category(BasicTest.class)
     public void testConection() {
-        assertEquals(1, userService.getUserByNickname("somebody").getId());
+        assertEquals("somebody", userService.getUserByUsername("somebody"));
     }
 
     @Test
     @Category(DetailTest.class)
     public void testGetDetails() {
         for (User user : userService.getAll()) {
-            logger.warn(" nickname " + user.getNickname()
+            logger.warn(" nickname " + user.getUsername()
                     + " user role " + user.getRoles()
                     + " created at " + user.getCreatedAt()
                     + " modified at " + user.getModifiedAt()
-                    + (user.getIsDeleted() == 1 ? " deleted" : " not deleted")
+                    + (user.getStatus() == 1 ? " deleted" : " not deleted")
             );
         }
     }

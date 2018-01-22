@@ -5,20 +5,17 @@ import com.rockka.carrent.domain.User;
 import com.rockka.carrent.services.CarService;
 import com.rockka.carrent.services.OrderService;
 import com.rockka.carrent.services.UserService;
+import com.rockka.carrent.util.UserUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-
 @Controller
 @RequestMapping("/order")
-public class OrderController {
+public class UserOrderController extends UserUtil{
     @Autowired
     private OrderService orderService;
     @Autowired
@@ -26,11 +23,11 @@ public class OrderController {
     @Autowired
     private CarService carService;
 
-    private Logger logger = LoggerFactory.getLogger(OrderController.class);
+    private Logger logger = LoggerFactory.getLogger(UserOrderController.class);
 
     @GetMapping("/car/{id}")
     public String getOrderForCar(@PathVariable("id") long id, Model model){
-        User user =userService.getUserByNickname((getPrincipal()).getUsername());
+        User user =userService.getUserByUsername((getPrincipal()).getUsername());
         String username = user.getFirstName() + " " + user.getSecondName();
         username += user.getLastName() != null ? " " +user.getLastName() : "";
         model.addAttribute("nickname", username);
@@ -43,14 +40,10 @@ public class OrderController {
     @PostMapping("/save/{id}")
     public String save(@RequestBody Order order, @PathVariable("id") long id){
         order.setCar(carService.getById(id));
-        order.setUser(userService.getUserByNickname(getPrincipal().getUsername()));
-        order.setStatus("unchecked");
+        order.setUser(userService.getUserByUsername(getPrincipal().getUsername()));
+        order.setStatus(0);
         orderService.save(order);
         return "public/success";
     }
 
-    private UserDetails getPrincipal(){
-        return SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails ?
-                (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal() : null;
-    }
 }

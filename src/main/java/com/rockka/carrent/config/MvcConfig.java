@@ -1,6 +1,7 @@
 package com.rockka.carrent.config;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -24,6 +25,12 @@ import org.thymeleaf.templatemode.TemplateMode;
 public class MvcConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
     private final Logger logger = LoggerFactory.getLogger(MvcConfig.class);
     private ApplicationContext context;
+
+    @Bean
+    public ObjectMapper mapper(){
+        return new ObjectMapper();
+    }
+
     @Bean
     public SpringResourceTemplateResolver templateResolver(){
         logger.debug("MVCCONFIG: In templateResolver");
@@ -35,6 +42,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         templateResolver.setCacheable(true);
         return templateResolver;
     }
+
     @Bean
     public SpringTemplateEngine templateEngine(){
         logger.debug("MVCCONFIG: In templateEngine");

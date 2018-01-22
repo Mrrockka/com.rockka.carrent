@@ -17,8 +17,8 @@ public class UserServiceImp implements UserService{
     private UserDao userDao;
     private Logger logger = LoggerFactory.getLogger(UserServiceImp.class);
     @Override
-    public User getUserByNickname(String nickname) {
-        return userDao.getUserByNickname(nickname);
+    public User getUserByUsername(String nickname) {
+        return userDao.getUserByUsername(nickname);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class UserServiceImp implements UserService{
 
     @Override
     public boolean isExists(User user) {
-        if(userDao.getUserByNickname(user.getNickname()) != null){
+        if(userDao.getUserByUsername(user.getUsername()) != null){
             return true;
         }
         return false;

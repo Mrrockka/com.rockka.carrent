@@ -22,13 +22,13 @@ public class UserDetailsServiceImp implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String nickname) throws UsernameNotFoundException {
-        User user = userService.getUserByNickname(nickname);
+        User user = userService.getUserByUsername(nickname);
 
         if(user != null){
             List<GrantedAuthority> roles = Stream
                     .of(StringUtils.commaDelimitedListToStringArray(user.getRoles()))
                     .map(r -> new SimpleGrantedAuthority(r)).collect(Collectors.toList());
-            return new org.springframework.security.core.userdetails.User(user.getNickname(), user.getPassword(), roles);
+            return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), roles);
         } else {
             return null;
         }

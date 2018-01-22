@@ -1,6 +1,6 @@
 'use strict'
 
-function save(){
+function saveCar(){
     var xhr = new XMLHttpRequest();
 	var i = 0, json = "", doc = document.forms["car"], text = "no";
     json = "{";

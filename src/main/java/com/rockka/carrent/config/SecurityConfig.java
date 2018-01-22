@@ -31,7 +31,7 @@ public class SecurityConfig
         http.authorizeRequests().antMatchers("/*","/car/*").permitAll()
                 .antMatchers("/admin/**","/car/**").hasRole("ADMIN")
                 .antMatchers("/user/**","/order/**").hasAnyRole("ADMIN","USER")
-                .and().formLogin().loginPage("/login").defaultSuccessUrl("/welcome").failureUrl("/login")
+                .and().formLogin().loginPage("/login").defaultSuccessUrl("/account").failureUrl("/login")
                 .and().logout().logoutSuccessUrl("/login")
                 .and().csrf().disable()
         ;

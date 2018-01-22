@@ -26,6 +26,7 @@
       <junit.jupiter.version>5.0.3</junit.jupiter.version>
       <junit.platform.version>1.0.3</junit.platform.version>
       <junit.vintage.version>4.12.3</junit.vintage.version>
+      <joda-time-version>2.9.9</joda-time-version>
   </properties>
 
     <dependencies>
@@ -221,7 +222,12 @@
             <version>${org.hamcrest-version}</version>
             <scope>test</scope>
         </dependency>
-
+        <!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>${joda-time-version}</version>
+        </dependency>
     </dependencies>
 
   <build>

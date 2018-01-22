@@ -38,7 +38,7 @@ public class Order implements Serializable{
     @Temporal(TemporalType.DATE)
     private Date expiresAt;
     @Column(name ="status", length = 10, nullable = false)
-    private String status = "unchecked";
+    private int status = 0;
 
     public long getId() {
         return id;
@@ -121,17 +121,17 @@ public class Order implements Serializable{
         return this;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public Order setStatus(String status) {
+    public Order setStatus(int status) {
         this.status = status;
         return this;
     }
 
     public Order setDeleted(){
-        status = "deleted";
+        status = -1;
         return this;
     }
     @Override

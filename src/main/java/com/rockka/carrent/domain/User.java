@@ -12,12 +12,10 @@ import java.util.Objects;
 @Table(name = "user")
 public class User implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
     @Column(name = "roles", nullable = false, length = 10)
     private String roles = "ROLE_USER";
-    @Column(name = "nickname", nullable = false, length = 30)
-    private String nickname;
+    @Column(name = "username", nullable = false, length = 30)
+    private String username;
     @Column(name = "password", nullable = false, length = 100)
     private String password;
     @Column(name = "first_name", nullable = false, length = 30)
@@ -30,14 +28,11 @@ public class User implements Serializable{
     private String address;
     @Column(name = "about_me")
     private String aboutMe;
-//    TODO delete unneded fields
-    @Column(name = "image_name")
-    private String image_name;
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date birthday;
-    @Column(name = "is_deleted", nullable = false, length = 1)
-    private int isDeleted = 0;
+    @Column(name = "status", nullable = false, length = 1)
+    private int status = 0;
     @Column(name = "created_at", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date createdAt = new Date();
@@ -48,15 +43,6 @@ public class User implements Serializable{
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> carOrders;
 
-    public long getId() {
-        return id;
-    }
-
-    public User setId(long id) {
-        this.id = id;
-        return this;
-    }
-
     public String getRoles() {
         return roles;
     }
@@ -66,12 +52,12 @@ public class User implements Serializable{
         return this;
     }
 
-    public String getNickname() {
-        return nickname;
+    public String getUsername() {
+        return username;
     }
 
-    public User setNickname(String nickname) {
-        this.nickname = nickname;
+    public User setUsername(String username) {
+        this.username = username;
         return this;
     }
 
@@ -84,16 +70,16 @@ public class User implements Serializable{
         return this;
     }
 
-    public int getIsDeleted() {
-        return isDeleted;
+    public int getStatus() {
+        return status;
     }
 
-    public User setIsDeleted(int isDeleted) {
-        this.isDeleted = isDeleted;
+    public User setStatus(int status) {
+        this.status = status;
         return this;
     }
     public User setDeleted() {
-        this.isDeleted = 1;
+        this.status = 1;
         return this;
     }
 
@@ -160,15 +146,6 @@ public class User implements Serializable{
         return this;
     }
 
-    public String getImage_name() {
-        return image_name;
-    }
-
-    public User setImage_name(String image_name) {
-        this.image_name = image_name;
-        return this;
-    }
-
     public Date getBirthday() {
         return birthday;
     }
@@ -191,10 +168,9 @@ public class User implements Serializable{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id &&
-                isDeleted == user.isDeleted &&
+        return status == user.status &&
                 Objects.equals(roles, user.roles) &&
-                Objects.equals(nickname, user.nickname) &&
+                Objects.equals(username, user.username) &&
                 Objects.equals(password, user.password) &&
                 Objects.equals(firstName, user.firstName) &&
                 Objects.equals(secondName, user.secondName) &&
@@ -206,6 +182,6 @@ public class User implements Serializable{
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, roles, nickname, password, firstName, secondName, lastName, address, birthday, isDeleted);
+        return Objects.hash(roles, username, password, firstName, secondName, lastName, address, birthday, status);
     }
 }

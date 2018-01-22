@@ -12,7 +12,6 @@ import com.rockka.carrent.test_categories.DetailTest;
 import com.rockka.carrent.test_categories.TransactionalTest;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.slf4j.Logger;
@@ -56,7 +55,7 @@ public class OrderServiceTest extends Assert{
 
         User user = new User()
                 .setRoles("ROLE_USER")
-                .setNickname("Batman")
+                .setUsername("Batman")
                 .setPassword("bat")
                 .setFirstName("Bruce")
                 .setSecondName("Wayne")
@@ -96,7 +95,7 @@ public class OrderServiceTest extends Assert{
             logger.warn(
                     "Order id: " + o.getId()
                     + "| car id: " + o.getCar().getId()
-                    + "| user nickname: " + o.getUser().getNickname()
+                    + "| user nickname: " + o.getUser().getUsername()
                     + "| description: " + o.getDescription()
                     + "| price: " + o.getPrice()
                     + "| starts at: " + o.getStartsAt()

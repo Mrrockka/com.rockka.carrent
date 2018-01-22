@@ -8,20 +8,25 @@
     <link rel="stylesheet" href="../../css/standart.css">
 </head>
 <body>
-<div class="col-sm-3 col-md-2 d-none d-sm-block bg-light menu" th:fragment="admin_menu">
+<div class="col-sm-12 col-md-12 d-none d-sm-block bg-light menu" th:fragment="admin_menu">
 	<script type="text/javascript" src="/js/admin_account.js"></script>
 	<script type="text/javascript">
 		addInfoTable();
 	</script>
-    <ul class="nav nav-pills flex-column">
+    <ul class="nav nav-tabs">
 		<li class="nav-item">
-			<span class="nav-link active" onclick="showOrders()">Orders</span>
+			<a onclick="showOrders(); return false;" data-toggle="tab" role="tab" aria-selected="true" class="nav-link active" href="#">
+				Orders</a>
 		</li>
 		<li class="nav-item">
-			<span class="nav-link" onclick="showUsers()">Users</span>
+			<a onclick="showUsers(); return false;" data-toggle="tab" role="tab" aria-selected="false" class="nav-link" href="#">Users</a>
 		</li>
-		<li class="nav-item">
-			<span class="nav-link" onclick="showCars()">Cars</span>
+		<li class="nav-item dropdown">
+			<a id="dropdown-cars" data-toggle="dropdown" role="tab" aria-expanded="false" aria-selected="false" class="nav-link dropdown-toggle" href="#">Cars</a>
+			<div class="dropdown-menu" aria-labelledby="dropdown-cars">
+				<a onclick="showCars(); return false;" class="dropdown-item" data-toggle="tab" role="tab" aria-selected="false" href="#" >Show cars</a>
+				<a onclick="addCar(); return false;" class="dropdown-item" data-toggle="tab" role="tab" aria-selected="false" href="#" >Add car</a>
+			</div>
 		</li>
     </ul>
 </div>

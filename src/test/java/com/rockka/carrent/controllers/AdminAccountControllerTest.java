@@ -1,6 +1,5 @@
 package com.rockka.carrent.controllers;
 
-import com.rockka.carrent.config.AppConfig;
 import com.rockka.carrent.config.MvcConfig;
 import com.rockka.carrent.config.OrmConfig;
 import com.rockka.carrent.config.TestConfig;
@@ -117,24 +116,23 @@ public class AdminAccountControllerTest {
 	@Category(DetailTest.class)
 	public void show_user() throws Exception {
 		User user = new User()
-				.setNickname("Abdula")
+				.setUsername("Abdula")
 				.setPassword("123")
 				.setFirstName("Abdula")
 				.setSecondName("Abdurahman")
 				.setBirthday(new Date(1999, 1, 2))
 				.setRoles("ROLE_USER")
 				.setAddress("Sim salabim")
-				.setId(10)
 				.setCreatedAt(new Date())
 				.setModifiedAt(new Date())
-				.setIsDeleted(0);
-		Mockito.when(userService.getUserByNickname("abd")).thenReturn(user);
+				.setStatus(0);
+		Mockito.when(userService.getUserByUsername("abd")).thenReturn(user);
 		mockMvc.perform(MockMvcRequestBuilders.get("/admin/user/abd"))
 				.andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(MockMvcResultMatchers.view().name("admin/show_user"))
 				.andExpect(MockMvcResultMatchers.model().attribute("user", Matchers.hasProperty("roles", Matchers.is("ROLE_USER"))))
 		;
-		Mockito.verify(userService, Mockito.times(1)).getUserByNickname("abd");
+		Mockito.verify(userService, Mockito.times(1)).getUserByUsername("abd");
 		Mockito.verifyNoMoreInteractions(carService);
 	}
 

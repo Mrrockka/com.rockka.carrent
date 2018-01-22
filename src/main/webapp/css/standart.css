@@ -1,5 +1,11 @@
 header {
     background: #345678;
+    min-height: 4rem;
+}
+
+header.navbar{
+    padding-left: 10%;
+    padding-right: 10%;
 }
 
 footer {
@@ -11,24 +17,29 @@ footer {
 body{
     background: #EEE;
     margin-top: 4rem;
+    padding-left: 10%;
+    padding-right: 10%;
 }
 
 main{
-    margin-left: 5rem;
-    margin-right: 5rem;
+/*     margin-left: 5rem; */
+/*     margin-right: 5rem; */
 }
 label{
     margin-top: 0.6rem;
 }
 
-li{
-    margin-bottom: 0.5rem;
-}
-
+/*
 .menu{
     max-width: 8rem;
 }
-.menu .nav-pills{
+.menu li{
     margin-left: -1rem;
     margin-right: -1rem;
+    margin-bottom: 0.5rem;
+}
+*/
+
+th, td{
+    min-width: 7rem;
 }

@@ -8,7 +8,6 @@ import com.rockka.carrent.test_categories.DetailTest;
 import com.rockka.carrent.test_categories.TransactionalTest;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.jupiter.api.DisplayName;
@@ -58,7 +57,7 @@ public class CarServiceTest extends Assert {
     @DisplayName("test get all operations")
     public void testGetAll() {
         for (Car car : carService.getAll()) {
-            logger.warn("id " + car.getId() + " color " + car.getColor() + " created at " + car.getCreatedAt() + " modified at " + car.getModifiedAt() + (car.getIsDeleted() == 'y' ? " deleted" : " not deleted"));
+            logger.warn("id " + car.getId() + " color " + car.getColor() + " created at " + car.getCreatedAt() + " modified at " + car.getModifiedAt() + (car.getStatus() == 'y' ? " deleted" : " not deleted"));
         }
     }
 }

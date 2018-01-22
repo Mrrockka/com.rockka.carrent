@@ -34,8 +34,8 @@ public class Car implements Serializable {
     @Column(name = "modified_at", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date modifiedAt = new Date();
-    @Column(name = "is_deleted", nullable = false)
-    private int isDeleted = 0;
+    @Column(name = "status", nullable = false)
+    private int status = 0;
     @JsonIgnore
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> carOrders;
@@ -121,17 +121,17 @@ public class Car implements Serializable {
         return this;
     }
 
-    public int getIsDeleted() {
-        return isDeleted;
+    public int getStatus() {
+        return status;
     }
 
-    public Car setIsDeleted(int isDeleted) {
-        this.isDeleted = isDeleted;
+    public Car setStatus(int status) {
+        this.status = status;
         return this;
     }
 
     public Car setDeleted(){
-        isDeleted = 1;
+        status = 1;
         return this;
     }
 
@@ -151,7 +151,7 @@ public class Car implements Serializable {
         Car car = (Car) o;
         return id == car.id &&
                 Double.compare(car.price, price) == 0 &&
-                isDeleted == car.isDeleted &&
+                status == car.status &&
                 Objects.equals(name, car.name) &&
                 Objects.equals(country, car.country) &&
                 Objects.equals(color, car.color) &&
@@ -162,6 +162,6 @@ public class Car implements Serializable {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, name, country, color, description, price, releaseDate, isDeleted);
+        return Objects.hash(id, name, country, color, description, price, releaseDate, status);
     }
 }

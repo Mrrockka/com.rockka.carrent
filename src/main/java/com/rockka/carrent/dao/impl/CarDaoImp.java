@@ -24,7 +24,7 @@ public class CarDaoImp extends GenericDaoImp<Car> implements CarDao {
         Car car = null;
         try {
             car = (Car) getSession()
-                    .createQuery("from Car where id = :id and isDeleted = 0")
+                    .createQuery("from Car where id = :id")
                     .setParameter("id", id)
                     .uniqueResult();
         }catch(Exception e){
