@@ -41,11 +41,11 @@ import java.util.Date;
 public class AdminAccountControllerTest {
 
 	@Autowired
-	private CarService carService;
-	@Autowired
 	private UserService userService;
 	@Autowired
 	private OrderService orderService;
+	@Autowired
+	private CarService carService;
 
 	private MockMvc mockMvc;
 	@Autowired

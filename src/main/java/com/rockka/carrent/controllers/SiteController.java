@@ -19,8 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class SiteController extends UserUtil{
-    @Autowired
-    private CarService carService;
+
     private Logger logger = LoggerFactory.getLogger(SiteController.class);
 
     @GetMapping("/info")
@@ -39,7 +38,6 @@ public class SiteController extends UserUtil{
             text += "\"role\" : \"" + role+ "\", \"nickname\": \"" + user.getUsername() + "\"";
             text += "}";
         }
-        logger.debug("/username output: " + text);
         return text;
     }
 

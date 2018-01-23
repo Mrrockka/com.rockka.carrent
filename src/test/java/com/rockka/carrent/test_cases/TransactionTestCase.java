@@ -19,5 +19,5 @@ import org.junit.runners.Suite;
 		,OrderServiceTest.class
 		,UserServiceTest.class
 })
-public class TransactionTests {
+public class TransactionTestCase {
 }

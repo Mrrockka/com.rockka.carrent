@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/car")
-public class CarController {
+public class ShowCarController {
     @Autowired
     private CarDao carService;
-    private Logger logger = LoggerFactory.getLogger(CarController.class);
+    private Logger logger = LoggerFactory.getLogger(ShowCarController.class);
 
     @GetMapping("/{id}")
     public String getById(@PathVariable("id") long id, Model model) {

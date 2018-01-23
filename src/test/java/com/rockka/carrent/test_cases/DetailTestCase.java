@@ -12,14 +12,13 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Categories.class)
-@Categories.IncludeCategory(BasicTest.class)
-@Categories.ExcludeCategory({DetailTest.class, TransactionalTest.class})
+@Categories.IncludeCategory({DetailTest.class})
+@Categories.ExcludeCategory({BasicTest.class, TransactionalTest.class})
 @Suite.SuiteClasses({
 		CarServiceTest.class
 		,OrderServiceTest.class
 		,UserServiceTest.class
 		,AdminAccountControllerTest.class
 })
-public class BasicTests {
-
+public class DetailTestCase {
 }
