@@ -21,10 +21,6 @@ public class UserAccountController {
         return "user/account";
     }
 
-    @GetMapping("/settings")
-    public String settings(){
-        return "user/settings";
-    }
 
 }
 

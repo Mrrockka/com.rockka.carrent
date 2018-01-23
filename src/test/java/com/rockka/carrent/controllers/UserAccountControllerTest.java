@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -51,11 +50,4 @@ public class UserAccountControllerTest {
 				.andExpect(MockMvcResultMatchers.view().name("user/account"));
 	}
 
-	@Test
-	@Category(BasicTest.class)
-	public void settings() throws Exception{
-		mockMvc.perform(MockMvcRequestBuilders.get("/user/settings"))
-				.andExpect(MockMvcResultMatchers.status().isOk())
-				.andExpect(MockMvcResultMatchers.view().name("user/settings"));
-	}
 }

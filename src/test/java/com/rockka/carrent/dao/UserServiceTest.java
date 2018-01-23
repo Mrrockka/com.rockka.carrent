@@ -51,7 +51,7 @@ public class UserServiceTest extends Assert {
     @Test
     @Category(BasicTest.class)
     public void testConection() {
-        assertEquals("somebody", userService.getUserByUsername("somebody").getUsername());
+        assertEquals("somebody", userService.getByUsername("somebody").getUsername());
     }
 
     @Test

@@ -36,13 +36,13 @@ function showOrders(){
 
             for(i = 0; i<json.length; i++){
                 info += "<tr>"
-                    + "<td><a href=\"/admin/order/"+json[i].order_id + "\">"+json[i].order_id+"</a></td>"
-                    + "<td><a href=\"/admin/order/"+json[i].order_id + "\">"+json[i].username+"</td>"
-                    + "<td><a href=\"/admin/order/"+json[i].order_id + "\">"+json[i].car_name+"</a></td>"
-                    + "<td><a href=\"/admin/order/"+json[i].order_id + "\">"+json[i].starts_at+"</a></td>"
-                    + "<td><a href=\"/admin/order/"+json[i].order_id + "\">"+json[i].expires_at+"</a></td>"
-                    + "<td><a href=\"/admin/order/"+json[i].order_id + "\">"+json[i].price+"</a></td>"
-                    + "<td><a href=\"/admin/order/"+json[i].order_id + "\">"+json[i].status+"</a></td>"
+                    + "<td><a href=\"#\" onclick=\"showOrderById("+json[i].order_id + ");return false;\">"+json[i].order_id+"</a></td>"
+                    + "<td><a href=\"#\" onclick=\"showOrderById("+json[i].order_id + ");return false;\">"+json[i].username+"</td>"
+                    + "<td><a href=\"#\" onclick=\"showOrderById("+json[i].order_id + ");return false;\">"+json[i].car_name+"</a></td>"
+                    + "<td><a href=\"#\" onclick=\"showOrderById("+json[i].order_id + ");return false;\">"+json[i].starts_at+"</a></td>"
+                    + "<td><a href=\"#\" onclick=\"showOrderById("+json[i].order_id + ");return false;\">"+json[i].expires_at+"</a></td>"
+                    + "<td><a href=\"#\" onclick=\"showOrderById("+json[i].order_id + ");return false;\">"+json[i].price+"</a></td>"
+                    + "<td><a href=\"#\" onclick=\"showOrderById("+json[i].order_id + ");return false;\">"+json[i].status+"</a></td>"
                     + "</tr>"
             }
 
@@ -122,5 +122,77 @@ function showCars(){
 }
 
 
+function registerNewCar(){
+    var xhr = new XMLHttpRequest();
+	var i = 0, json = "", doc = document.forms["car"], text = "no";
+    json = "{";
+    for(i=0; i<doc.length; i++){
+    	if(doc[i].type != "button"){
+    		json += "\"" + doc[i].id + "\"" + ":" +"\""+ doc[i].value +"\""+ ",";
+        } else {
+        	json = json.slice(0, -1);
+        }
+    }
+    json += "}";
+
+    xhr.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status==200){
+            text = this.responseText;
+            alert(text);
+            if(text == "success"){
+                window.location.href = '#';
+            }
+        }
+    }
+	xhr.open("POST", '/admin/car/save', true);
+	xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+	xhr.send(json);
+}
+
+function showOrderById(id){
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function(){
+        if(this.readyState==4 && this.status==200){
+            var i, json = JSON.parse(this.responseText);
+//            TODO: write switch for status
+            var status = json.status;
+            switch(status){
+                case 0:
+                    status = "new";
+                    break;
+                case 1:
+                    status = "confirmed";
+                    break;
+                case -1:
+                    status = "denied";
+                    break;
+                case 2:
+                    status = "active";
+                    break;
+                default:
+                    status = "error";
+            }
+
+            var info = "<div class=\"container\">"
+                    +"<h2>Rent car order</h2>"
+                    +"<p>Order id: "+json.order_id + "</p>"
+                    +"<p>Birthday: "+ json.birthday +"</p>"
+                    +"<pCar name: >"+json.car_name+"</p>"
+                    +"<p>Car price: " + json.car_price+"</p>"
+                    +"<p>Starts: "+ json.starts_at+"</p>"
+                    +"<p>Expires: "+ json.expires_at+"</p>"
+                    +"<p>Order price: " + json.order_price+"</p>"
+                    +"<p>Description: <input value=\""+ json.description+"\" type=\"text\" name=\"description\"></p>"
+                    +"<p>Status: "+ status+"</p>"
+                    +"<p><a class=\"btn btn-lg btn-block btn-primary\" onclick=\"updateOrder("+json.order_id+");return false;\">Confirm</a></p>";
+            }
+
+            info += "</div>";
+            document.getElementById("info_div").innerHTML = info;
+        }
 
 
+    xhr.open("GET", '/admin/order/'+id, true);
+    xhr.send();
+}

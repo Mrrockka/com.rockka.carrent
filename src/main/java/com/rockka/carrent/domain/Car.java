@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+//TODO: change java.util.Date to JodaTime
 @Entity
 @Table(name = "car")
 public class Car implements Serializable {

@@ -12,8 +12,8 @@ header.navbar{
     color: gray;
     text-align:center;
     background: #EEE;
-    position: absolute;
-    bottom: 2rem;
+    position: fixed;
+    bottom: 0rem;
     max-width: 100%;
     width: 80%;
 }
@@ -25,25 +25,17 @@ body{
     padding-right: 10%;
 }
 
-main{
-/*     margin-left: 5rem; */
-/*     margin-right: 5rem; */
-}
 label{
     margin-top: 0.6rem;
 }
 
-/*
-.menu{
-    max-width: 8rem;
-}
-.menu li{
-    margin-left: -1rem;
-    margin-right: -1rem;
-    margin-bottom: 0.5rem;
-}
-*/
-
 th, td{
     min-width: 7rem;
+}
+
+.card {
+    width: 16rem;
+    height: 20rem;
+    padding: 1rem;
+    margin: 0.5rem;
 }

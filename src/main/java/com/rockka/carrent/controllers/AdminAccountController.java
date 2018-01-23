@@ -3,6 +3,7 @@ package com.rockka.carrent.controllers;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.rockka.carrent.domain.Car;
 import com.rockka.carrent.domain.Order;
 import com.rockka.carrent.domain.User;
@@ -49,9 +50,23 @@ public class AdminAccountController extends UserUtil {
 	}
 
 	@GetMapping("/order/{id}")
-	public String showOrderById(@PathVariable("id") long id, Model model) {
-		model.addAttribute("order", orderService.getById(id));
-		return "admin/order";
+    @ResponseBody
+	public JsonNode showOrderById(@PathVariable("id") long id) {
+	    Order order = orderService.getById(id);
+	    ObjectNode node = mapper.createObjectNode();
+
+	    node.put("order_id", order.getId())
+                .put("username", order.getUser().getUsername())
+                .put("birthday", order.getUser().getBirthday().toString())
+                .put("car_name", order.getCar().getName())
+                .put("car_price", order.getCar().getPrice())
+                .put("starts_at", order.getStartsAt().toString())
+                .put("expires_at", order.getExpiresAt().toString())
+                .put("order_price", order.getPrice())
+                .put("description", order.getDescription())
+                .put("status", order.getStatus());
+
+	    return node;
 	}
 
 	@GetMapping("/user/show_all")
@@ -64,6 +79,7 @@ public class AdminAccountController extends UserUtil {
 					.put("roles", user.getRoles())
 					.put("firstname", user.getFirstName())
 					.put("secondname", user.getSecondName())
+                    .put("secondname", user.getSecondName())
 					.put("birthday", user.getBirthday().toString())
 					.put("address", user.getAddress())
 					.put("status", user.getStatus()==0? "active":"inactive")
@@ -72,10 +88,23 @@ public class AdminAccountController extends UserUtil {
 		return node;
 	}
 
-	@GetMapping("/user/{nickname}")
-	public String showUserByNickname(@PathVariable("nickname") String nickname, Model model) {
-		model.addAttribute("user", userService.getUserByUsername(nickname));
-		return "admin/user";
+	@GetMapping("/user/{username}")
+    @ResponseBody
+	public JsonNode showByUsername(@PathVariable("username") String username) {
+        User user = userService.getByUsername(username);
+        ObjectNode node = mapper.createObjectNode();
+
+        node.put("username", user.getUsername())
+                .put("roles", user.getRoles())
+                .put("birthday", user.getBirthday().toString())
+                .put("firstname", user.getFirstName())
+                .put("secondname", user.getSecondName())
+                .put("lastname", user.getLastName())
+                .put("address", user.getAddress())
+                .put("about_me", user.getAboutMe())
+                .put("status", user.getStatus()==0?"active":"inactive");
+
+        return node;
 	}
 
 	@GetMapping("/car/show_all")
@@ -89,22 +118,27 @@ public class AdminAccountController extends UserUtil {
 					.put("color", car.getColor())
 					.put("release_date", car.getReleaseDate().toString())
 					.put("price", car.getPrice())
-					.put("status", car.getStatus()==0 ? "active" : "inactive")
+					.put("status", car.getStatus())
 			;
 		}
 		return node;
 	}
 
 	@GetMapping("/car/{id}")
-	public String showCarById(@PathVariable("id") long id, Model model) {
-		model.addAttribute("car", carService.getById(id));
-		return "admin/car";
+    @ResponseBody
+	public JsonNode showCarById(@PathVariable("id") long id) {
+        Car car = carService.getById(id);
+        ObjectNode node = mapper.createObjectNode();
+
+		node.put("car_id",car.getId())
+                .put("name", car.getName())
+                .put("color", car.getColor())
+                .put("release_date", car.getReleaseDate().toString())
+                .put("price", car.getPrice())
+                .put("status", car.getStatus());
+		return node;
 	}
 
-    @GetMapping("/car/register_new_car")
-    public String registerNewCar() {
-        return "admin/register_new_car";
-    }
 
     @RequestMapping("/car/save")
     @ResponseBody
@@ -124,8 +158,4 @@ public class AdminAccountController extends UserUtil {
 		return "admin/account";
 	}
 
-	@GetMapping("/settings")
-	public String settings(){
-		return "admin/settings";
-	}
 }

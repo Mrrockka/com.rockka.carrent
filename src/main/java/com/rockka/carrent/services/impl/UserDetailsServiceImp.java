@@ -22,7 +22,7 @@ public class UserDetailsServiceImp implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String nickname) throws UsernameNotFoundException {
-        User user = userService.getUserByUsername(nickname);
+        User user = userService.getByUsername(nickname);
 
         if(user != null){
             List<GrantedAuthority> roles = Stream

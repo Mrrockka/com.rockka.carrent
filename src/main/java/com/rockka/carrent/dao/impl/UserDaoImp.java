@@ -16,7 +16,7 @@ public class UserDaoImp extends GenericDaoImp<User> implements UserDao {
     public UserDaoImp(){super(User.class);}
 
     @Override
-    public User getUserByUsername(String username) {
+    public User getByUsername(String username) {
         User user = null;
         try {
             user = (User) getSession()

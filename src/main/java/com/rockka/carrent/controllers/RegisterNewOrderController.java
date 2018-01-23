@@ -27,7 +27,7 @@ public class RegisterNewOrderController extends UserUtil{
 
     @GetMapping("/car/{id}")
     public String getOrderForCar(@PathVariable("id") long id, Model model){
-        User user =userService.getUserByUsername((getPrincipal()).getUsername());
+        User user =userService.getByUsername((getPrincipal()).getUsername());
         String username = user.getFirstName() + " " + user.getSecondName();
         username += user.getLastName() != null ? " " +user.getLastName() : "";
         model.addAttribute("nickname", username);
@@ -40,7 +40,7 @@ public class RegisterNewOrderController extends UserUtil{
     @PostMapping("/save/{id}")
     public String save(@RequestBody Order order, @PathVariable("id") long id){
         order.setCar(carService.getById(id));
-        order.setUser(userService.getUserByUsername(getPrincipal().getUsername()));
+        order.setUser(userService.getByUsername(getPrincipal().getUsername()));
         order.setStatus(0);
         orderService.save(order);
         return "public/success";

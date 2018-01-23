@@ -12,7 +12,6 @@ import com.rockka.carrent.test_categories.BasicTest;
 import com.rockka.carrent.test_categories.DetailTest;
 import org.hamcrest.Matchers;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -99,9 +98,7 @@ public class AdminAccountControllerTest {
 				.setCountry("Mexico")
 				.setColor("Blackest")
 				.setPrice(9999)
-				.setReleaseDate(new Date(1939, 12, 02))
-				.setCreatedAt(new Date())
-				.setDeleted();
+				.setReleaseDate(new Date(1939, 12, 02));
 		Mockito.when(carService.getById(1)).thenReturn(car);
 		mockMvc.perform(MockMvcRequestBuilders.get("/admin/car/1"))
 				.andExpect(MockMvcResultMatchers.status().isOk())
@@ -126,19 +123,18 @@ public class AdminAccountControllerTest {
 				.setCreatedAt(new Date())
 				.setModifiedAt(new Date())
 				.setStatus(0);
-		Mockito.when(userService.getUserByUsername("abd")).thenReturn(user);
+		Mockito.when(userService.getByUsername("abd")).thenReturn(user);
 		mockMvc.perform(MockMvcRequestBuilders.get("/admin/user/abd"))
 				.andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(MockMvcResultMatchers.view().name("admin/show_user"))
 				.andExpect(MockMvcResultMatchers.model().attribute("user", Matchers.hasProperty("roles", Matchers.is("ROLE_USER"))))
 		;
-		Mockito.verify(userService, Mockito.times(1)).getUserByUsername("abd");
+		Mockito.verify(userService, Mockito.times(1)).getByUsername("abd");
 		Mockito.verifyNoMoreInteractions(carService);
 	}
 
 	@Test
 	@Category(DetailTest.class)
-	@Ignore
 	public void show_order() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.get("/admin/order/1"))
 				.andExpect(MockMvcResultMatchers.status().isOk())
@@ -146,4 +142,13 @@ public class AdminAccountControllerTest {
 		Mockito.verify(orderService, Mockito.times(1)).getById(1);
 		Mockito.verifyNoMoreInteractions(orderService);
 	}
+
+	@Test
+    @Category(BasicTest.class)
+    public void account() throws Exception{
+	    mockMvc.perform(MockMvcRequestBuilders.get("/admin/account"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("admin/account"));
+
+    }
 }
