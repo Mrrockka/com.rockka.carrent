@@ -206,6 +206,7 @@ function updateOrder(id){
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 && this.status ==200){
             showOrderById(id);
+            alert(this.responseText);
         }
     }
 

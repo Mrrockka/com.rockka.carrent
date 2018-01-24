@@ -1,6 +1,7 @@
 package com.rockka.carrent.services.impl;
 
 import com.rockka.carrent.dao.UserDao;
+import com.rockka.carrent.domain.Order;
 import com.rockka.carrent.domain.User;
 import com.rockka.carrent.services.UserService;
 import org.slf4j.Logger;
@@ -25,6 +26,7 @@ public class UserServiceImp implements UserService{
     public List<User> getAll() {
         return userDao.getAll();
     }
+
 
     @Override
     public User save(User user) {
@@ -57,7 +59,7 @@ public class UserServiceImp implements UserService{
     @Override
     public User delete(User user) {
         if(user != null) {
-            update(user.setDeleted());
+            update(user.setUserStatus(0));
         } else{
             logger.error("UserServiceImp: USER IS NULL");
         }

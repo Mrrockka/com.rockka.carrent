@@ -33,4 +33,20 @@ public class OrderDaoImp extends GenericDaoImp<Order> implements OrderDao {
         }
         return order;
     }
+
+    @Override
+    public List<Order> getAllWithUser(String username){
+        List<Order> orders = null;
+        try{
+            orders = getSession()
+                    .createQuery("from Order where username  =:username")
+                    .setParameter("username", username)
+                    .list();
+        } catch(Exception ex){
+            logger.error("ORDER_DAO_IMP: getAllWithUser - query exception!!!" + ex);
+        }
+        return orders;
+    }
+
 }
+

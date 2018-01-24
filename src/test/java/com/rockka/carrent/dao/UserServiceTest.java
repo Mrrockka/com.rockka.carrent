@@ -62,7 +62,7 @@ public class UserServiceTest extends Assert {
                     + " user role " + user.getRoles()
                     + " created at " + user.getCreatedAt()
                     + " modified at " + user.getModifiedAt()
-                    + (user.getStatus() == 1 ? " deleted" : " not deleted")
+                    + " status " + user.getUserStatus().toString()
             );
         }
     }

@@ -99,18 +99,18 @@ public class AdminAccountControllerTest {
 				.setColor("Blackest")
 				.setPrice(9999)
 				.setReleaseDate(new Date(1939, 12, 02));
+
 		Mockito.when(carService.getById(1)).thenReturn(car);
 		mockMvc.perform(MockMvcRequestBuilders.get("/admin/car/1"))
 				.andExpect(MockMvcResultMatchers.status().isOk())
-				.andExpect(MockMvcResultMatchers.view().name("public/show_car"))
-				.andExpect(MockMvcResultMatchers.model().attribute("car" , Matchers.hasProperty("name", Matchers.is("Batmobile v1000"))))
+				.andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8))
 		;
 		Mockito.verify(carService, Mockito.times(1)).getById(1);
 		Mockito.verifyNoMoreInteractions(carService);
 	}
 
 	@Test
-	@Category(DetailTest.class)
+	@Category(BasicTest.class)
 	public void show_user() throws Exception {
 		User user = new User()
 				.setUsername("Abdula")
@@ -122,23 +122,27 @@ public class AdminAccountControllerTest {
 				.setAddress("Sim salabim")
 				.setCreatedAt(new Date())
 				.setModifiedAt(new Date())
-				.setStatus(0);
+				.setUserStatus(0);
+
 		Mockito.when(userService.getByUsername("abd")).thenReturn(user);
 		mockMvc.perform(MockMvcRequestBuilders.get("/admin/user/abd"))
 				.andExpect(MockMvcResultMatchers.status().isOk())
-				.andExpect(MockMvcResultMatchers.view().name("admin/show_user"))
-				.andExpect(MockMvcResultMatchers.model().attribute("user", Matchers.hasProperty("roles", Matchers.is("ROLE_USER"))))
+				.andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8))
 		;
 		Mockito.verify(userService, Mockito.times(1)).getByUsername("abd");
 		Mockito.verifyNoMoreInteractions(carService);
 	}
 
 	@Test
-	@Category(DetailTest.class)
+	@Category(BasicTest.class)
 	public void show_order() throws Exception {
+
+
 		mockMvc.perform(MockMvcRequestBuilders.get("/admin/order/1"))
 				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8))
 		;
+
 		Mockito.verify(orderService, Mockito.times(1)).getById(1);
 		Mockito.verifyNoMoreInteractions(orderService);
 	}

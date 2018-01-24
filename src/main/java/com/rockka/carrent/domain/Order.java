@@ -1,6 +1,7 @@
 package com.rockka.carrent.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.rockka.carrent.enums.OrderStatus;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -38,8 +39,11 @@ public class Order implements Serializable{
     @Column(name = "expires_at", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date expiresAt;
+//  TODO: enum for status
     @Column(name ="status", length = 10, nullable = false)
-    private int status = 0;
+    private int status = 2;
+    @Transient
+    private OrderStatus orderStatus;
 
     public long getId() {
         return id;
@@ -122,19 +126,19 @@ public class Order implements Serializable{
         return this;
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public Order setStatus(int status) {
-        this.status = status;
+    public Order setOrderStatus(int i){
+        orderStatus = OrderStatus.get(i);
+        status = orderStatus.toInt();
         return this;
     }
 
-    public Order setDeleted(){
-        status = -1;
-        return this;
+    public OrderStatus getOrderStatus(){
+        if(orderStatus == null){
+            orderStatus = OrderStatus.get(status);
+        }
+        return orderStatus;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

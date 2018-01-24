@@ -1,6 +1,7 @@
 package com.rockka.carrent.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.rockka.carrent.enums.UserStatus;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -33,7 +34,9 @@ public class User implements Serializable{
     @Temporal(TemporalType.DATE)
     private Date birthday;
     @Column(name = "status", nullable = false, length = 1)
-    private int status = 0;
+    private int status = 1;
+    @Transient
+    private UserStatus userStatus;
     @Column(name = "created_at", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date createdAt = new Date();
@@ -71,17 +74,17 @@ public class User implements Serializable{
         return this;
     }
 
-    public int getStatus() {
-        return status;
+    public User setUserStatus(int i){
+        userStatus = UserStatus.get(i);
+        status = userStatus.toInt();
+        return this;
     }
 
-    public User setStatus(int status) {
-        this.status = status;
-        return this;
-    }
-    public User setDeleted() {
-        this.status = 1;
-        return this;
+    public UserStatus getUserStatus(){
+        if(userStatus == null) {
+            userStatus = UserStatus.get(status);
+        }
+        return userStatus;
     }
 
     public Date getCreatedAt() {

@@ -35,7 +35,7 @@ public class CarServiceImp implements CarService {
 	@Override
 	public Car delete(Car car) {
 		if (car != null) {
-			update(car.setDeleted());
+			update(car.setCarStatus(0));
 		}
 		return car;
 	}

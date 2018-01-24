@@ -44,7 +44,7 @@ public class AdminAccountController extends UserUtil {
 					.put("starts_at", order.getStartsAt().toString())
 					.put("expires_at", order.getExpiresAt().toString())
 					.put("price", order.getPrice())
-					.put("status", order.getStatus());
+					.put("status", order.getOrderStatus().toString());
 		}
 		return node;
 	}
@@ -64,7 +64,7 @@ public class AdminAccountController extends UserUtil {
                 .put("expires_at", order.getExpiresAt().toString())
                 .put("order_price", order.getPrice())
                 .put("description", order.getDescription())
-                .put("status", order.getStatus());
+                .put("status", order.getOrderStatus().toString());
 
 	    return node;
 	}
@@ -80,7 +80,7 @@ public class AdminAccountController extends UserUtil {
 
 		Order order = orderService.getById(id);
 		if(order != null) {
-			orderService.update(order.setDescription(description).setStatus(status));
+			orderService.update(order.setDescription(description).setOrderStatus(status));
 			ans = "success";
 		}
 
@@ -100,7 +100,7 @@ public class AdminAccountController extends UserUtil {
                     .put("secondname", user.getSecondName())
 					.put("birthday", user.getBirthday().toString())
 					.put("address", user.getAddress())
-					.put("status", user.getStatus()==0? "active":"inactive")
+					.put("status", user.getUserStatus().toInt()==1? "active":"inactive")
 			;
 		}
 		return node;
@@ -120,7 +120,7 @@ public class AdminAccountController extends UserUtil {
                 .put("lastname", user.getLastName())
                 .put("address", user.getAddress())
                 .put("about_me", user.getAboutMe())
-                .put("status", user.getStatus()==0?"active":"inactive");
+                .put("status", user.getUserStatus().toInt()==1?"active":"inactive");
 
         return node;
 	}
@@ -136,7 +136,7 @@ public class AdminAccountController extends UserUtil {
 					.put("color", car.getColor())
 					.put("release_date", car.getReleaseDate().toString())
 					.put("price", car.getPrice())
-					.put("status", car.getStatus())
+					.put("status", car.getCarStatus().toString())
 			;
 		}
 		return node;
@@ -153,7 +153,7 @@ public class AdminAccountController extends UserUtil {
                 .put("color", car.getColor())
                 .put("release_date", car.getReleaseDate().toString())
                 .put("price", car.getPrice())
-                .put("status", car.getStatus());
+                .put("status", car.getCarStatus().toString());
 		return node;
 	}
 

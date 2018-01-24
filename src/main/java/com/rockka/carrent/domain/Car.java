@@ -2,6 +2,7 @@ package com.rockka.carrent.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.rockka.carrent.enums.CarStatus;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -36,7 +37,9 @@ public class Car implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date modifiedAt = new Date();
     @Column(name = "status", nullable = false)
-    private int status = 0;
+    private int status = 1;
+    @Transient
+    private CarStatus carStatus;
     @JsonIgnore
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> carOrders;
@@ -122,17 +125,16 @@ public class Car implements Serializable {
         return this;
     }
 
-    public int getStatus() {
-        return status;
-    }
+    public CarStatus getCarStatus(){
+        if(carStatus == null){
+            carStatus = CarStatus.get(status);
+        }
 
-    public Car setStatus(int status) {
-        this.status = status;
-        return this;
+        return carStatus;
     }
-
-    public Car setDeleted(){
-        status = 1;
+    public Car setCarStatus(int i){
+        carStatus = CarStatus.get(i);
+        status = carStatus.toInt();
         return this;
     }
 

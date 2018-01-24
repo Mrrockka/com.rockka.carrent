@@ -37,7 +37,7 @@ public class CarServiceTest extends Assert {
         assertNotNull(
                 car = carService.delete(
                         carService.save(
-                                new Car().setColor("blue").setDeleted().setName("Supercar")
+                                new Car().setColor("blue").setCarStatus(0).setName("Supercar")
                         )
                 )
         );
@@ -57,7 +57,7 @@ public class CarServiceTest extends Assert {
     @DisplayName("test get all operations")
     public void testGetAll() {
         for (Car car : carService.getAll()) {
-            logger.warn("id " + car.getId() + " color " + car.getColor() + " created at " + car.getCreatedAt() + " modified at " + car.getModifiedAt() + (car.getStatus() == 'y' ? " deleted" : " not deleted"));
+            logger.warn("id " + car.getId() + " color " + car.getColor() + " created at " + car.getCreatedAt() + " modified at " + car.getModifiedAt() + " status " + car.getCarStatus().toString());
         }
     }
 }

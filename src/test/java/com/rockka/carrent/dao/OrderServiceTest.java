@@ -91,17 +91,42 @@ public class OrderServiceTest extends Assert{
     @Test
     @Category(DetailTest.class)
     public void testGetAll(){
-        for (Order o: orderService.getAll()){
-            logger.warn(
-                    "Order id: " + o.getId()
-                    + "| car id: " + o.getCar().getId()
-                    + "| user nickname: " + o.getUser().getUsername()
-                    + "| description: " + o.getDescription()
-                    + "| price: " + o.getPrice()
-                    + "| starts at: " + o.getStartsAt()
-                    + "| expires at: " + o.getExpiresAt()
-                    + "| status: " + o.getStatus()
+        for (Order order: orderService.getAll()){
+            System.out.println(
+                    "Order id: " + order.getId()
+                    + "| car id: " + order.getCar().getId()
+                    + "| user nickname: " + order.getUser().getUsername()
+                    + "| description: " + order.getDescription()
+                    + "| price: " + order.getPrice()
+                    + "| starts at: " + order.getStartsAt()
+                    + "| expires at: " + order.getExpiresAt()
+                    + "| status: " + order.getOrderStatus().toString()
+                    + "| orderStatus int: " + order.getOrderStatus().toInt()
+                    + "| orderStatus string: " + order.getOrderStatus().toString()
             );
         }
     }
+
+    @Test
+    @Category(DetailTest.class)
+    public void testGetAllWithUser(){
+        String username = "somebody";
+        for(Order order : orderService.getAllWithUser(username)){
+            System.out.println(
+                    "Username: " + username
+                            + "| order id: " + order.getId()
+                            + "| car id: " + order.getCar().getId()
+                            + "| order user username: " + order.getUser().getUsername()
+                            + "| description: " + order.getDescription()
+                            + "| price: " + order.getPrice()
+                            + "| starts at: " + order.getStartsAt()
+                            + "| expires at: " + order.getExpiresAt()
+                            + "| status: " + order.getOrderStatus().toString()
+                            + "| orderStatus int: " + order.getOrderStatus().toInt()
+                            + "| orderStatus string: " + order.getOrderStatus().toString()
+            );
+        }
+
+    }
+
 }

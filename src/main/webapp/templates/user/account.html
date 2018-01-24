@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title id="title"></title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/standart.css">
-    <script type="text/javascript" src="/js/create_login_block.js"></script>
-    <script type="text/javascript" src="/js/create_user_account.js"></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/standart.css">
+	<script type="text/javascript" src="/js/create_user_account.js"></script>
+	<title>Account</title>
 </head>
 <body>
 <header th:replace="fragments/header :: header"></header>
-<div th:replace="user/menu :: menu"></div>
+<div class="row">
+	<div th:replace="user/menu :: menu"></div>
+	<div class="col-sm-12 col-md-12 table-responsive" id="info_div">
+		<script type="text/javascript">
+            createUserAccount();
+
+		</script>
+	</div>
+</div>
 <footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>

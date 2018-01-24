@@ -15,12 +15,22 @@ public class OrderServiceImp implements OrderService{
     private OrderDao orderDao;
     @Override
     public Order getById(long id) {
-        return orderDao.getById(id);
+        if(id > 0) {
+            return orderDao.getById(id);
+        }
+        return null;
     }
 
     @Override
     public List<Order> getAll() {
         return orderDao.getAll();
+    }
+    @Override
+    public List<Order> getAllWithUser(String username){
+        if (username != null || !username.equals("")) {
+            return orderDao.getAllWithUser(username);
+        }
+        return null;
     }
 
     @Override
@@ -34,7 +44,7 @@ public class OrderServiceImp implements OrderService{
     @Override
     public Order delete(Order order) {
         if(order != null) {
-            update(order.setDeleted());
+            update(order.setOrderStatus(0));
         }
         return order;
     }
