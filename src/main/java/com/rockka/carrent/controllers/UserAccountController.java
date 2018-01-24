@@ -21,6 +21,5 @@ public class UserAccountController {
         return "user/account";
     }
 
-
 }
 

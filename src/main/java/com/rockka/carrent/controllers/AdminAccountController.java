@@ -69,6 +69,24 @@ public class AdminAccountController extends UserUtil {
 	    return node;
 	}
 
+	@RequestMapping("/order/update/{id}/description/{description}/status/{status}")
+	@ResponseBody
+	public String updateOrderWithId(
+			@PathVariable("id") long id
+			, @PathVariable("description") String description
+			, @PathVariable int status
+	){
+		String ans = "failure";
+
+		Order order = orderService.getById(id);
+		if(order != null) {
+			orderService.update(order.setDescription(description).setStatus(status));
+			ans = "success";
+		}
+
+		return ans;
+	}
+
 	@GetMapping("/user/show_all")
 	@ResponseBody
 	public JsonNode showUsers() {

@@ -140,7 +140,7 @@ function registerNewCar(){
             text = this.responseText;
             alert(text);
             if(text == "success"){
-                window.location.href = '#';
+                registerNewCar();
             }
         }
     }
@@ -155,7 +155,7 @@ function showOrderById(id){
     xhr.onreadystatechange = function(){
         if(this.readyState==4 && this.status==200){
             var i, json = JSON.parse(this.responseText);
-//            TODO: write switch for status
+//        TODO: change status view
             var status = json.status;
             switch(status){
                 case 0:
@@ -183,8 +183,8 @@ function showOrderById(id){
                     +"<p>Starts: "+ json.starts_at+"</p>"
                     +"<p>Expires: "+ json.expires_at+"</p>"
                     +"<p>Order price: " + json.order_price+"</p>"
-                    +"<p>Description: <input value=\""+ json.description+"\" type=\"text\" name=\"description\"></p>"
-                    +"<p>Status: "+ status+"</p>"
+                    +"<p>Description: <input value=\""+ json.description+"\" type=\"text\" id=\"description\"></p>"
+                    +"<p>Status: <input value=\""+ status+"\" type=\"number\" id=\"status\"></p>"
                     +"<p><a class=\"btn btn-lg btn-block btn-primary\" onclick=\"updateOrder("+json.order_id+");return false;\">Confirm</a></p>";
             }
 
@@ -194,5 +194,21 @@ function showOrderById(id){
 
 
     xhr.open("GET", '/admin/order/'+id, true);
+    xhr.send();
+}
+
+function updateOrder(id){
+//  TODO: write the relations between html and js to read values and send them to server
+    var xhr = new XMLHttpRequest();
+    var description = document.getElementById("description").value;
+    var status = document.getElementById("status").value;
+
+    xhr.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status ==200){
+            showOrderById(id);
+        }
+    }
+
+    xhr.open("UPDATE", '/admin/order/update/'+ id +'/description/'+description+'/status/'+status);
     xhr.send();
 }
