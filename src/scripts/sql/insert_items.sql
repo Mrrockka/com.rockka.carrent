@@ -18,3 +18,6 @@ VALUES ('Nissan Cashcai', 'Japan', 'Blue', 'Perfect car for riding', '2017-10-01
 #CARORDER
 INSERT INTO carorder (car_id, username, description, price, created_at, modified_at, starts_at, expires_at, status)
 VALUES (1, 'somebody', 'first order', 2000.00, curdate(), curdate(), '2017-12-21', '2017-12-31', 3);
+
+INSERT INTO carorder (car_id, username, description, price, created_at, modified_at, starts_at, expires_at, status)
+VALUES (2, 'admin', 'second order', 100.00, curdate(), curdate(), '2018-02-21', '2018-02-25', 2);

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.rockka.carrent.domain.Car;
 import com.rockka.carrent.domain.Order;
 import com.rockka.carrent.domain.User;
+import com.rockka.carrent.enums.OrderStatus;
 import com.rockka.carrent.services.CarService;
 import com.rockka.carrent.services.OrderService;
 import com.rockka.carrent.services.UserService;
@@ -54,6 +55,7 @@ public class AdminAccountController extends UserUtil {
 	public JsonNode showOrderById(@PathVariable("id") long id) {
 	    Order order = orderService.getById(id);
 	    ObjectNode node = mapper.createObjectNode();
+		ArrayNode arrayNode = mapper.createArrayNode();
 
 	    node.put("order_id", order.getId())
                 .put("username", order.getUser().getUsername())
@@ -64,7 +66,13 @@ public class AdminAccountController extends UserUtil {
                 .put("expires_at", order.getExpiresAt().toString())
                 .put("order_price", order.getPrice())
                 .put("description", order.getDescription())
-                .put("status", order.getOrderStatus().toString());
+                .put("status", order.getOrderStatus().toInt());
+	    for(OrderStatus orderStatus: OrderStatus.values()){
+	    	arrayNode.addObject()
+					.put("toInt", orderStatus.toInt())
+					.put("toString", orderStatus.toString());
+		}
+		node.set("orderStatus", arrayNode);
 
 	    return node;
 	}

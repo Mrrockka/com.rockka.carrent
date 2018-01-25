@@ -30,7 +30,7 @@ public class RegisterNewOrderController extends UserUtil{
         User user =userService.getByUsername((getPrincipal()).getUsername());
         String username = user.getFirstName() + " " + user.getSecondName();
         username += user.getLastName() != null ? " " +user.getLastName() : "";
-        model.addAttribute("nickname", username);
+        model.addAttribute("username", username);
         model.addAttribute("user_address", user.getAddress());
         model.addAttribute("user_birthday", user.getBirthday());
         model.addAttribute("car", carService.getById(id));

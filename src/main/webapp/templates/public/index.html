@@ -24,7 +24,7 @@
     <div class="album text-muted">
         <div class="container">
             <div class="row">
-                <div class="card" th:each="car: ${cars}" th:if="${car.status}>=0">
+                <div class="card" th:each="car: ${cars}" th:if="${car.carStatus.toInt()}>0">
                     <div>
                         <a th:href="@{'/car/'+${car.id}}">
                             <img class="img-rounded" th:src="@{'/thumbs/'+${car.id}+'.png'}" alt="car image">
@@ -32,7 +32,7 @@
                         <p class="card-text">
                             <a th:href="@{'/car/'+${car.id}}"><h3 th:text="${car.name}"></h3></a>
                             <p>price: <span th:text="${car.price}"></span></p>
-                            <span class="badge badge-info">free</span>
+                            <span class="badge badge-info">Free</span>
                         </p>
                     </div>
                 </div>

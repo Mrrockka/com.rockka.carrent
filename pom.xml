@@ -277,8 +277,8 @@
                           <include>/**/*Tests.java</include>
                           <include>/**/*TestCase.java</include>
                       </includes>
-                      <!--<groups>com.rockka.carrent.test_categories.BasicTest</groups>-->
-                      <groups>com.rockka.carrent.test_categories.DetailTest</groups>
+                      <groups>com.rockka.carrent.test_categories.BasicTest</groups>
+                      <!--<groups>com.rockka.carrent.test_categories.DetailTest</groups>-->
                       <!--<groups>com.rockka.carrent.test_categories.TransactionalTest</groups>-->
                       <!--<groups>com.rockka.carrent.test_categories.SecurityTest</groups>-->
                   </configuration>

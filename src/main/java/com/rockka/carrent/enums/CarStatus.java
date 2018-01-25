@@ -22,9 +22,9 @@ public enum CarStatus {
 			case 0:
 				return DELETED;
 			case 1:
-				return BROKEN;
-			case 2:
 				return ACTIVE;
+			case 2:
+				return BROKEN;
 			default:
 				return ACTIVE;
 		}

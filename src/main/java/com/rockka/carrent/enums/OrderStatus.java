@@ -24,7 +24,7 @@ public enum OrderStatus {
 	public static OrderStatus get(int i) {
 		switch (i) {
 			case 0:
-			return DELETED;
+				return DELETED;
 			case 1:
 				return ACTIVE;
 			case 2:
