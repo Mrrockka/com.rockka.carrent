@@ -11,7 +11,7 @@
     <header th:replace = "fragments/header :: header"></header>
     <div class="container">
         <div class="well">
-            <img th:src="@{'/images/' + ${car.id}+'.png'}" atr="car image">
+            <img th:src="@{'/images/cars/' + ${car.id}+'.png'}" atr="car image">
             <h2 th:text="${car.name}"></h2>
             <dl>
                 <dt>Description:</dt>

@@ -11,6 +11,7 @@ public enum OrderStatus {
 	, DENIED(3, "denied")
 	, EXPIRED(4, "expired")
 	, DEBT(5, "debt")
+	, CLOSED(6, "closed")
 	;
 
 	private int status;
@@ -35,6 +36,8 @@ public enum OrderStatus {
 				return EXPIRED;
 			case 5:
 				return DEBT;
+			case 6:
+				return CLOSED;
 			default:
 				return ACTIVE;
 		}

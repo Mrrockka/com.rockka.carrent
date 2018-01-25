@@ -108,7 +108,7 @@ public class AdminAccountController extends UserUtil {
                     .put("secondname", user.getSecondName())
 					.put("birthday", user.getBirthday().toString())
 					.put("address", user.getAddress())
-					.put("status", user.getUserStatus().toInt()==1? "active":"inactive")
+					.put("status", user.getUserStatus().toString())
 			;
 		}
 		return node;
@@ -128,7 +128,7 @@ public class AdminAccountController extends UserUtil {
                 .put("lastname", user.getLastName())
                 .put("address", user.getAddress())
                 .put("about_me", user.getAboutMe())
-                .put("status", user.getUserStatus().toInt()==1?"active":"inactive");
+                .put("status", user.getUserStatus().toString());
 
         return node;
 	}
@@ -178,6 +178,21 @@ public class AdminAccountController extends UserUtil {
         }
         return answer;
     }
+
+//    TODO: write method to update car info
+	@RequestMapping("/car/update/{id}/")
+	@ResponseBody
+	public String updateCar(@PathVariable("id") long id) {
+		String answer = "failure";
+		try {
+			Car car = carService.getById(id);
+			carService.update(car);
+			answer = "Success";
+		} catch (Exception ex) {
+			logger.error("Save exception " + ex);
+		}
+		return answer;
+	}
 
 	@GetMapping("/account")
 	public String account(){

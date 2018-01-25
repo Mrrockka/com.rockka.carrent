@@ -39,7 +39,6 @@ public class Order implements Serializable{
     @Column(name = "expires_at", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date expiresAt;
-//  TODO: enum for status
     @Column(name ="status", length = 10, nullable = false)
     private int status = 2;
     @Transient

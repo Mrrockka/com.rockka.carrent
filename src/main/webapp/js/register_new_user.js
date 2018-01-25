@@ -2,7 +2,7 @@
 
 function registerNewUser(){
     var xhr = new XMLHttpRequest();
-	var i = 0, json = "", doc = document.forms["user"], text = "no";
+	var i = 0, json = "", doc = document.forms["user"];
     json = "{";
     for(i=0; i<doc.length; i++){
     	if(doc[i].type == "button"){
@@ -19,7 +19,7 @@ function registerNewUser(){
 
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 && this.status==200){
-            text = this.responseText;
+            var text = this.responseText;
             alert(text);
             if(text == "welcome"){
                 window.location.href = '/login';

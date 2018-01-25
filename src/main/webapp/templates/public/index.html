@@ -27,7 +27,7 @@
                 <div class="card" th:each="car: ${cars}" th:if="${car.carStatus.toInt()}>0">
                     <div>
                         <a th:href="@{'/car/'+${car.id}}">
-                            <img class="img-rounded" th:src="@{'/thumbs/'+${car.id}+'.png'}" alt="car image">
+                            <img class="img-rounded" th:src="@{'/thumbs/cars/'+${car.id}+'.png'}" alt="car image">
                         </a>
                         <p class="card-text">
                             <a th:href="@{'/car/'+${car.id}}"><h3 th:text="${car.name}"></h3></a>

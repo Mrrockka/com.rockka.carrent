@@ -22,15 +22,43 @@ public class OrderServiceImp implements OrderService{
     }
 
     @Override
-    public List<Order> getAll() {
-        return orderDao.getAll();
+    public List<Order> getAllWithUser(String username) {
+        return getAllWithUser(username, false);
+
     }
+
     @Override
-    public List<Order> getAllWithUser(String username){
-        if (username != null || !username.equals("")) {
-            return orderDao.getAllWithUser(username);
+    public List<Order> getAllWithUser(String username, boolean withDeleted) {
+        if(username != null && !username.equals("")){
+            return orderDao.getAllWithUser(username, withDeleted);
         }
         return null;
+    }
+
+    @Override
+    public List<Order> getAllWithCar(long carId, boolean withDeleted) {
+        if(carId >0){
+            orderDao.getAllWithCar(carId, withDeleted);
+        }
+        return null;
+    }
+
+    @Override
+    public Order getByIdWithUser(long orderId, String username) {
+        if(orderId>0 && username != null && !username.equals("")){
+            return orderDao.getByIdWithUser(orderId, username);
+        }
+        return null;
+    }
+
+    @Override
+    public List<Order> getAllWithCar(long carId) {
+        return getAllWithCar(carId, false);
+    }
+
+    @Override
+    public List<Order> getAll() {
+        return orderDao.getAll();
     }
 
     @Override

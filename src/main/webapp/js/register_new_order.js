@@ -17,7 +17,7 @@ function registerNewOrder(){
 
     xhr.onreadystatechange= function(){
         if(this.readyState==4 && this.status==200){
-            text =this.responseText;
+            var text =this.responseText;
             if(text == "success"){
                 newCar();
             }

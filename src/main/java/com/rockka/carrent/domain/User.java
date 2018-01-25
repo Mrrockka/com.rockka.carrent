@@ -188,4 +188,5 @@ public class User implements Serializable{
 
         return Objects.hash(roles, username, password, firstName, secondName, lastName, address, birthday, status);
     }
+
 }

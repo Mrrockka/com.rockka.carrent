@@ -9,7 +9,15 @@
 </head>
 <body>
 	<div class="col-sm-12 col-md-12 d-none d-sm-block bg-light menu" th:fragment="menu">
-
+		<ul class="nav nav-tabs">
+			<li class="nav-item">
+				<a onclick="showAccount(); return false;" data-toggle="tab" role="tab" aria-selected="true" class="nav-link active" href="#">Account</a>
+			</li>
+			<li class="nav-item">
+				<a onclick="showOrders(); return false;" data-toggle="tab" role="tab" aria-selected="false" class="nav-link" href="#">
+					Orders</a>
+			</li>
+		</ul>
 	</div>
 
 <script type="text/javascript" src="../../js/jquery-3.2.1.min.js"></script>

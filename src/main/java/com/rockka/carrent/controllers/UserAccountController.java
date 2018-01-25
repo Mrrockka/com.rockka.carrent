@@ -60,8 +60,8 @@ public class UserAccountController extends UserUtil {
             "/firstname/{firstname}" +
             "/secondname/{secondname}" +
             "/lastname/{lastname}" +
-            "/address/{address" +
-            "}/about_me/{about_me}" +
+            "/address/{address}" +
+            "/about_me/{about_me}" +
             "/birthday/{birthday}")
     @ResponseBody
     public String updateUser(
@@ -72,7 +72,7 @@ public class UserAccountController extends UserUtil {
             , @PathVariable("about_me") String about_me
             , @PathVariable("birthday") String birthday
     ){
-        String ans = " failure";
+        String ans = "failure";
         User user = userService.getByUsername(getPrincipal().getUsername());
         if(user != null){
             userService.update(
@@ -99,9 +99,47 @@ public class UserAccountController extends UserUtil {
                     .put("car_name", order.getCar().getName())
                     .put("starts_at", order.getStartsAt().toString())
                     .put("expires_at", order.getExpiresAt().toString())
-                    .put("status", order.getOrderStatus().toString());
+                    .put("order_price", order.getPrice())
+                    .put("orderStatus", order.getOrderStatus().toString());
         }
         return node;
     }
+
+    @GetMapping("/order/{id}")
+    @ResponseBody
+    public JsonNode showOrderById(@PathVariable("id") long id){
+        ObjectNode node = mapper.createObjectNode();
+        String username = getPrincipal().getUsername();
+        Order order = orderService.getByIdWithUser(id, username);
+
+        node.put("order_id", order.getId())
+                .put("username", username)
+                .put("car_name", order.getCar().getName())
+                .put("price", order.getPrice())
+                .put("starts_at", order.getStartsAt().toString())
+                .put("expires_at", order.getExpiresAt().toString())
+                .put("description", order.getDescription())
+                .put("orderStatus", order.getOrderStatus().toString())
+                .put("status", order.getOrderStatus().toInt());
+
+        return node;
+    }
+
+    @RequestMapping("/order/update/{id}/status/{status}")
+    @ResponseBody
+    public String updateOrder(@PathVariable("id") long id, @PathVariable("status") int status){
+        String ans = "failure";
+        try{
+            Order order = orderService.getById(id).setOrderStatus(status);
+            orderService.update(order);
+            ans = "Success";
+        }catch(Exception ex){
+            logger.error("UPDATE_ORDER: " + ex);
+        }
+        return ans;
+    }
+
+
+
 }
 

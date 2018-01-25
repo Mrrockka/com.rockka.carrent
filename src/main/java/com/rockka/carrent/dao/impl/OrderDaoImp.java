@@ -1,6 +1,7 @@
 package com.rockka.carrent.dao.impl;
 
 import com.rockka.carrent.dao.OrderDao;
+import com.rockka.carrent.domain.Car;
 import com.rockka.carrent.domain.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +36,7 @@ public class OrderDaoImp extends GenericDaoImp<Order> implements OrderDao {
     }
 
     @Override
-    public List<Order> getAllWithUser(String username){
+    public List<Order> getAllWithUser(String username, boolean withDeleted){
         List<Order> orders = null;
         try{
             orders = getSession()
@@ -48,5 +49,33 @@ public class OrderDaoImp extends GenericDaoImp<Order> implements OrderDao {
         return orders;
     }
 
+    @Override
+    public List<Order> getAllWithCar(long carId, boolean withDeleted){
+        List<Order> orders = null;
+        try{
+            orders = getSession()
+                    .createQuery("from Order where car_id  =:carId")
+                    .setParameter("carId", carId)
+                    .list();
+        } catch(Exception ex){
+            logger.error("ORDER_DAO_IMP: getAllWithCar - query exception!!!" + ex);
+        }
+        return orders;
+    }
+
+    @Override
+    public Order getByIdWithUser(long orderId, String username) {
+        Order order = null;
+        try{
+            order = (Order) getSession()
+                    .createQuery("from Order where id =:orderId and username  =:username")
+                    .setParameter("orderId", orderId)
+                    .setParameter("username", username)
+                    .uniqueResult();
+        } catch(Exception ex){
+            logger.error("ORDER_DAO_IMP: getByIdWithUser - query exception!!!" + ex);
+        }
+        return order;
+    }
 }
 
