@@ -1,7 +1,7 @@
 package com.rockka.carrent.config;
 
 import com.rockka.carrent.services.CarService;
-import com.rockka.carrent.services.OrderService;
+import com.rockka.carrent.services.InvoiceService;
 import com.rockka.carrent.services.UserService;
 import org.mockito.Mockito;
 import org.springframework.context.annotation.Bean;
@@ -9,10 +9,9 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class TestConfig {
+
 	@Bean
-	public UserService userService(){
-		return Mockito.spy(UserService.class);
-	}
+	public UserService userServiceTest(){ return Mockito.spy(UserService.class); }
 
 	@Bean
 	public CarService carService(){
@@ -20,7 +19,7 @@ public class TestConfig {
 	}
 
 	@Bean
-	public OrderService orderService(){
-		return Mockito.spy(OrderService.class);
+	public InvoiceService invoiceService(){
+		return Mockito.spy(InvoiceService.class);
 	}
 }

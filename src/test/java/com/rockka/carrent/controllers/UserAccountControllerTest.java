@@ -31,13 +31,14 @@ public class UserAccountControllerTest {
 
 	private MockMvc mockMvc;
 	@Autowired
-	private UserService userService;
-	@Autowired
 	private WebApplicationContext webContext;
+
+	@Autowired
+	private UserService userService;
 
 	@Before
 	public void startUp() {
-//		Mockito.reset(carService, userService, orderService);
+//		Mockito.reset(carServiceTest, userService, invoiceServiceTest);
 
 		mockMvc = MockMvcBuilders.webAppContextSetup(webContext).build();
 	}

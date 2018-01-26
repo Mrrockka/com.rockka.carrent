@@ -30,7 +30,7 @@ public class SecurityConfig
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/*","/car/*").permitAll()
                 .antMatchers("/admin/**","/car/**").hasRole("ADMIN")
-                .antMatchers("/user/**","/order/**").hasAnyRole("ADMIN","USER")
+                .antMatchers("/user/**","/invoice/**").hasAnyRole("ADMIN","USER")
                 .and().formLogin().loginPage("/login").defaultSuccessUrl("/account").failureUrl("/login")
                 .and().logout().logoutSuccessUrl("/login")
                 .and().csrf().disable()

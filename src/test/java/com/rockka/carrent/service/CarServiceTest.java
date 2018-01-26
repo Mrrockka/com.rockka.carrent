@@ -1,6 +1,9 @@
-package com.rockka.carrent.dao;
+package com.rockka.carrent.service;
 
 import com.rockka.carrent.config.AppConfig;
+import com.rockka.carrent.config.OrmConfig;
+import com.rockka.carrent.config.MvcConfig;
+import com.rockka.carrent.dao.CarDao;
 import com.rockka.carrent.domain.Car;
 import com.rockka.carrent.services.CarService;
 import com.rockka.carrent.test_categories.BasicTest;
@@ -11,22 +14,28 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(
+        classes = {
+                AppConfig.class
+        })
 public class CarServiceTest extends Assert {
-    private static CarService carService;
+
+    @Autowired
     private CarDao carDao;
+    @Autowired
+    private CarService carService;
     private Logger logger = LoggerFactory.getLogger(CarServiceTest.class);
 
     @Before
     public void startUp() {
-        AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-        context.register(AppConfig.class);
-        context.refresh();
-        carService = context.getBean("carService", CarService.class);
-        carDao = context.getBean("carDao", CarDao.class);
     }
 
     @Test

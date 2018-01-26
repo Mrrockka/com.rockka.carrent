@@ -1,19 +1,21 @@
 package com.rockka.carrent.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.rockka.carrent.enums.OrderStatus;
+import com.rockka.carrent.enums.InvoiceStatus;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 //TODO: change java.util.Date to JodaTime
 @Entity
-@Table(name = "carorder")
-public class Order implements Serializable{
+@Table(name = "invoice")
+public class Invoice implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "invoice_id")
     private long id;
     @JsonIgnore
     @ManyToOne
@@ -42,13 +44,16 @@ public class Order implements Serializable{
     @Column(name ="status", length = 10, nullable = false)
     private int status = 2;
     @Transient
-    private OrderStatus orderStatus;
+    private InvoiceStatus invoiceStatus;
+/*    @OneToMany()
+    private List<Invoice> invoices;*/
+
 
     public long getId() {
         return id;
     }
 
-    public Order setId(long id) {
+    public Invoice setId(long id) {
         this.id = id;
         return this;
     }
@@ -57,7 +62,7 @@ public class Order implements Serializable{
         return user;
     }
 
-    public Order setUser(User user) {
+    public Invoice setUser(User user) {
         this.user = user;
         return this;
     }
@@ -66,7 +71,7 @@ public class Order implements Serializable{
         return car;
     }
 
-    public Order setCar(Car car) {
+    public Invoice setCar(Car car) {
         this.car = car;
         return this;
     }
@@ -75,7 +80,7 @@ public class Order implements Serializable{
         return description;
     }
 
-    public Order setDescription(String description) {
+    public Invoice setDescription(String description) {
         this.description = description;
         return this;
     }
@@ -84,7 +89,7 @@ public class Order implements Serializable{
         return price;
     }
 
-    public Order setPrice(double price) {
+    public Invoice setPrice(double price) {
         this.price = price;
         return this;
     }
@@ -93,7 +98,7 @@ public class Order implements Serializable{
         return createdAt;
     }
 
-    public Order setCreatedAt(Date createdAt) {
+    public Invoice setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
         return this;
     }
@@ -102,7 +107,7 @@ public class Order implements Serializable{
         return modifiedAt;
     }
 
-    public Order setModifiedAt(Date modifiedAt) {
+    public Invoice setModifiedAt(Date modifiedAt) {
         this.modifiedAt = modifiedAt;
         return this;
     }
@@ -111,7 +116,7 @@ public class Order implements Serializable{
         return startsAt;
     }
 
-    public Order setStartsAt(Date startsAt) {
+    public Invoice setStartsAt(Date startsAt) {
         this.startsAt = startsAt;
         return this;
     }
@@ -120,37 +125,37 @@ public class Order implements Serializable{
         return expiresAt;
     }
 
-    public Order setExpiresAt(Date expiresAt) {
+    public Invoice setExpiresAt(Date expiresAt) {
         this.expiresAt = expiresAt;
         return this;
     }
 
-    public Order setOrderStatus(int i){
-        orderStatus = OrderStatus.get(i);
-        status = orderStatus.toInt();
+    public Invoice setInvoiceStatus(int i){
+        invoiceStatus = InvoiceStatus.get(i);
+        status = invoiceStatus.toInt();
         return this;
     }
 
-    public OrderStatus getOrderStatus(){
-        if(orderStatus == null){
-            orderStatus = OrderStatus.get(status);
+    public InvoiceStatus getInvoiceStatus(){
+        if(invoiceStatus == null){
+            invoiceStatus = InvoiceStatus.get(status);
         }
-        return orderStatus;
+        return invoiceStatus;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Order carOrder = (Order) o;
-        return id == carOrder.id &&
-                Double.compare(carOrder.price, price) == 0 &&
-                status == carOrder.status &&
-                Objects.equals(user, carOrder.user) &&
-                Objects.equals(car, carOrder.car) &&
-                Objects.equals(description, carOrder.description) &&
-                Objects.equals(startsAt, carOrder.startsAt) &&
-                Objects.equals(expiresAt, carOrder.expiresAt);
+        Invoice invoice = (Invoice) o;
+        return id == invoice.id &&
+                Double.compare(invoice.price, price) == 0 &&
+                status == invoice.status &&
+                Objects.equals(user, invoice.user) &&
+                Objects.equals(car, invoice.car) &&
+                Objects.equals(description, invoice.description) &&
+                Objects.equals(startsAt, invoice.startsAt) &&
+                Objects.equals(expiresAt, invoice.expiresAt);
     }
 
     @Override

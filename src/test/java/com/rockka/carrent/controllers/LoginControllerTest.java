@@ -2,16 +2,13 @@ package com.rockka.carrent.controllers;
 
 import com.rockka.carrent.config.MvcConfig;
 import com.rockka.carrent.config.OrmConfig;
-import com.rockka.carrent.config.SecurityConfig;
 import com.rockka.carrent.config.TestConfig;
 import com.rockka.carrent.test_categories.BasicTest;
 import com.rockka.carrent.test_categories.SecurityTest;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;

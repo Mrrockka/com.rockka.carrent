@@ -19,7 +19,7 @@ function showAccount(){
             + json.firstname + "\" readonly>"
             +"<label for=\"secondname\">Second name: </label><input id=\"secondname\" type=\"text\" value=\""
             + json.secondname + "\" readonly>"
-            +"<label for=\"lastname>Last nameL: </label><input id=\"lastname\" type=\"text\" value=\""
+            +"<label for=\"lastname>Last name: </label><input id=\"lastname\" type=\"text\" value=\""
             + json.lastname + "\" readonly>"
             +"<label for=\"address\">Address: </label><input id=\"address\" type=\"text\" value=\""
             + json.address + "\" readonly>"
@@ -57,23 +57,30 @@ function setEnabled(){
     }
 
 //  now it's button
-    element = document.getElementById("user_info_btn");
-    element.value = "Submit";
-    element.onclick = "updateAccount()";
+    var btn = document.getElementById("user_info_btn");
+    btn.value = "Submit";
+    btn.setAttribute("onclick", "updateAccount()");
 }
 
 function updateAccount(){
     var xhr = new XMLHttpRequest(), url = '/user/update/';
 
-    var form = document.getElementById("info_user");
+    var form = document.getElementById("user_info");
 
     var i, element;
 
     for(i = 0; i<form.length; i++){
         element = form.elements[i];
-
-        url += element.id + "/" + element.value;
+        if(element.type == "button"){
+            continue;
+        }
+        if(element.id == "username"){
+            continue;
+        }
+        url += element.id + "/" + element.value + "/";
     }
+
+    url = url.slice(0, -1);
 
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
@@ -82,7 +89,7 @@ function updateAccount(){
             alert(text);
         }
     }
-
+    alert(url);
     xhr.open("POST", url, true);
     xhr.send();
 }
@@ -106,17 +113,17 @@ function showOrders(){
             for(i = 0; i<json.length; i++){
                 info += "<tr>"
                     + "<td><a href=\"#\" onclick=\"showOrderById("
-                    +json[i].order_id + ");return false;\">"+json[i].order_id+"</a></td>"
+                    +json[i].invoice_id + ");return false;\">"+json[i].invoice_id+"</a></td>"
                     + "<td><a href=\"#\" onclick=\"showOrderById("
-                    +json[i].order_id + ");return false;\">"+json[i].car_name+"</a></td>"
+                    +json[i].invoice_id + ");return false;\">"+json[i].car_name+"</a></td>"
                     + "<td><a href=\"#\" onclick=\"showOrderById("
-                    +json[i].order_id + ");return false;\">"+json[i].starts_at+"</a></td>"
+                    +json[i].invoice_id + ");return false;\">"+json[i].starts_at+"</a></td>"
                     + "<td><a href=\"#\" onclick=\"showOrderById("
-                    +json[i].order_id + ");return false;\">"+json[i].expires_at+"</a></td>"
+                    +json[i].invoice_id + ");return false;\">"+json[i].expires_at+"</a></td>"
                     + "<td><a href=\"#\" onclick=\"showOrderById("
-                    +json[i].order_id + ");return false;\">"+json[i].order_price+"</a></td>"
+                    +json[i].invoice_id + ");return false;\">"+json[i].invoice_price+"</a></td>"
                     + "<td><a href=\"#\" onclick=\"showOrderById("
-                    +json[i].order_id + ");return false;\">"+json[i].orderStatus+"</a></td>"
+                    +json[i].invoice_id + ");return false;\">"+json[i].invoiceStatus+"</a></td>"
                     + "</tr>";
             }
 
@@ -126,7 +133,7 @@ function showOrders(){
         }
     }
 
-    xhr.open("GET", '/user/order/show_all', true);
+    xhr.open("GET", '/user/invoice/show_all', true);
     xhr.send();
 }
 
@@ -139,22 +146,21 @@ function showOrderById(id){
 
             var info = "<div class=\"container\">"
                     +"<h2>Rent car order</h2>"
-                    +"<p>Order id: "+json.order_id + "</p>"
+                    +"<p>Invoice id: "+json.invoice_id + "</p>"
                     +"<p>Birthday: "+ json.birthday +"</p>"
                     +"<pCar name: >"+json.car_name+"</p>"
-                    +"<p>Car price: " + json.car_price+"</p>"
                     +"<p>Starts: "+ json.starts_at+"</p>"
                     +"<p>Expires: "+ json.expires_at+"</p>"
-                    +"<p>Order price: " + json.order_price+"</p>"
+                    +"<p>Invoice price: " + json.invoice_price+"</p>"
                     +"<p>Description: "+ json.description +"</p>"
-                    +"<p>Status: "+json.orderStatus +"</p>";
+                    +"<p>Status: "+json.invoiceStatus +"</p>";
 
             if(json.status >0 && json.status<3){
                 if(json.status != 6){
-                    info += "<input type=\"button\" value=\"close order?\" onclick=\"changeOrderStatus("+id +", 6)\">";
+                    info += "<input type=\"button\" value=\"close order?\" onclick=\"changeOrderStatus("+id +", 0)\">";
                 }
             } else {
-                if(json.status == 6){
+                if(json.status == 0){
                     info += "<input type=\"button\" value=\"open order?\" onclick=\"changeOrderStatus("+id +", 2)\">";
                 }
             }
@@ -165,7 +171,7 @@ function showOrderById(id){
         }
 
     }
-    xhr.open("GET", 'user/order/'+id, true);
+    xhr.open("GET", '/user/invoice/'+id, true);
     xhr.send();
 }
 
@@ -179,7 +185,7 @@ function changeOrderStatus(id, status){
         }
     }
 //    6 - is CLOSED in OrderStatus enum
-    xhr.open("POST", '/user/order/update/'+id+'/status/'+status, true);
+    xhr.open("POST", '/user/invoice/update/'+id+'/status/'+status, true);
     xhr.send();
 
 

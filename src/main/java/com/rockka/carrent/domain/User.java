@@ -45,7 +45,7 @@ public class User implements Serializable{
     private Date modifiedAt = new Date();
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Order> carOrders;
+    private List<Invoice> carOrders;
 
     public String getRoles() {
         return roles;
@@ -159,11 +159,11 @@ public class User implements Serializable{
         return this;
     }
 
-    public List<Order> getOrders() {
+    public List<Invoice> getOrders() {
         return carOrders;
     }
 
-    public void setOrders(List<Order> carOrders) {
+    public void setOrders(List<Invoice> carOrders) {
         this.carOrders = carOrders;
     }
 

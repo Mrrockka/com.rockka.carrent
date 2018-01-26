@@ -5,7 +5,6 @@ import com.rockka.carrent.config.OrmConfig;
 import com.rockka.carrent.config.TestConfig;
 import org.junit.Before;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -29,7 +28,7 @@ public class RegisterNewUserControllerTest {
 
 	@Before
 	public void startUp() {
-//		Mockito.reset(carService, userService, orderService);
+//		Mockito.reset(carServiceTest, userService, invoiceServiceTest);
 
 		mockMvc = MockMvcBuilders.webAppContextSetup(webContext).build();
 	}

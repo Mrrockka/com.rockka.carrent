@@ -1,6 +1,7 @@
 package com.rockka.carrent;
 
 import com.rockka.carrent.config.AppConfig;
+import com.rockka.carrent.config.OrmConfig;
 import com.rockka.carrent.config.MvcConfig;
 import com.rockka.carrent.config.SecurityConfig;
 import org.slf4j.Logger;
@@ -12,30 +13,30 @@ import javax.servlet.Filter;
 
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
-    private final Logger logger = LoggerFactory.getLogger(AppInitializer.class);
+	private final Logger logger = LoggerFactory.getLogger(AppInitializer.class);
 
-    @Override
-    protected Class<?>[] getRootConfigClasses() {
-        return new Class[] {AppConfig.class
-                ,SecurityConfig.class
-        };
-    }
+	@Override
+	protected Class<?>[] getRootConfigClasses() {
+		return new Class[]{AppConfig.class
+				, SecurityConfig.class
+		};
+	}
 
-    @Override
-    protected Class<?>[] getServletConfigClasses() {
-        return new Class[] {MvcConfig.class};
-    }
+	@Override
+	protected Class<?>[] getServletConfigClasses() {
+		return new Class[]{MvcConfig.class};
+	}
 
-    @Override
-    protected String[] getServletMappings() {
-        return new String[]{"/"};
-    }
+	@Override
+	protected String[] getServletMappings() {
+		return new String[]{"/"};
+	}
 
-    @Override
-    protected Filter[] getServletFilters(){
-        return new Filter[] {
-                new DelegatingFilterProxy("springSecurityFilterChain")
-        };
+	@Override
+	protected Filter[] getServletFilters() {
+		return new Filter[]{
+				new DelegatingFilterProxy("springSecurityFilterChain")
+		};
 
-    }
+	}
 }

@@ -16,6 +16,7 @@ import java.util.Objects;
 public class Car implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "car_id")
     private long id;
     @Column(name = "name", length = 30, nullable = false)
     private String name;
@@ -42,7 +43,7 @@ public class Car implements Serializable {
     private CarStatus carStatus;
     @JsonIgnore
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Order> carOrders;
+    private List<Invoice> carOrders;
 
     public long getId() {
         return id;
@@ -138,11 +139,11 @@ public class Car implements Serializable {
         return this;
     }
 
-    public List<Order> getCarOrders() {
+    public List<Invoice> getCarOrders() {
         return carOrders;
     }
 
-    public Car setCarOrders(List<Order> carOrders) {
+    public Car setCarOrders(List<Invoice> carOrders) {
         this.carOrders = carOrders;
         return this;
     }

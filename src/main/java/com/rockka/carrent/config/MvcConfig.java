@@ -21,7 +21,9 @@ import org.thymeleaf.templatemode.TemplateMode;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.rockka.carrent.controllers"})
+@ComponentScan(basePackages = {
+        "com.rockka.carrent.controllers"
+})
 public class MvcConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
     private final Logger logger = LoggerFactory.getLogger(MvcConfig.class);
     private ApplicationContext context;

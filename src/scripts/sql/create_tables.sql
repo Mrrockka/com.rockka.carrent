@@ -1,7 +1,7 @@
 #DATABASE carrent;
 
 CREATE TABLE car (
-    id INT AUTO_INCREMENT,
+    car_id INT AUTO_INCREMENT,
     name varchar(30) NOT NULL,
     country varchar(15),
     color varchar(20),
@@ -11,7 +11,7 @@ CREATE TABLE car (
     created_at DATE NOT NULL,
     modified_at DATE NOT NULL,
     status INT NOT NULL,
-    PRIMARY KEY (id)
+    PRIMARY KEY (car_id)
 );
 
 CREATE TABLE user (
@@ -31,8 +31,8 @@ CREATE TABLE user (
 );
 
 
-CREATE TABLE carorder (
-    id INT AUTO_INCREMENT,
+CREATE TABLE invoice (
+    invoice_id INT AUTO_INCREMENT,
     username varchar(30) NOT NULL,
     car_id INT NOT NULL,
     description TEXT NOT NULL,
@@ -43,6 +43,14 @@ CREATE TABLE carorder (
     expires_at DATE NOT NULL,
     status INT NOT NULL,
     FOREIGN KEY (username) REFERENCES user(username),
-    FOREIGN KEY (car_id) REFERENCES car(id),
-    PRIMARY KEY (id)
+    FOREIGN KEY (car_id) REFERENCES car(car_id),
+    PRIMARY KEY (invoice_id)
+);
+
+
+CREATE TABLE invoice_invoice (
+    first_id INT NOT NULL,
+    second_id INT NOT NULL,
+    FOREIGN KEY (first_id) REFERENCES invoice(invoice_id),
+    FOREIGN KEY (second_id) REFERENCES invoice(invoice_id)
 );

@@ -38,19 +38,19 @@ function showOrders(){
             for(i = 0; i<json.length; i++){
                 info += "<tr>"
                     + "<td><a href=\"#\" onclick=\"showOrderById("
-                    +json[i].order_id + ");return false;\">"+json[i].order_id+"</a></td>"
+                    +json[i].invoice_id + ");return false;\">"+json[i].invoice_id+"</a></td>"
                     + "<td><a href=\"#\" onclick=\"showOrderById("
-                    +json[i].order_id + ");return false;\">"+json[i].username+"</td>"
+                    +json[i].invoice_id + ");return false;\">"+json[i].username+"</td>"
                     + "<td><a href=\"#\" onclick=\"showOrderById("
-                    +json[i].order_id + ");return false;\">"+json[i].car_name+"</a></td>"
+                    +json[i].invoice_id + ");return false;\">"+json[i].car_name+"</a></td>"
                     + "<td><a href=\"#\" onclick=\"showOrderById("
-                    +json[i].order_id + ");return false;\">"+json[i].starts_at+"</a></td>"
+                    +json[i].invoice_id + ");return false;\">"+json[i].starts_at+"</a></td>"
                     + "<td><a href=\"#\" onclick=\"showOrderById("
-                    +json[i].order_id + ");return false;\">"+json[i].expires_at+"</a></td>"
+                    +json[i].invoice_id + ");return false;\">"+json[i].expires_at+"</a></td>"
                     + "<td><a href=\"#\" onclick=\"showOrderById("
-                    +json[i].order_id + ");return false;\">"+json[i].price+"</a></td>"
+                    +json[i].invoice_id + ");return false;\">"+json[i].price+"</a></td>"
                     + "<td><a href=\"#\" onclick=\"showOrderById("
-                    +json[i].order_id + ");return false;\">"+json[i].status+"</a></td>"
+                    +json[i].invoice_id + ");return false;\">"+json[i].status+"</a></td>"
                     + "</tr>";
             }
 
@@ -58,7 +58,7 @@ function showOrders(){
             document.getElementById("info_div").innerHTML = info;
         }
     }
-    xhr.open("GET", '/admin/order/show_all', true);
+    xhr.open("GET", '/admin/invoice/show_all', true);
     xhr.send();
 }
 
@@ -166,13 +166,13 @@ function showOrderById(id){
 
             var info = "<div class=\"container\">"
                     +"<h2>Rent car order</h2>"
-                    +"<p>Order id: "+json.order_id + "</p>"
+                    +"<p>Invoice id: "+json.invoice_id + "</p>"
                     +"<p>Birthday: "+ json.birthday +"</p>"
                     +"<pCar name: >"+json.car_name+"</p>"
                     +"<p>Car price: " + json.car_price+"</p>"
                     +"<p>Starts: "+ json.starts_at+"</p>"
                     +"<p>Expires: "+ json.expires_at+"</p>"
-                    +"<p>Order price: " + json.order_price+"</p>"
+                    +"<p>Invoice price: " + json.invoice_price+"</p>"
                     +"<p>Description: <input value=\""+ json.description+"\" type=\"text\" id=\"description\"></p>"
                     +"<p>Status: <select id=\"statusSelect\">";
             var i;
@@ -181,7 +181,7 @@ function showOrderById(id){
             }
             info+= "</select></p>"
                     +"<p>Status: <input value=\""+ json.status+"\" type=\"number\" id=\"status\"></p>"
-                    +"<p><a class=\"btn btn-lg btn-block btn-primary\" onclick=\"updateOrder("+json.order_id+");return false;\">Confirm</a></p>";
+                    +"<p><a class=\"btn btn-lg btn-block btn-primary\" onclick=\"updateOrder("+json.invoice_id+");return false;\">Confirm</a></p>";
             }
 
             info += "</div>";
@@ -190,7 +190,7 @@ function showOrderById(id){
         }
 
 
-    xhr.open("GET", '/admin/order/'+id, true);
+    xhr.open("GET", '/admin/invoice/'+id, true);
     xhr.send();
 }
 
@@ -207,6 +207,6 @@ function updateOrder(id){
         }
     }
 
-    xhr.open("UPDATE", '/admin/order/update/'+ id +'/description/'+description+'/status/'+status);
+    xhr.open("UPDATE", '/admin/invoice/update/'+ id +'/description/'+description+'/status/'+status);
     xhr.send();
 }

@@ -2,8 +2,8 @@
 
 function registerNewOrder(){
     var xhr = new XMLHttpRequest();
-    var url = '/order/save/' + document.getElementById("carid").innerHTML;
-	var i = 0, json = "", doc = document.forms["order"];
+    var url = '/invoice/save/' + document.getElementById("carid").innerHTML;
+	var i = 0, json = "", doc = document.forms["invoice"];
     json = "{";
     for(i=0; i<doc.length; i++){
     	if(doc[i].type == "button"){
@@ -19,7 +19,7 @@ function registerNewOrder(){
         if(this.readyState==4 && this.status==200){
             var text =this.responseText;
             if(text == "success"){
-                newCar();
+                window.location.href = '/user/account';
             }
         }
     }

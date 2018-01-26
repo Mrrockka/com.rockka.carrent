@@ -16,7 +16,7 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan(basePackages = {
-         "com.rockka.carrent.dao"
+        "com.rockka.carrent.dao"
         , "com.rockka.carrent.domain"
 })
 @PropertySource("classpath:datasource.properties")

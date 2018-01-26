@@ -5,11 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.rockka.carrent.domain.Car;
-import com.rockka.carrent.domain.Order;
+import com.rockka.carrent.domain.Invoice;
 import com.rockka.carrent.domain.User;
-import com.rockka.carrent.enums.OrderStatus;
+import com.rockka.carrent.enums.InvoiceStatus;
 import com.rockka.carrent.services.CarService;
-import com.rockka.carrent.services.OrderService;
+import com.rockka.carrent.services.InvoiceService;
 import com.rockka.carrent.services.UserService;
 import com.rockka.carrent.util.UserUtil;
 import org.slf4j.Logger;
@@ -27,68 +27,68 @@ public class AdminAccountController extends UserUtil {
 	@Autowired
 	private UserService userService;
 	@Autowired
-	private OrderService orderService;
+	private InvoiceService invoiceService;
 	@Autowired
 	private ObjectMapper mapper;
 
 	private Logger logger = LoggerFactory.getLogger(AdminAccountController.class);
 
-	@GetMapping("/order/show_all")
+	@GetMapping("/invoice/show_all")
 	@ResponseBody
-	public JsonNode showOrders() {
+	public JsonNode showInvoices() {
 		ArrayNode node = mapper.createArrayNode();
-		for(Order order: orderService.getAll()){
+		for(Invoice invoice: invoiceService.getAll()){
 			node.addObject()
-					.put("order_id", order.getId())
-					.put("car_name", order.getCar().getName())
-					.put("username", order.getUser().getUsername())
-					.put("starts_at", order.getStartsAt().toString())
-					.put("expires_at", order.getExpiresAt().toString())
-					.put("price", order.getPrice())
-					.put("status", order.getOrderStatus().toString());
+					.put("invoice_id", invoice.getId())
+					.put("car_name", invoice.getCar().getName())
+					.put("username", invoice.getUser().getUsername())
+					.put("starts_at", invoice.getStartsAt().toString())
+					.put("expires_at", invoice.getExpiresAt().toString())
+					.put("price", invoice.getPrice())
+					.put("status", invoice.getInvoiceStatus().toString());
 		}
 		return node;
 	}
 
-	@GetMapping("/order/{id}")
+	@GetMapping("/invoice/{id}")
     @ResponseBody
-	public JsonNode showOrderById(@PathVariable("id") long id) {
-	    Order order = orderService.getById(id);
+	public JsonNode showInvoicerById(@PathVariable("id") long id) {
+	    Invoice invoice = invoiceService.getById(id);
 	    ObjectNode node = mapper.createObjectNode();
 		ArrayNode arrayNode = mapper.createArrayNode();
 
-	    node.put("order_id", order.getId())
-                .put("username", order.getUser().getUsername())
-                .put("birthday", order.getUser().getBirthday().toString())
-                .put("car_name", order.getCar().getName())
-                .put("car_price", order.getCar().getPrice())
-                .put("starts_at", order.getStartsAt().toString())
-                .put("expires_at", order.getExpiresAt().toString())
-                .put("order_price", order.getPrice())
-                .put("description", order.getDescription())
-                .put("status", order.getOrderStatus().toInt());
-	    for(OrderStatus orderStatus: OrderStatus.values()){
+	    node.put("invoice_id", invoice.getId())
+                .put("username", invoice.getUser().getUsername())
+                .put("birthday", invoice.getUser().getBirthday().toString())
+                .put("car_name", invoice.getCar().getName())
+                .put("car_price", invoice.getCar().getPrice())
+                .put("starts_at", invoice.getStartsAt().toString())
+                .put("expires_at", invoice.getExpiresAt().toString())
+                .put("invoice_price", invoice.getPrice())
+                .put("description", invoice.getDescription())
+                .put("status", invoice.getInvoiceStatus().toInt());
+	    for(InvoiceStatus invoiceStatus: InvoiceStatus.values()){
 	    	arrayNode.addObject()
-					.put("toInt", orderStatus.toInt())
-					.put("toString", orderStatus.toString());
+					.put("toInt", invoiceStatus.toInt())
+					.put("toString", invoiceStatus.toString());
 		}
-		node.set("orderStatus", arrayNode);
+		node.set("invoiceStatus", arrayNode);
 
 	    return node;
 	}
 
-	@RequestMapping("/order/update/{id}/description/{description}/status/{status}")
+	@RequestMapping("/invoice/update/{id}/description/{description}/status/{status}")
 	@ResponseBody
-	public String updateOrderWithId(
+	public String updateInvoiceWithId(
 			@PathVariable("id") long id
 			, @PathVariable("description") String description
 			, @PathVariable int status
 	){
 		String ans = "failure";
 
-		Order order = orderService.getById(id);
-		if(order != null) {
-			orderService.update(order.setDescription(description).setOrderStatus(status));
+		Invoice invoice = invoiceService.getById(id);
+		if(invoice != null) {
+			invoiceService.update(invoice.setDescription(description).setInvoiceStatus(status));
 			ans = "success";
 		}
 

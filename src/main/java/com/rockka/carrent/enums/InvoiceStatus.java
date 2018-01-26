@@ -4,28 +4,30 @@ package com.rockka.carrent.enums;
 	OrderStatus enum for clear representation of status variable
 */
 
-public enum OrderStatus {
-	DELETED(0, "deleted")
+public enum InvoiceStatus {
+	DELETED(-1, "deleted")
+	, CLOSED(0, "closed")
 	, ACTIVE(1, "active")
 	, NEW(2, "new")
 	, DENIED(3, "denied")
 	, EXPIRED(4, "expired")
 	, DEBT(5, "debt")
-	, CLOSED(6, "closed")
 	;
 
 	private int status;
 	private String representation;
 
-	OrderStatus(int status, String representation) {
+	InvoiceStatus(int status, String representation) {
 		this.status = status;
 		this.representation = representation;
 	}
 
-	public static OrderStatus get(int i) {
+	public static InvoiceStatus get(int i) {
 		switch (i) {
-			case 0:
+			case -1:
 				return DELETED;
+			case 0:
+				return CLOSED;
 			case 1:
 				return ACTIVE;
 			case 2:
@@ -36,8 +38,6 @@ public enum OrderStatus {
 				return EXPIRED;
 			case 5:
 				return DEBT;
-			case 6:
-				return CLOSED;
 			default:
 				return ACTIVE;
 		}

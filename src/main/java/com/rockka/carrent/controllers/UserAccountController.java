@@ -4,9 +4,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.rockka.carrent.domain.Order;
+import com.rockka.carrent.domain.Invoice;
 import com.rockka.carrent.domain.User;
-import com.rockka.carrent.services.OrderService;
+import com.rockka.carrent.services.InvoiceService;
 import com.rockka.carrent.services.UserService;
 import com.rockka.carrent.util.UserUtil;
 import org.slf4j.Logger;
@@ -30,7 +30,7 @@ public class UserAccountController extends UserUtil {
     @Autowired
     private UserService userService;
     @Autowired
-    private OrderService orderService;
+    private InvoiceService invoiceService;
     @Autowired
     private ObjectMapper mapper;
 
@@ -69,8 +69,8 @@ public class UserAccountController extends UserUtil {
             , @PathVariable("secondname") String secondname
             , @PathVariable("lastname") String lastname
             , @PathVariable("address") String address
-            , @PathVariable("about_me") String about_me
             , @PathVariable("birthday") String birthday
+            , @PathVariable("about_me") String about_me
     ){
         String ans = "failure";
         User user = userService.getByUsername(getPrincipal().getUsername());
@@ -88,50 +88,50 @@ public class UserAccountController extends UserUtil {
         return ans;
     }
 
-    @GetMapping("/order/show_all")
+    @GetMapping("/invoice/show_all")
     @ResponseBody
-    public JsonNode showOrders(){
+    public JsonNode showInvoices(){
         ArrayNode node = mapper.createArrayNode();
-        List<Order> orders = orderService.getAllWithUser(getPrincipal().getUsername());
-        for(Order order : orders){
+        List<Invoice> invoices = invoiceService.getAllWithUser(getPrincipal().getUsername());
+        for(Invoice invoice : invoices){
             node.addObject()
-                    .put("order_id", order.getId())
-                    .put("car_name", order.getCar().getName())
-                    .put("starts_at", order.getStartsAt().toString())
-                    .put("expires_at", order.getExpiresAt().toString())
-                    .put("order_price", order.getPrice())
-                    .put("orderStatus", order.getOrderStatus().toString());
+                    .put("invoice_id", invoice.getId())
+                    .put("car_name", invoice.getCar().getName())
+                    .put("starts_at", invoice.getStartsAt().toString())
+                    .put("expires_at", invoice.getExpiresAt().toString())
+                    .put("invoice_price", invoice.getPrice())
+                    .put("invoiceStatus", invoice.getInvoiceStatus().toString());
         }
         return node;
     }
 
-    @GetMapping("/order/{id}")
+    @GetMapping("/invoice/{id}")
     @ResponseBody
-    public JsonNode showOrderById(@PathVariable("id") long id){
+    public JsonNode showInvoiceById(@PathVariable("id") long id){
         ObjectNode node = mapper.createObjectNode();
         String username = getPrincipal().getUsername();
-        Order order = orderService.getByIdWithUser(id, username);
+        Invoice invoice = invoiceService.getByIdWithUser(id, username);
 
-        node.put("order_id", order.getId())
+        node.put("invoice_id", invoice.getId())
                 .put("username", username)
-                .put("car_name", order.getCar().getName())
-                .put("price", order.getPrice())
-                .put("starts_at", order.getStartsAt().toString())
-                .put("expires_at", order.getExpiresAt().toString())
-                .put("description", order.getDescription())
-                .put("orderStatus", order.getOrderStatus().toString())
-                .put("status", order.getOrderStatus().toInt());
+                .put("car_name", invoice.getCar().getName())
+                .put("invoice_price", invoice.getPrice())
+                .put("starts_at", invoice.getStartsAt().toString())
+                .put("expires_at", invoice.getExpiresAt().toString())
+                .put("description", invoice.getDescription())
+                .put("invoiceStatus", invoice.getInvoiceStatus().toString())
+                .put("status", invoice.getInvoiceStatus().toInt());
 
         return node;
     }
 
-    @RequestMapping("/order/update/{id}/status/{status}")
+    @RequestMapping("/invoice/update/{id}/status/{status}")
     @ResponseBody
-    public String updateOrder(@PathVariable("id") long id, @PathVariable("status") int status){
+    public String updateInvoice(@PathVariable("id") long id, @PathVariable("status") int status){
         String ans = "failure";
         try{
-            Order order = orderService.getById(id).setOrderStatus(status);
-            orderService.update(order);
+            Invoice invoice = invoiceService.getById(id).setInvoiceStatus(status);
+            invoiceService.update(invoice);
             ans = "Success";
         }catch(Exception ex){
             logger.error("UPDATE_ORDER: " + ex);

@@ -20,8 +20,8 @@ public class CarServiceImp implements CarService {
 	}
 
 	@Override
-	public Car getById(long id) {
-		return carDao.getById(id);
+	public Car getById(long car_id) {
+		return carDao.getById(car_id);
 	}
 
 	@Override

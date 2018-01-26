@@ -1,9 +1,9 @@
 package com.rockka.carrent.controllers;
 
-import com.rockka.carrent.domain.Order;
+import com.rockka.carrent.domain.Invoice;
 import com.rockka.carrent.domain.User;
 import com.rockka.carrent.services.CarService;
-import com.rockka.carrent.services.OrderService;
+import com.rockka.carrent.services.InvoiceService;
 import com.rockka.carrent.services.UserService;
 import com.rockka.carrent.util.UserUtil;
 import org.slf4j.Logger;
@@ -14,10 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/order")
+@RequestMapping("/invoice")
 public class RegisterNewOrderController extends UserUtil{
     @Autowired
-    private OrderService orderService;
+    private InvoiceService invoiceService;
     @Autowired
     private UserService userService;
     @Autowired
@@ -34,16 +34,16 @@ public class RegisterNewOrderController extends UserUtil{
         model.addAttribute("user_address", user.getAddress());
         model.addAttribute("user_birthday", user.getBirthday());
         model.addAttribute("car", carService.getById(id));
-        return "user/register_new_order";
+        return "user/register_new_invoice";
     }
 
     @PostMapping("/save/{id}")
     @ResponseBody
-    public String save(@RequestBody Order order, @PathVariable("id") long id){
+    public String save(@RequestBody Invoice order, @PathVariable("id") long id){
         order.setCar(carService.getById(id));
         order.setUser(userService.getByUsername(getPrincipal().getUsername()));
-        order.setOrderStatus(2);
-        orderService.save(order);
+        order.setInvoiceStatus(2);
+        invoiceService.save(order);
         return "public/success";
     }
 

@@ -1,6 +1,9 @@
-package com.rockka.carrent.dao;
+package com.rockka.carrent.service;
 
 import com.rockka.carrent.config.AppConfig;
+import com.rockka.carrent.config.OrmConfig;
+import com.rockka.carrent.config.MvcConfig;
+import com.rockka.carrent.dao.UserDao;
 import com.rockka.carrent.domain.User;
 import com.rockka.carrent.services.UserService;
 import com.rockka.carrent.test_categories.BasicTest;
@@ -10,25 +13,30 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Date;
-
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(
+        classes = {
+                AppConfig.class
+        })
 public class UserServiceTest extends Assert {
 
-    private UserService userService;
+    @Autowired
     private UserDao userDao;
+    @Autowired
+    private UserService userService;
+
     private Logger logger = LoggerFactory.getLogger(UserServiceTest.class);
 
     @Before
     public void startUp() {
-        AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-        context.register(AppConfig.class);
-        context.refresh();
-        userService = context.getBean("userService", UserService.class);
-        userDao = context.getBean("userDao", UserDao.class);
     }
 
     @Test

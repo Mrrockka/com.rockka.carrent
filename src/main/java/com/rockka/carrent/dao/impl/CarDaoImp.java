@@ -20,12 +20,12 @@ public class CarDaoImp extends GenericDaoImp<Car> implements CarDao {
 
 //    TODO rewrite with criteria
     @Override
-    public Car getById(final long id) {
+    public Car getById(final long car_id) {
         Car car = null;
         try {
             car = (Car) getSession()
-                    .createQuery("from Car where id = :id")
-                    .setParameter("id", id)
+                    .createQuery("from Car where car_id = :car_id")
+                    .setParameter("car_id", car_id)
                     .uniqueResult();
         }catch(Exception e){
             logger.error("Exception " + e);

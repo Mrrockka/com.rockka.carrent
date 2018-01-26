@@ -26,7 +26,7 @@
                 <dd th:text="${car.price}"></dd>
 
             </dl>
-            <a class="btn btn-lg btn-primary" th:href="@{'/order/car/'+${car.id}}">Rent now</a>
+            <a class="btn btn-lg btn-primary" th:href="@{'/invoice/car/'+${car.id}}">Rent now</a>
         </div>
     </div>
     <footer th:replace = "fragments/footer :: footer"></footer>

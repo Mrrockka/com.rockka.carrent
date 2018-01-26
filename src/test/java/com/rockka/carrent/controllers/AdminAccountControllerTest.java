@@ -1,23 +1,24 @@
 package com.rockka.carrent.controllers;
 
+import com.rockka.carrent.config.AppConfig;
 import com.rockka.carrent.config.MvcConfig;
 import com.rockka.carrent.config.OrmConfig;
 import com.rockka.carrent.config.TestConfig;
 import com.rockka.carrent.domain.Car;
-import com.rockka.carrent.domain.Order;
+import com.rockka.carrent.domain.Invoice;
 import com.rockka.carrent.domain.User;
 import com.rockka.carrent.services.CarService;
-import com.rockka.carrent.services.OrderService;
+import com.rockka.carrent.services.InvoiceService;
 import com.rockka.carrent.services.UserService;
 import com.rockka.carrent.test_categories.BasicTest;
 import com.rockka.carrent.test_categories.DetailTest;
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -39,11 +40,12 @@ import java.util.Date;
 		})
 @WebAppConfiguration
 public class AdminAccountControllerTest {
-
+//	Bounding by hand because @Qualifier doesn't work
 	@Autowired
+	@Qualifier("userServiceTest")
 	private UserService userService;
 	@Autowired
-	private OrderService orderService;
+	private InvoiceService invoiceService;
 	@Autowired
 	private CarService carService;
 
@@ -71,18 +73,18 @@ public class AdminAccountControllerTest {
 			.setPrice(9999)
 			.setReleaseDate(new Date(1939, 12, 02));
 
-	private Order order = new Order()
+	private Invoice invoice = new Invoice()
 			.setUser(user)
 			.setCar(car)
 			.setStartsAt(new Date(1990, 12, 15))
 			.setExpiresAt(new Date(2000, 12, 15))
 			.setPrice(1000000000)
-			.setDescription("Veeeeryyyy loooong order")
-			.setOrderStatus(1);
+			.setDescription("Veeeeryyyy loooong invoice")
+			.setInvoiceStatus(1);
 
 	@Before
 	public void startUp() {
-		Mockito.reset(carService, userService, orderService);
+		Mockito.reset(carService, userService, invoiceService);
 
 		mockMvc = MockMvcBuilders.webAppContextSetup(webContext).build();
 	}
@@ -90,12 +92,12 @@ public class AdminAccountControllerTest {
 	@Test
 	@Category(BasicTest.class)
 	public void show_all_orders() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.get("/admin/order/show_all"))
+		mockMvc.perform(MockMvcRequestBuilders.get("/admin/invoice/show_all"))
 				.andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8))
 		;
-		Mockito.verify(orderService, Mockito.times(1)).getAll();
-		Mockito.verifyNoMoreInteractions(orderService);
+		Mockito.verify(invoiceService, Mockito.times(1)).getAll();
+		Mockito.verifyNoMoreInteractions(invoiceService);
 	}
 
 	@Test
@@ -147,14 +149,14 @@ public class AdminAccountControllerTest {
 	@Test
 	@Category(BasicTest.class)
 	public void show_order() throws Exception {
-		Mockito.when(orderService.getById(1)).thenReturn(order);
-		mockMvc.perform(MockMvcRequestBuilders.get("/admin/order/1"))
+		Mockito.when(invoiceService.getById(1)).thenReturn(invoice);
+		mockMvc.perform(MockMvcRequestBuilders.get("/admin/invoice/1"))
 				.andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8))
 		;
 
-		Mockito.verify(orderService, Mockito.times(1)).getById(1);
-		Mockito.verifyNoMoreInteractions(orderService);
+		Mockito.verify(invoiceService, Mockito.times(1)).getById(1);
+		Mockito.verifyNoMoreInteractions(invoiceService);
 	}
 
 	@Test

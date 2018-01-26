@@ -2,17 +2,17 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="'Order for '+${car.name}"></title>
+    <title th:text="'Invoice for '+${car.name}"></title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/standart.css">
     <link rel="stylesheet" href="/css/form.css">
-    <script type="text/javascript" src="/js/register_new_order.js"></script>
+    <script type="text/javascript" src="/js/register_new_invoice.js"></script>
 </head>
 <body>
     <header th:replace="fragments/header :: header"></header>
     <div class="container">
-        <form class="form-std" name="order">
+        <form class="form-std" name="invoice">
             <div class="row">
                 <div class="col-4">
                     <label for="username" class="text-left">Full name: </label>
@@ -97,7 +97,7 @@
             </div>
             <div class="row">
                 <div class="col-4">
-                    <label for="price" class="text-left">Order price: </label>
+                    <label for="price" class="text-left">Invoice price: </label>
                 </div>
                 <div class="col-8 well">
                     <input type="number" id="price" value="0" class="text-left" disabled>
