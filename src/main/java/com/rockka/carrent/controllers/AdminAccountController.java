@@ -223,12 +223,12 @@ public class AdminAccountController extends UserUtil {
 
 		Car car = carService.getById(node.get("car_id").asLong());
 		User user = userService.getByUsername(node.get("username").asText());
-
+//		TODO: debug date parsing
 		Invoice invoice = new Invoice()
 				.setCar(car)
 				.setUser(user)
-				.setDescription(node.get("descritption").asText())
-				.setPrice(node.get("invoic_price").asDouble())
+				.setDescription(node.get("description").asText())
+				.setPrice(node.get("invoice_price").asDouble())
 				.setStartsAt(new Date(node.get("on_date").asText()))
 				.setExpiresAt(new Date(node.get("on_date").asText()))
 				.setInvoiceStatus(node.get("status").asInt())

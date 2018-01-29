@@ -1,10 +1,8 @@
 package com.rockka.carrent.controllers;
 
-import com.rockka.carrent.services.CarService;
 import com.rockka.carrent.util.UserUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,7 +33,7 @@ public class SiteController extends UserUtil{
         if(user != null) {
             text = "{";
             String role = user.getAuthorities().toArray()[0].toString();
-            text += "\"role\" : \"" + role+ "\", \"nickname\": \"" + user.getUsername() + "\"";
+            text += "\"role\" : \"" + role+ "\", \"username\": \"" + user.getUsername() + "\"";
             text += "}";
         }
         return text;

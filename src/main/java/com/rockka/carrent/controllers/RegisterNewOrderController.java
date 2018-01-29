@@ -39,11 +39,11 @@ public class RegisterNewOrderController extends UserUtil{
 
     @PostMapping("/save/{id}")
     @ResponseBody
-    public String save(@RequestBody Invoice order, @PathVariable("id") long id){
-        order.setCar(carService.getById(id));
-        order.setUser(userService.getByUsername(getPrincipal().getUsername()));
-        order.setInvoiceStatus(3);
-        invoiceService.save(order);
+    public String save(@RequestBody Invoice invoice, @PathVariable("id") long id){
+        invoice.setCar(carService.getById(id));
+        invoice.setUser(userService.getByUsername(getPrincipal().getUsername()));
+        invoice.setInvoiceStatus(3);
+        invoiceService.save(invoice);
         return "public/success";
     }
 

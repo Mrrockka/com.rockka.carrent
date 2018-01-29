@@ -169,14 +169,14 @@ function showInvoiceById(id){
                     +"<h2>Rent car invoice</h2>"
                     +"<p>Invoice id: <span id=\"invoice_id\">"+json.invoice_id + "</span></p>"
                     +"<p>Birthday: <span id=\"birthday\">"+ json.birthday +"</span></p>"
-                    +"<p>Car id: <span id=\"car_id\">>"+json.car_id+"</span></p>"
-                    +"<p>Car name: <span id=\"car_name\">>"+json.car_name+"</span></p>"
-                    +"<Username: <span id=\"username\">>"+json.username+"</span></p>"
+                    +"<p>Car id: <span id=\"car_id\">"+json.car_id+"</span></p>"
+                    +"<p>Car name: <span id=\"car_name\">"+json.car_name+"</span></p>"
+                    +"<p>Username: <span id=\"username\">"+json.username+"</span></p>"
                     +"<p>Car price: <span id=\"\">" + json.car_price+"</span></p>"
                     +"<p>Starts: <span id=\"\">"+ json.starts_at+"</span></p>"
                     +"<p>Expires: <span id=\"\">"+ json.expires_at+"</span></p>"
                     +"<p>Invoice price: <span id=\"\">" + json.invoice_price+"</span></p>"
-                    +"<p>Description: <span  id=\"description\"" + json.description+"</span></p>"
+                    +"<p>Description: <span  id=\"description\">" + json.description+"</span></p>"
                     +"<p>Status: <select id=\"statusValues\" onchange=\"checkInvoice()\">";
             var i;
             for(i=0; i<json.statusValues.length; i++){
@@ -206,9 +206,7 @@ function updateInvoice(){
             alert(this.responseText);
         }
     }
-    if(description.length == 0){
-        description = "empty";
-    }
+
     xhr.open("UPDATE", '/admin/invoice/update/'+ id +'/description/'+description+'/status/'+status);
     xhr.send();
 }
@@ -230,7 +228,7 @@ function updateAndCreate(){
 function newInvoice(){
     var xhr = new XMLHttpRequest();
     var info = "<div class=\"container\">"
-        + "<form class=\"form-std\" name=\"invoice\">"
+        + "<form class=\"form-std\" id=\"invoice\">"
         + "<h2 class=\"form-std-heading\">New invoice</h2>"
         + "<p><label for=\"username\" >Username: </label>"
         + "<input type=\"text\" id=\"username\" class=\"form-control\" placeholder=\"Username\" required autofocus></p>"
@@ -242,14 +240,14 @@ function newInvoice(){
         + "<input type=\"date\" id=\"on_date\" class=\"form-control\" required></p>"
         + "<p><label for=\"invoice_price\">Price: </label>"
         + "<input type=\"number\" id=\"invoice_price\" class=\"form-control\" required></p>"
+        + "<p><label for=\"statusValues\">Status: </label> <select id=\"statusValues\"></select></p>"
         + "<p><label for=\"description\">Description: </label>"
-        + "<p>Status: <select id=\"statusValues\"></select></p>"
-        + "<input type=\"text\" id=\"description\" class=\"form-control\" placeholder=\"Description\" required>"
+        + "<input type=\"text\" id=\"description\" class=\"form-control\" placeholder=\"Description\" required></p>"
         + "<input type=\"button\" class\"btn btn-block btn-primary\" value=\"Submit\" onclick=\"registerNewInvoice()\">"
-        + "</div>";
+        + "</form></div>";
 
     document.getElementById("info_div").innerHTML = info;
-    document.getElementById("on_date").value = new Date();
+    document.getElementById("on_date").value = (new Date()).toJSON().slice(0, 10);
 
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
@@ -286,14 +284,15 @@ function basedInvoice(){
 //TODO: test it
 function registerNewInvoice(){
 
-    var i, json = "{", form = document.getElementById("invoice");
+    var i, json = "{";
+    var form = document.forms["invoice"], element;
 
     for(i=0; i<form.length; i++){
-        element = form.elements[i];
+        element = form[i];
         if(element.type == "button"){
             continue;
         }
-        if(element.type == "select"){
+        if(element.id == "statusValues"){
             json += "\"status\" : \"" + element.selectedIndex + "\",";
             continue;
         }
@@ -302,7 +301,7 @@ function registerNewInvoice(){
     }
 
     json = json.slice(0, -1);
-
+    json += "}";
     var xhr = new XMLHttpRequest();
 
     xhr.onreadystatechange = function(){
