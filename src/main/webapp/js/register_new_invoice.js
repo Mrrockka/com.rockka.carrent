@@ -1,5 +1,5 @@
 'use strict';
-
+// TODO: rewrite with JQuery
 function registerNewOrder(){
     var xhr = new XMLHttpRequest();
     var url = '/invoice/save/' + document.getElementById("carid").innerHTML;

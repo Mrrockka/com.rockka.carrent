@@ -1,5 +1,5 @@
 'use strict';
-
+// TODO: rewrite with JQuery
 function registerNewUser(){
     var xhr = new XMLHttpRequest();
 	var i = 0, json = "", doc = document.forms["user"];

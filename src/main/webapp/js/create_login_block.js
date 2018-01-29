@@ -1,5 +1,5 @@
 'use strict'
-
+// TODO: rewrite with JQuery
 function getUserName(){
     var xhr = new XMLHttpRequest();
 

@@ -19,6 +19,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminAccountController extends UserUtil {
@@ -38,14 +40,16 @@ public class AdminAccountController extends UserUtil {
 	public JsonNode showInvoices() {
 		ArrayNode node = mapper.createArrayNode();
 		for(Invoice invoice: invoiceService.getAll()){
-			node.addObject()
-					.put("invoice_id", invoice.getId())
-					.put("car_name", invoice.getCar().getName())
-					.put("username", invoice.getUser().getUsername())
-					.put("starts_at", invoice.getStartsAt().toString())
-					.put("expires_at", invoice.getExpiresAt().toString())
-					.put("price", invoice.getPrice())
-					.put("status", invoice.getInvoiceStatus().toString());
+			if(invoice.getInvoiceStatus().toInt()>0) {
+				node.addObject()
+						.put("invoice_id", invoice.getId())
+						.put("car_name", invoice.getCar().getName())
+						.put("username", invoice.getUser().getUsername())
+						.put("starts_at", invoice.getStartsAt().toString())
+						.put("expires_at", invoice.getExpiresAt().toString())
+						.put("price", invoice.getPrice())
+						.put("status", invoice.getInvoiceStatus().toString());
+			}
 		}
 		return node;
 	}
@@ -60,7 +64,9 @@ public class AdminAccountController extends UserUtil {
 	    node.put("invoice_id", invoice.getId())
                 .put("username", invoice.getUser().getUsername())
                 .put("birthday", invoice.getUser().getBirthday().toString())
+                .put("car_id", invoice.getCar().getId())
                 .put("car_name", invoice.getCar().getName())
+                .put("username", invoice.getUser().getUsername())
                 .put("car_price", invoice.getCar().getPrice())
                 .put("starts_at", invoice.getStartsAt().toString())
                 .put("expires_at", invoice.getExpiresAt().toString())
@@ -72,7 +78,7 @@ public class AdminAccountController extends UserUtil {
 					.put("toInt", invoiceStatus.toInt())
 					.put("toString", invoiceStatus.toString());
 		}
-		node.set("invoiceStatus", arrayNode);
+		node.set("statusValues", arrayNode);
 
 	    return node;
 	}
@@ -152,7 +158,7 @@ public class AdminAccountController extends UserUtil {
 
 	@GetMapping("/car/{id}")
     @ResponseBody
-	public JsonNode showCarById(@PathVariable("id") long id) {
+	public JsonNode showCarWithId(@PathVariable("id") long id) {
         Car car = carService.getById(id);
         ObjectNode node = mapper.createObjectNode();
 
@@ -179,7 +185,6 @@ public class AdminAccountController extends UserUtil {
         return answer;
     }
 
-//    TODO: write method to update car info
 	@RequestMapping("/car/update/{id}/")
 	@ResponseBody
 	public String updateCar(@PathVariable("id") long id) {
@@ -199,4 +204,43 @@ public class AdminAccountController extends UserUtil {
 		return "admin/account";
 	}
 
+	@GetMapping("/status_values")
+	@ResponseBody
+	public JsonNode statusValues(){
+		ArrayNode node = mapper.createArrayNode();
+		for(InvoiceStatus status : InvoiceStatus.values()){
+			node.addObject()
+					.put("toInt", status.toInt())
+					.put("toString", status.toString());
+		}
+		return node;
+	}
+
+	@RequestMapping("/invoice/save")
+	@ResponseBody
+	public String registerNewInvoice(@RequestBody ObjectNode node){
+		String ans = "failure";
+
+		Car car = carService.getById(node.get("car_id").asLong());
+		User user = userService.getByUsername(node.get("username").asText());
+
+		Invoice invoice = new Invoice()
+				.setCar(car)
+				.setUser(user)
+				.setDescription(node.get("descritption").asText())
+				.setPrice(node.get("invoic_price").asDouble())
+				.setStartsAt(new Date(node.get("on_date").asText()))
+				.setExpiresAt(new Date(node.get("on_date").asText()))
+				.setInvoiceStatus(node.get("status").asInt())
+				;
+
+		try {
+			invoiceService.save(invoice);
+			ans = "success";
+		}catch(Exception ex){
+			logger.error("" + ex);
+		}
+
+		return ans;
+	}
 }

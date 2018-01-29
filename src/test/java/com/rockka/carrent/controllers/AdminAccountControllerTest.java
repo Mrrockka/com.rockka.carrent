@@ -80,7 +80,7 @@ public class AdminAccountControllerTest {
 			.setExpiresAt(new Date(2000, 12, 15))
 			.setPrice(1000000000)
 			.setDescription("Veeeeryyyy loooong invoice")
-			.setInvoiceStatus(1);
+			.setInvoiceStatus(0);
 
 	@Before
 	public void startUp() {

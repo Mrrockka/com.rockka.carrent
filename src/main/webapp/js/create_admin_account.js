@@ -1,7 +1,7 @@
 'use strict'
-
+// TODO: rewrite with JQuery
 function createAdminAccount(){
-    showOrders();
+    showInvoices();
 }
 
 function newCar(){
@@ -20,13 +20,13 @@ function newCar(){
     document.getElementById("info_div").innerHTML = info;
 }
 
-function showOrders(){
+function showInvoices(){
     var xhr = new XMLHttpRequest();
 
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
             var i;
-            var info = "<table class=\"table table-striped\"><h2 class=\"form-std-heading\">Orders</h2>"
+            var info = "<table class=\"table table-striped\"><h2 class=\"form-std-heading\">Invoices</h2>"
                 +"<thead> <tr>"
                 +"<th>Id</th> <th>User</th> <th>Car</th> <th>Starts</th>"
                 +"<th>Expires</th> <th>Price</th> <th>Status</th>"
@@ -37,19 +37,19 @@ function showOrders(){
 
             for(i = 0; i<json.length; i++){
                 info += "<tr>"
-                    + "<td><a href=\"#\" onclick=\"showOrderById("
+                    + "<td><a href=\"#\" onclick=\"showInvoiceById("
                     +json[i].invoice_id + ");return false;\">"+json[i].invoice_id+"</a></td>"
-                    + "<td><a href=\"#\" onclick=\"showOrderById("
+                    + "<td><a href=\"#\" onclick=\"showInvoiceById("
                     +json[i].invoice_id + ");return false;\">"+json[i].username+"</td>"
-                    + "<td><a href=\"#\" onclick=\"showOrderById("
+                    + "<td><a href=\"#\" onclick=\"showInvoiceById("
                     +json[i].invoice_id + ");return false;\">"+json[i].car_name+"</a></td>"
-                    + "<td><a href=\"#\" onclick=\"showOrderById("
+                    + "<td><a href=\"#\" onclick=\"showInvoiceById("
                     +json[i].invoice_id + ");return false;\">"+json[i].starts_at+"</a></td>"
-                    + "<td><a href=\"#\" onclick=\"showOrderById("
+                    + "<td><a href=\"#\" onclick=\"showInvoiceById("
                     +json[i].invoice_id + ");return false;\">"+json[i].expires_at+"</a></td>"
-                    + "<td><a href=\"#\" onclick=\"showOrderById("
+                    + "<td><a href=\"#\" onclick=\"showInvoiceById("
                     +json[i].invoice_id + ");return false;\">"+json[i].price+"</a></td>"
-                    + "<td><a href=\"#\" onclick=\"showOrderById("
+                    + "<td><a href=\"#\" onclick=\"showInvoiceById("
                     +json[i].invoice_id + ");return false;\">"+json[i].status+"</a></td>"
                     + "</tr>";
             }
@@ -132,11 +132,12 @@ function showCars(){
 
 function registerNewCar(){
     var xhr = new XMLHttpRequest();
-	var i = 0, json = "", doc = document.forms["car"], text = "no";
+	var i = 0, json = "", form = document.forms["car"], text = "no";
     json = "{";
-    for(i=0; i<doc.length; i++){
-    	if(doc[i].type != "button"){
-    		json += "\"" + doc[i].id + "\"" + ":" +"\""+ doc[i].value +"\""+ ",";
+    for(i=0; i<form.length; i++){
+        var element = form.elements[i];
+    	if(element.type != "button"){
+    		json += "\"" + element.id + "\"" + ":" +"\""+ element.value +"\""+ ",";
         } else {
         	json = json.slice(0, -1);
         }
@@ -157,56 +158,164 @@ function registerNewCar(){
 	xhr.send(json);
 }
 
-function showOrderById(id){
+function showInvoiceById(id){
     var xhr = new XMLHttpRequest();
 
     xhr.onreadystatechange = function(){
         if(this.readyState==4 && this.status==200){
-            var i, json = JSON.parse(this.responseText);
+            var json = JSON.parse(this.responseText);
 
             var info = "<div class=\"container\">"
-                    +"<h2>Rent car order</h2>"
-                    +"<p>Invoice id: "+json.invoice_id + "</p>"
-                    +"<p>Birthday: "+ json.birthday +"</p>"
-                    +"<pCar name: >"+json.car_name+"</p>"
-                    +"<p>Car price: " + json.car_price+"</p>"
-                    +"<p>Starts: "+ json.starts_at+"</p>"
-                    +"<p>Expires: "+ json.expires_at+"</p>"
-                    +"<p>Invoice price: " + json.invoice_price+"</p>"
-                    +"<p>Description: <input value=\""+ json.description+"\" type=\"text\" id=\"description\"></p>"
-                    +"<p>Status: <select id=\"statusSelect\">";
+                    +"<h2>Rent car invoice</h2>"
+                    +"<p>Invoice id: <span id=\"invoice_id\">"+json.invoice_id + "</span></p>"
+                    +"<p>Birthday: <span id=\"birthday\">"+ json.birthday +"</span></p>"
+                    +"<p>Car id: <span id=\"car_id\">>"+json.car_id+"</span></p>"
+                    +"<p>Car name: <span id=\"car_name\">>"+json.car_name+"</span></p>"
+                    +"<Username: <span id=\"username\">>"+json.username+"</span></p>"
+                    +"<p>Car price: <span id=\"\">" + json.car_price+"</span></p>"
+                    +"<p>Starts: <span id=\"\">"+ json.starts_at+"</span></p>"
+                    +"<p>Expires: <span id=\"\">"+ json.expires_at+"</span></p>"
+                    +"<p>Invoice price: <span id=\"\">" + json.invoice_price+"</span></p>"
+                    +"<p>Description: <span  id=\"description\"" + json.description+"</span></p>"
+                    +"<p>Status: <select id=\"statusValues\" onchange=\"checkInvoice()\">";
             var i;
-            for(i=0; i<json.orderStatus.length; i++){
-                info+= "<option>"+ json.orderStatus[i].toString+ "</option>";
+            for(i=0; i<json.statusValues.length; i++){
+                info+= "<option>" + json.statusValues[i].toString+ "</option>";
             }
             info+= "</select></p>"
-                    +"<p>Status: <input value=\""+ json.status+"\" type=\"number\" id=\"status\"></p>"
-                    +"<p><a class=\"btn btn-lg btn-block btn-primary\" onclick=\"updateOrder("+json.invoice_id+");return false;\">Confirm</a></p>";
-            }
+                    +"<p><a id=\"button\" class=\"btn btn-lg btn-block btn-primary\" onclick=\"updateInvoice();return false;\">Confirm</a></p>";
 
             info += "</div>";
             document.getElementById("info_div").innerHTML = info;
-            document.getElementById("statusSelect").selectedIndex = json.status;
+            document.getElementById("statusValues").selectedIndex = json.status;
+            }
         }
-
 
     xhr.open("GET", '/admin/invoice/'+id, true);
     xhr.send();
 }
 
-function updateOrder(id){
-//  TODO: write the relations between html and js to read values and send them to server
+function updateInvoice(){
     var xhr = new XMLHttpRequest();
-    var description = document.getElementById("description").value;
-    var status = document.getElementById("statusSelect").selectedIndex;
+    var description = document.getElementById("description").innerHTML;
+    var status = document.getElementById("statusValues").selectedIndex;
+    var id = document.getElementById("invoice_id").innerHTML;
 
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 && this.status ==200){
-            showOrderById(id);
             alert(this.responseText);
         }
     }
-
+    if(description.length == 0){
+        description = "empty";
+    }
     xhr.open("UPDATE", '/admin/invoice/update/'+ id +'/description/'+description+'/status/'+status);
     xhr.send();
 }
+
+function checkInvoice(){
+    var index = document.getElementById("statusValues").selectedIndex;
+    if(index == 6){
+        var button = document.getElementById("button");
+            button.innerHTML = "Confirm and create";
+            button.setAttribute("onclick", "updateAndCreate()");
+    }
+}
+
+function updateAndCreate(){
+    updateInvoice();
+    basedInvoice();
+}
+
+function newInvoice(){
+    var xhr = new XMLHttpRequest();
+    var info = "<div class=\"container\">"
+        + "<form class=\"form-std\" name=\"invoice\">"
+        + "<h2 class=\"form-std-heading\">New invoice</h2>"
+        + "<p><label for=\"username\" >Username: </label>"
+        + "<input type=\"text\" id=\"username\" class=\"form-control\" placeholder=\"Username\" required autofocus></p>"
+        + "<p><label for=\"car_id\">Car id: </label>"
+        + "<input type=\"text\" id=\"car_id\" class=\"form-control\" placeholder=\"car id\" required></p>"
+        + "<p><label for=\"car_name\">Car name: </label>"
+        + "<input type=\"text\" id=\"car_name\" class=\"form-control\" placeholder=\"car name\" required></p>"
+        + "<p><label for=\"on_date\">On date: </label>"
+        + "<input type=\"date\" id=\"on_date\" class=\"form-control\" required></p>"
+        + "<p><label for=\"invoice_price\">Price: </label>"
+        + "<input type=\"number\" id=\"invoice_price\" class=\"form-control\" required></p>"
+        + "<p><label for=\"description\">Description: </label>"
+        + "<p>Status: <select id=\"statusValues\"></select></p>"
+        + "<input type=\"text\" id=\"description\" class=\"form-control\" placeholder=\"Description\" required>"
+        + "<input type=\"button\" class\"btn btn-block btn-primary\" value=\"Submit\" onclick=\"registerNewInvoice()\">"
+        + "</div>";
+
+    document.getElementById("info_div").innerHTML = info;
+    document.getElementById("on_date").value = new Date();
+
+    xhr.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            var json = JSON.parse(this.responseText);
+            var values = document.getElementById("statusValues").innerHTML;
+            var i;
+            for(i=0; i<json.length; i++){
+                values+= "<option>" + json[i].toString+ "</option>";
+            }
+
+            document.getElementById("statusValues").innerHTML = values;
+        }
+    }
+
+    xhr.open("GET", '/admin/status_values', true);
+    xhr.send();
+}
+//TODO: debug it
+// id username already bounded with login-block
+function basedInvoice(){
+        var car_name = String(document.getElementById("car_name").innerHTML);
+        var car_id = String (document.getElementById("car_id").innerHTML);
+        var username = String (document.getElementById("username").innerHTML);
+        var description = "Based on " + document.getElementById("invoice_id").innerHTML + " invoice.";
+
+        newInvoice();
+
+        document.getElementById("username").value = username;
+        document.getElementById("car_name").value = car_name;
+        document.getElementById("car_id").value = car_id;
+        document.getElementById("description").value = description;
+}
+
+//TODO: test it
+function registerNewInvoice(){
+
+    var i, json = "{", form = document.getElementById("invoice");
+
+    for(i=0; i<form.length; i++){
+        element = form.elements[i];
+        if(element.type == "button"){
+            continue;
+        }
+        if(element.type == "select"){
+            json += "\"status\" : \"" + element.selectedIndex + "\",";
+            continue;
+        }
+
+        json += "\"" + element.id + "\" : \"" + element.value + "\",";
+    }
+
+    json = json.slice(0, -1);
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function(){
+        if(this.readyState == 4&& this.status == 200){
+            showOrders();
+        }
+    }
+//    TODO controller
+    xhr.open("POST", '/admin/invoice/save', true);
+	xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+    xhr.send(json);
+}
+
+//TODO: Write showUserByUsername(username) method
+
+//TODO: Write showCarById

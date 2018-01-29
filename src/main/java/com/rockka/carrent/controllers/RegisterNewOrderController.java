@@ -42,7 +42,7 @@ public class RegisterNewOrderController extends UserUtil{
     public String save(@RequestBody Invoice order, @PathVariable("id") long id){
         order.setCar(carService.getById(id));
         order.setUser(userService.getByUsername(getPrincipal().getUsername()));
-        order.setInvoiceStatus(2);
+        order.setInvoiceStatus(3);
         invoiceService.save(order);
         return "public/success";
     }

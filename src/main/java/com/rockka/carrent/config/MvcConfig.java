@@ -82,4 +82,6 @@ public class MvcConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     public void addViewControllers(ViewControllerRegistry registry) {
 //        registry.addViewController("/").setViewName("index");
     }
+
+//    TODO: exception handler configuration
 }

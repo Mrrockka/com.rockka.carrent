@@ -5,13 +5,13 @@ package com.rockka.carrent.enums;
 */
 
 public enum InvoiceStatus {
-	DELETED(-1, "deleted")
-	, CLOSED(0, "closed")
-	, ACTIVE(1, "active")
-	, NEW(2, "new")
-	, DENIED(3, "denied")
-	, EXPIRED(4, "expired")
-	, DEBT(5, "debt")
+	DELETED(0, "deleted")
+	, CLOSED(1, "closed")
+	, EXPIRED(2, "expired")
+	, NEW(3, "new")
+	, ACTIVE(4, "active")
+	, DENIED(5, "denied")
+	, DEBT(6, "debt")
 	;
 
 	private int status;
@@ -24,19 +24,19 @@ public enum InvoiceStatus {
 
 	public static InvoiceStatus get(int i) {
 		switch (i) {
-			case -1:
-				return DELETED;
 			case 0:
-				return CLOSED;
+				return DELETED;
 			case 1:
-				return ACTIVE;
+				return CLOSED;
 			case 2:
-				return NEW;
-			case 3:
-				return DENIED;
-			case 4:
 				return EXPIRED;
+			case 3:
+				return NEW;
+			case 4:
+				return ACTIVE;
 			case 5:
+				return DENIED;
+			case 6:
 				return DEBT;
 			default:
 				return ACTIVE;

@@ -14,10 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
@@ -61,8 +58,8 @@ public class UserAccountController extends UserUtil {
             "/secondname/{secondname}" +
             "/lastname/{lastname}" +
             "/address/{address}" +
-            "/about_me/{about_me}" +
-            "/birthday/{birthday}")
+            "/birthday/{birthday}" +
+            "/about_me/{about_me}")
     @ResponseBody
     public String updateUser(
             @PathVariable("firstname") String firstname
@@ -81,7 +78,7 @@ public class UserAccountController extends UserUtil {
                             .setLastName(lastname)
                             .setAddress(address)
                             .setAboutMe(about_me)
-                            .setBirthday(new Date(birthday))
+//                            .setBirthday(new Date(birthday))
             );
             ans = "success";
         }

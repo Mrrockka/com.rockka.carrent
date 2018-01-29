@@ -136,6 +136,12 @@ public class Invoice implements Serializable{
         return this;
     }
 
+    public Invoice setInvoiceStatus(InvoiceStatus invoiceStatus){
+        this.invoiceStatus = invoiceStatus;
+        status = invoiceStatus.toInt();
+        return this;
+    }
+
     public InvoiceStatus getInvoiceStatus(){
         if(invoiceStatus == null){
             invoiceStatus = InvoiceStatus.get(status);
