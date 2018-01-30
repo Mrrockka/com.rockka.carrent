@@ -10,7 +10,7 @@ function showUsers(){
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
             var i;
-            var info = "<table class=\"table table-striped\"><h2 class=\"form-std-heading\">Users</h2>"
+            var info = "<table class=\"table table-striped\"><h2 class=\"\">Users</h2>"
                 +"<thead> <tr>"
                 +"<th>User name</th> <th>Roles</th> <th>First name</th> <th>Second name</th>"
                 +"<th>Birthday</th> <th>Address</th> <th>Status</th>"
@@ -20,13 +20,13 @@ function showUsers(){
 
             for(i = 0; i<json.length; i++){
                 info += "<tr>"
-                    + "<td><a href=\"#\" onclick=\"showUserByUsername("+json[i].username + "); return false;\">"+json[i].username+"</a></td>"
-                    + "<td><a href=\"#\" onclick=\"showUserByUsername("+json[i].username + "); return false;\">"+json[i].roles+"</a></td>"
-                    + "<td><a href=\"#\" onclick=\"showUserByUsername("+json[i].username + "); return false;\">"+json[i].firstname+"</a></td>"
-                    + "<td><a href=\"#\" onclick=\"showUserByUsername("+json[i].username + "); return false;\">"+json[i].secondname+"</a></td>"
-                    + "<td><a href=\"#\" onclick=\"showUserByUsername("+json[i].username + "); return false;\">"+json[i].birthday+"</a></td>"
-                    + "<td><a href=\"#\" onclick=\"showUserByUsername("+json[i].username + "); return false;\">"+json[i].address+"</a></td>"
-                    + "<td><a href=\"#\" onclick=\"showUserByUsername("+json[i].username + "); return false;\">"+json[i].status+"</a></td>"
+                    + "<td><a href=\"#\" onclick=\"showUserByUsername('"+json[i].username + "'); return false;\">"+json[i].username+"</a></td>"
+                    + "<td><a href=\"#\" onclick=\"showUserByUsername('"+json[i].username + "'); return false;\">"+json[i].roles+"</a></td>"
+                    + "<td><a href=\"#\" onclick=\"showUserByUsername('"+json[i].username + "'); return false;\">"+json[i].firstname+"</a></td>"
+                    + "<td><a href=\"#\" onclick=\"showUserByUsername('"+json[i].username + "'); return false;\">"+json[i].secondname+"</a></td>"
+                    + "<td><a href=\"#\" onclick=\"showUserByUsername('"+json[i].username + "'); return false;\">"+json[i].birthday+"</a></td>"
+                    + "<td><a href=\"#\" onclick=\"showUserByUsername('"+json[i].username + "'); return false;\">"+json[i].address+"</a></td>"
+                    + "<td><a href=\"#\" onclick=\"showUserByUsername('"+json[i].username + "'); return false;\">"+json[i].status+"</a></td>"
                     + "</tr></a>"
             }
 
@@ -44,10 +44,10 @@ function showUserByUsername(username) {
     xhr.onreadystatechange = function (){
         if(this.readyState == 4 && this.status ==200){
             var json = JSON.parse(this.responseText);
-            var info = "<div class=\"container\">"
+            var info = "<div class=\"col-md-5 col-sm-6\">"
                     + "<form class=\"form-horizontal\" id=\"user_info\">"
                     + "<h2 class=\"form-std-heading\">User info</h2>"
-                    + "<div class=\"col-s,-4\"><img src=\"/thumbs/users/" + username + ".jpg\" class=\"img-rounded thumb\" alt=\"user image\"></div>"
+                    + "<div class=\"col-sm-4\"><img src=\"/thumbs/users/" + username + ".jpg\" class=\"img-rounded thumb\" alt=\"user image\"></div>"
                     + "<div class=\"form-inline form-group\"><label for=\"name\" class=\"control-label col-sm-4\">Username: </label>"
                     + "<span id=\"username\" class=\"col-sm-8\">" + json.username + "</span></div>"
                     + "<div class=\"form-inline form-group\"><label for=\"color\" class=\"control-label col-sm-4\">Roles: </label>"
@@ -81,7 +81,7 @@ function showCars(){
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
             var i;
-            var info ="<table class=\"table table-striped\"><h2 class=\"form-std-heading\">Cars</h2>"
+            var info ="<table class=\"table table-striped\"><h2 class=\"\">Cars</h2>"
                 +"<thead> <tr>"
                 +"<th>Id</th> <th>Name</th> <th>Color</th> <th>Release date</th>"
                 +"<th>Price</th> <th>Status</th>"
@@ -112,7 +112,7 @@ function showCars(){
 //TODO: test it
 function newCar(){
     var info = ""
-        + "<div class=\"container\">"
+        + "<div class=\"col-md-5 col-sm-6\">"
         + "<form class=\"form-horizontal\" name=\"car\">"
         + "<h2 id=\"form_head\" class=\"\">Add new car</h2>"
         + "<div class=\"form-inline form-group\"><label for=\"name\" class=\"control-label col-sm-4\">Car name: </label>"
@@ -213,7 +213,7 @@ function showInvoices(){
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
             var i;
-            var info = "<table class=\"table table-striped\"><h2 class=\"form-std-heading\">Invoices</h2>"
+            var info = "<table class=\"table table-striped\"><h2 class=\"\">Invoices</h2>"
                 +"<thead> <tr>"
                 +"<th>Id</th> <th>User</th> <th>Car</th> <th>Starts</th>"
                 +"<th>Expires</th> <th>Price</th> <th>Status</th>"
@@ -256,27 +256,28 @@ function showInvoiceById(id){
         if(this.readyState==4 && this.status==200){
             var json = JSON.parse(this.responseText);
 
-            var info = "<div class=\"container\">"
+            var info = "<div class=\"col-md-5 col-sm-6\">"
                     +"<h2>Rent car invoice</h2>"
-                    +"<p>Invoice id: <span id=\"invoice_id\">"+json.invoice_id + "</span></p>"
-                    +"<p>Birthday: <span id=\"birthday\">"+ json.birthday +"</span></p>"
-                    +"<p>Car id: <span id=\"car_id\">"+json.car_id+"</span></p>"
-                    +"<p>Car name: <span id=\"car_name\">"+json.car_name+"</span></p>"
-                    +"<p>Username: <span id=\"username\">"+json.username+"</span></p>"
-                    +"<p>Car price: <span id=\"\">" + json.car_price+"</span></p>"
-                    +"<p>Starts: <span id=\"\">"+ json.starts_at+"</span></p>"
-                    +"<p>Expires: <span id=\"\">"+ json.expires_at+"</span></p>"
-                    +"<p>Invoice price: <span id=\"\">" + json.invoice_price+"</span></p>"
-                    +"<p>Description: <span  id=\"description\">" + json.description+"</span></p>"
-                    +"<p>Status: <select id=\"statusValues\" onchange=\"checkInvoice()\">";
+                    +"<div><dl class=\"row\">"
+                    +"<dt class=\"col-sm-6\">Invoice id: </dt><dd id=\"invoice_id\" class=\"col-sm-6\">"+json.invoice_id + "</dd>"
+                    +"<dt class=\"col-sm-6\">Car id: </dt><dd id=\"car_id\" class=\"col-sm-6\">"+json.car_id+"</dd>"
+                    +"<dt class=\"col-sm-6\">Car name: </dt><dd class=\"col-sm-6\">"+json.car_name+"</dd>"
+                    +"<dt class=\"col-sm-6\">Username: </dt><dd id=\"username\" class=\"col-sm-6\">"+json.username+"</dd>"
+                    +"<dt class=\"col-sm-6\">Car price: </dt><dd class=\"col-sm-6\">" + json.car_price+"</dd>"
+                    +"<dt class=\"col-sm-6\">Starts: </dt><dd class=\"col-sm-6\">"+ json.starts_at+"</dd>"
+                    +"<dt class=\"col-sm-6\">Expires: </dt><dd class=\"col-sm-6\">"+ json.expires_at+"</dd>"
+                    +"<dt class=\"col-sm-6\">Invoice price: </dl><dd id=\"\" class=\"col-sm-6\">" + json.invoice_price+"</dd>"
+                    +"<dt class=\"col-sm-6\">Status: </dt><dd class=\"col-sm-6\"><select id=\"statusValues\" onchange=\"checkInvoice()\">";
+
             var i;
             for(i=0; i<json.statusValues.length; i++){
                 info+= "<option>" + json.statusValues[i].toString+ "</option>";
             }
-            info+= "</select></p>"
-                    +"<p><a id=\"button\" class=\"btn btn-lg btn-block btn-secondary\" onclick=\"updateInvoice();return false;\" href=\"#\">Confirm</a></p>";
+            info+= "</select></dd>"
+                    +"<dt class=\"col-sm-6\">Description: </dt><dd id=\"description\">" + json.description+"</dd>"
+                    +"<a id=\"button\" class=\"btn btn-lg btn-block btn-secondary\" onclick=\"updateInvoice();return false;\" href=\"#\">Confirm</a>";
 
-            info += "</div>";
+            info += "</dl></div>";
             document.getElementById("info_div").innerHTML = info;
             document.getElementById("statusValues").selectedIndex = json.status;
             }
@@ -301,12 +302,12 @@ function updateInvoice(){
     xhr.open("UPDATE", '/admin/invoice/update/'+ id +'/description/'+description+'/status/'+status);
     xhr.send();
 }
-
+// TODO: rewrite with good idea or when issue with one invoice to many invoices will be solved
 function checkInvoice(){
     var index = document.getElementById("statusValues").selectedIndex;
     if(index == 6){
         var button = document.getElementById("button");
-            button.innerHTML = "Confirm and create";
+            button.innerHTML = "Update and create";
             button.setAttribute("onclick", "updateAndCreate()");
     }
 }
@@ -319,23 +320,24 @@ function updateAndCreate(){
 //TODO: test it
 function newInvoice(){
     var xhr = new XMLHttpRequest();
-    var info = "<div class=\"container\">"
+    var info = "<div class=\"col-md-5 col-sm-6\">"
         + "<form class=\"form-horizontal\" id=\"invoice\">"
         + "<h2 class=\"\">New invoice</h2>"
-        + "<div class=\"form-inline\"><label class=\"label-control col-sm-4\" for=\"username\" >Username: </label>"
-        + "<div class=\"col-sm-8\"><input type=\"text\" id=\"username\" class=\"form-control\" placeholder=\"Username\" required autofocus></div></div>"
-        + "<div class=\"form-inline form-group\"><label class=\"control-label col-sm-4\" for=\"car_id\">Car id:</label>"
-        + "<div class=\"col-sm-8\"><input type=\"text\" id=\"car_id\" class=\"form-control\" placeholder=\"car id\" required></div></div>"
-        + "<div class=\"form-inline form-group\"><label class=\"control-label col-sm-4\" for=\"car_name\">Car name: </label>"
-        + "<div class=\"col-sm-4\"><input type=\"text\" id=\"car_name\" class=\"form-control\" placeholder=\"car name\" required></div></div>"
-        + "<div class=\"form-inline form-group\"><label class=\"control-label col-sm-4\" for=\"on_date\">On date: </label>"
-        + "<div class=\"col-sm-4\"><input type=\"date\" id=\"on_date\" class=\"form-control\" required></div></div>"
-        + "<div class=\"form-inline form-group\"><label class=\"control-label col-sm-4\" for=\"invoice_price\">Price: </label>"
-        + "<div class=\"col-sm-4\"><input type=\"number\" id=\"invoice_price\" class=\"form-control\" required></div></div>"
-        + "<div class=\"col-sm-12\"><label class=\"control-label col-sm-4\" for=\"statusValues\">Status: </label> <select id=\"statusValues\"></select></div>"
-        + "<div class=\"form-inline form-group\"><label class=\"control-label col-sm-4\" for=\"description\">Description: </label>"
-        + "<div class=\"col-sm-4\"><input type=\"text\" id=\"description\" class=\"form-control\" placeholder=\"Description\" required></</div></div>>"
-        + "<input type=\"button\" class\"btn btn-block btn-primary\" value=\"Submit\" onclick=\"registerNewInvoice()\">"
+        + "<div class=\"form-inline form-group\"><label class=\"label-control col-sm-64\" for=\"username\" >Username: </label>"
+        + "<div class=\"col-sm-6\"><input type=\"text\" id=\"username\" class=\"form-control\" placeholder=\"Username\" required autofocus></div></div>"
+        + "<div class=\"form-inline form-group\"><label class=\"control-label col-sm-6\" for=\"car_id\">Car id:</label>"
+        + "<div class=\"col-sm-6\"><input type=\"text\" id=\"car_id\" class=\"form-control\" placeholder=\"car id\" required></div></div>"
+        + "<div class=\"form-inline form-group\"><label class=\"control-label col-sm-6\" for=\"car_name\">Car name: </label>"
+        + "<div class=\"col-sm-6\"><input type=\"text\" id=\"car_name\" class=\"form-control\" placeholder=\"car name\" required></div></div>"
+        + "<div class=\"form-inline form-group\"><label class=\"control-label col-sm-6\" for=\"on_date\">On date: </label>"
+        + "<div class=\"col-sm-6\"><input type=\"date\" id=\"on_date\" class=\"form-control\" required></div></div>"
+        + "<div class=\"form-inline form-group\"><label class=\"control-label col-sm-6\" for=\"invoice_price\">Price: </label>"
+        + "<div class=\"col-sm-6\"><input type=\"number\" id=\"invoice_price\" class=\"form-control\" required></div></div>"
+        + "<div class=\"form-inline form-group\"><label class=\"control-label col-sm-6\" for=\"statusValues\">Status: </label>"
+        + "<div class=\"col-sm-6><select id=\"statusValues\"></select></div></div>"
+        + "<div class=\"form-inline form-group\"><label class=\"control-label col-sm-6\" for=\"description\">Description: </label>"
+        + "<div class=\"col-sm-6\"><input type=\"text\" id=\"description\" class=\"form-control\" placeholder=\"Description\" required></</div></div>"
+        + "<input type=\"button\" class=\"btn btn-block btn-primary\" value=\"Submit\" onclick=\"registerNewInvoice()\">"
         + "</form></div>";
 
     document.getElementById("info_div").innerHTML = info;

@@ -12,7 +12,7 @@ function showAccount(){
         if(this.readyState == 4 && this.status == 200){
             var json = JSON.parse(this.responseText);
 
-            var info = "<div class=\"container\">"
+            var info = "<div class=\"col-md-5 col-sm-6\">"
                     + "<form class=\"form-horizontal\" id=\"user_info\">"
                     + "<h2 class=\"form-std-heading\">Account info</h2>"
                     + "<div class=\"col-sm-4\"><img src=\"/thumbs/users/" + username + ".jpg\" class=\"img-rounded thumb\" alt=\"user image\"></div>"
@@ -49,7 +49,7 @@ function setEnabled(){
     var form = document.getElementById("user_info");
     var i, info, element, labels = form.getElementsByClassName("control-label");
 
-    info = "<div class=\"container\">"
+    info = "<div class=\"col-md-5 col-sm-6\">"
         + "<form class=\"form-horizontal\" id=\"user_info\">"
         + "<h2 class=\"form-std-heading\">Account info</h2>"
         + "<div class=\"col-sm-4\"><img src=\"/thumbs/users/" + username + ".jpg\" class=\"img-rounded thumb\" alt=\"user image\"></div>";
@@ -162,7 +162,7 @@ function showOrderById(id){
         if(this.readyState==4 && this.status==200){
             var i, json = JSON.parse(this.responseText);
 
-            var info = "<div class=\"container\">"
+            var info = "<div class=\"col-md-5 col-sm-6\">"
                     +"<h2>Rent car order</h2>"
                     +"<p>Invoice id: "+json.invoice_id + "</p>"
                     +"<p>Birthday: "+ json.birthday +"</p>"

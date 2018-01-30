@@ -8,27 +8,26 @@
     <link rel="stylesheet" href="/css/standart.css">
 </head>
 <body>
-    <header th:replace = "fragments/header :: header"></header>
-    <div class="container">
-        <div class="well">
-            <img th:src="@{'/images/cars/' + ${car.id}+'.png'}" atr="car image">
-            <h2 th:text="${car.name}"></h2>
-            <dl>
-                <dt>Description:</dt>
-                <dd th:text="${car.description}"></dd>
-                <dt>Color:</dt>
-                <dd th:text="${car.color}"></dd>
-                <dt>Country:</dt>
-                <dd th:text="${car.country}"></dd>
-                <dt>Realease date:</dt>
-                <dd th:text="${car.releaseDate}"></dd>
-                <dt>Price:</dt>
-                <dd th:text="${car.price}"></dd>
-
-            </dl>
-            <a class="btn btn-lg btn-primary" th:href="@{'/invoice/car/'+${car.id}}">Rent now</a>
-        </div>
+<header th:replace="fragments/header :: header"></header>
+<div class="mt-md-4 col-md-5 col-sm-6">
+    <div class="">
+        <img class="mt-md-5" th:src="@{'/images/cars/' + ${car.id}+'.png'}" atr="car image">
+        <h2 th:text="${car.name}"></h2>
+        <dl class="row">
+            <dt class="col-sm-6">Color:</dt>
+            <dd class="col-sm-6" th:text="${car.color}"></dd>
+            <dt class="col-sm-6">Country:</dt>
+            <dd class="col-sm-6" th:text="${car.country}"></dd>
+            <dt class="col-sm-6">Realease date:</dt>
+            <dd class="col-sm-6" th:text="${car.releaseDate}"></dd>
+            <dt class="col-sm-6">Price:</dt>
+            <dd class="col-sm-6" th:text="${car.price}"></dd>
+            <dt class="col-sm-6">Description:</dt>
+            <dd class="col-sm-6" th:text="${car.description}"></dd>
+        </dl>
+        <a class="btn btn-lg btn-primary" th:href="@{'/invoice/car/'+${car.id}}">Rent now</a>
     </div>
-    <footer th:replace = "fragments/footer :: footer"></footer>
+</div>
+<footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>

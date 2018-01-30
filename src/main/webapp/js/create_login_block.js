@@ -15,7 +15,6 @@ function getUserName(){
                             + text.username + "</span>"
                             + "<div class=\"dropdown-menu\" aria-labelledBy=\"userdrop\">"
                             + "<a class=\"dropdown-item\" href=\""+ role + "/account\">Account</a>"
-                            + "<a class=\"dropdown-item\" href=\""+ role + "/settings\">Settings</a>"
                             + "<a class=\"dropdown-item\" href=\"/logout\">Log out</a>"
                             + "</div>";
                 } else {
