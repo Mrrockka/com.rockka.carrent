@@ -11,26 +11,30 @@ function showAccount(){
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
             var json = JSON.parse(this.responseText);
-            var info =
-            "<form id=\"user_info\" class=\"container\">"
-            +"<img src=\"/thumbs/users/" + json.username + ".jpg\" class=\"img-rounded thumb\" alt=\"user image\">"
-            +"<label for=\"username\" >Username: </label><input id=\"username\" type=\"text\" value=\""
-            + json.username + "\" readonly>"
-            +"<label for=\"firstName\">First name: </label><input id=\"firstname\" type=\"text\" value=\""
-            + json.firstname + "\" readonly>"
-            +"<label for=\"secondName\">Second name: </label><input id=\"secondname\" type=\"text\" value=\""
-            + json.secondname + "\" readonly>"
-            +"<label for=\"lastName\">Last name: </label><input id=\"lastname\" type=\"text\" value=\""
-            + json.lastname + "\" readonly>"
-            +"<label for=\"address\">Address: </label><input id=\"address\" type=\"text\" value=\""
-            + json.address + "\" readonly>"
-            +"<label for=\"birthday\">Birthday: </label><input id=\"birthday\" type=\"text\" value=\""
-            + json.birthday + "\" readonly>"
-            +"<label for=\"about_me\">About me: </label><input id=\"about_me\" type=\"text\" value=\""
-            + json.about_me  + "\" readonly>"
-            +"<input id=\"user_info_btn\" class=\"btn btn-lg btn-secondary\""
-            +"type=\"button\" value=\"Edit\" onclick=\"setEnabled()\">"
-            + "</form>";
+
+            var info = "<div class=\"container\">"
+                    + "<form class=\"form-horizontal\" id=\"user_info\">"
+                    + "<h2 class=\"form-std-heading\">Account info</h2>"
+                    + "<div class=\"col-sm-4\"><img src=\"/thumbs/users/" + username + ".jpg\" class=\"img-rounded thumb\" alt=\"user image\"></div>"
+                    + "<div class=\"form-inline form-group\"><label for=\"name\" class=\"control-label col-sm-4\">Username: </label>"
+                    + "<span id=\"username\" class=\"col-sm-8 form-control\">" + json.username + "</span></div>"
+                    + "<div class=\"form-inline form-group\"><label for=\"color\" class=\"control-label col-sm-4\">Roles: </label>"
+                    + "<span id=\"roles\" class=\"col-sm-8 form-control\">" + json.roles + "</span></div>"
+                    + "<div class=\"form-inline form-group\"><label for=\"firstname\" class=\"control-label col-sm-4\">First name: </label>"
+                    + "<span id=\"firstname\" class=\"col-sm-8 form-control\">" + json.firstname + "</span></div>"
+                    + "<div class=\"form-inline form-group\"><label for=\"secondname\" class=\"control-label col-sm-4\">Second name: </label>"
+                    + "<span id=\"secondname\" class=\"col-sm-8 form-control\">" + json.secondname + "</span></div>"
+                    + "<div class=\"form-inline form-group\"><label for=\"lastname\" class=\"control-label col-sm-4\">Last name: </label>"
+                    + "<span id=\"lastname\" class=\"col-sm-8 form-control\">" + json.lastname + "</span></div>"
+                    + "<div class=\"form-inline form-group\"><label for=\"birthday\" class=\"control-label col-sm-4\">Birthday: </label>"
+                    + "<span id=\"birthday\" class=\"col-sm-8 form-control\">" + json.birthday + "</span></div>"
+                    + "<div class=\"form-inline form-group\"><label for=\"address\" class=\"control-label col-sm-4\">Address: </label>"
+                    + "<span id=\"address\" class=\"col-sm-8 form-control\">" + json.address + "</span></div>"
+                    + "<div class=\"form-inline form-group\"><label for=\"about_me\" class=\"control-label col-sm-4\">About me: </label>"
+                    + "<span id=\"about_me\" class=\"col-sm-8 form-control\">" + json.about_me + "</span></div>"
+                    + "<input id=\"user_info_btn\" class=\"btn btn-lg btn-secondary\" type=\"button\" value=\"Edit\" onclick=\"setEnabled()\">"
+                    + "</form></div>";
+
             document.getElementById("info_div").innerHTML = info;
         }
     }
@@ -39,29 +43,43 @@ function showAccount(){
     xhr.send();
 }
 
+//TODO: test it
 function setEnabled(){
 
     var form = document.getElementById("user_info");
-    var i;
+    var i, info, element, labels = form.getElementsByClassName("control-label");
+
+    info = "<div class=\"container\">"
+        + "<form class=\"form-horizontal\" id=\"user_info\">"
+        + "<h2 class=\"form-std-heading\">Account info</h2>"
+        + "<div class=\"col-sm-4\"><img src=\"/thumbs/users/" + username + ".jpg\" class=\"img-rounded thumb\" alt=\"user image\"></div>";
+
+
     for(i=0; i<form.length; i++){
-        var element = form.elements[i];
-        if(element.type != "button"){
+        element = form[i];
 
-            if(element.id == "birthday"){
-                var inner = element.value;
-                element.type = "date";
-                element.value = inner;
-            }
-
-            element.readOnly = false;
+        if(element.type == "button"){
+            continue;
         }
+
+        info += "<div class=\"form-inline form-group\"><label for=\"" + element.id + "\" class=\"control-label col-sm-4\">" + labels[i].innerHTML+ "</label>";
+
+        if(element.id == "birthday"){
+            info+= "<div class=\"col-sm-8\"><input type=\"text\" id=\"" + element.id +"\" class=\"col-sm-8 form-control\" value=\"" + element.innerHTML + "\" ></div></div>";
+            continue;
+        }
+
+        info += "<div class=\"col-sm-8\"><input type=\"text\" id=\"" + element.id +"\" class=\"col-sm-8 form-control\" value=\"" + element.innerHTML + "\" ></div></div>";
     }
 
-    var btn = document.getElementById("user_info_btn");
-    btn.value = "Submit";
-    btn.setAttribute("onclick", "updateUser()");
+    info += "<div><input class=\"btn btn-lg btn-primary\" type=\"button\" value=\"Update\" onclick=\"updateUser()\">"
+        + "<input class=\"btn btn-lg btn-secondary\" type=\"button\" value=\"Cancel\" onclick=\"showAccount()\"></div>"
+        + "</form></div>";
+
+    document.getElementById("info_div").innerHTML = info;
 }
 
+//TODO: change send type to JSON.
 function updateUser(){
     var xhr = new XMLHttpRequest(), url = '/user/update/';
 

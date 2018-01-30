@@ -4,20 +4,207 @@ function createAdminAccount(){
     showInvoices();
 }
 
+function showUsers(){
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            var i;
+            var info = "<table class=\"table table-striped\"><h2 class=\"form-std-heading\">Users</h2>"
+                +"<thead> <tr>"
+                +"<th>User name</th> <th>Roles</th> <th>First name</th> <th>Second name</th>"
+                +"<th>Birthday</th> <th>Address</th> <th>Status</th>"
+                +"</tr> </thead>"
+                +"<tbody>";
+            var json = JSON.parse(this.responseText);
+
+            for(i = 0; i<json.length; i++){
+                info += "<tr>"
+                    + "<td><a href=\"#\" onclick=\"showUserByUsername("+json[i].username + "); return false;\">"+json[i].username+"</a></td>"
+                    + "<td><a href=\"#\" onclick=\"showUserByUsername("+json[i].username + "); return false;\">"+json[i].roles+"</a></td>"
+                    + "<td><a href=\"#\" onclick=\"showUserByUsername("+json[i].username + "); return false;\">"+json[i].firstname+"</a></td>"
+                    + "<td><a href=\"#\" onclick=\"showUserByUsername("+json[i].username + "); return false;\">"+json[i].secondname+"</a></td>"
+                    + "<td><a href=\"#\" onclick=\"showUserByUsername("+json[i].username + "); return false;\">"+json[i].birthday+"</a></td>"
+                    + "<td><a href=\"#\" onclick=\"showUserByUsername("+json[i].username + "); return false;\">"+json[i].address+"</a></td>"
+                    + "<td><a href=\"#\" onclick=\"showUserByUsername("+json[i].username + "); return false;\">"+json[i].status+"</a></td>"
+                    + "</tr></a>"
+            }
+
+            info += "</tbody>";
+            document.getElementById("info_div").innerHTML = info;
+        }
+    }
+    xhr.open("GET", '/admin/user/show_all', true);
+    xhr.send();
+}
+//TODO: test it
+function showUserByUsername(username) {
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function (){
+        if(this.readyState == 4 && this.status ==200){
+            var json = JSON.parse(this.responseText);
+            var info = "<div class=\"container\">"
+                    + "<form class=\"form-horizontal\" id=\"user_info\">"
+                    + "<h2 class=\"form-std-heading\">User info</h2>"
+                    + "<div class=\"col-s,-4\"><img src=\"/thumbs/users/" + username + ".jpg\" class=\"img-rounded thumb\" alt=\"user image\"></div>"
+                    + "<div class=\"form-inline form-group\"><label for=\"name\" class=\"control-label col-sm-4\">Username: </label>"
+                    + "<span id=\"username\" class=\"col-sm-8\">" + json.username + "</span></div>"
+                    + "<div class=\"form-inline form-group\"><label for=\"color\" class=\"control-label col-sm-4\">Roles: </label>"
+                    + "<span id=\"roles\" class=\"col-sm-8\">" + json.roles + "</span></div>"
+                    + "<div class=\"form-inline form-group\"><label for=\"firstname\" class=\"control-label col-sm-4\">First name: </label>"
+                    + "<span id=\"firstname\" class=\"col-sm-8\">" + json.firstname + "</span></div>"
+                    + "<div class=\"form-inline form-group\"><label for=\"secondname\" class=\"control-label col-sm-4\">Second name: </label>"
+                    + "<span id=\"secondname\" class=\"col-sm-8\">" + json.secondname + "</span></div>"
+                    + "<div class=\"form-inline form-group\"><label for=\"lastname\" class=\"control-label col-sm-4\">Last name: </label>"
+                    + "<span id=\"lastname\" class=\"col-sm-8\">" + json.lastname + "</span></div>"
+                    + "<div class=\"form-inline form-group\"><label for=\"birthday\" class=\"control-label col-sm-4\">Birthday: </label>"
+                    + "<span id=\"birthday\" class=\"col-sm-8\">" + json.birthday + "</span></div>"
+                    + "<div class=\"form-inline form-group\"><label for=\"address\" class=\"control-label col-sm-4\">Address: </label>"
+                    + "<span id=\"address\" class=\"col-sm-8\">" + json.address + "</span></div>"
+                    + "<div class=\"form-inline form-group\"><label for=\"about_me\" class=\"control-label col-sm-4\">About me: </label>"
+                    + "<span id=\"about_me\" class=\"col-sm-8\">" + json.about_me + "</span></div>"
+                    + "<div class=\"form-inline form-group\"><label for=\"status\" class=\"control-label col-sm-4\">Status: </label>"
+                    + "<span id=\"status\" class=\"col-sm-8\">" + json.status + "</span></div>"
+                    + "</form></div>";
+
+            document.getElementById("info_div").innerHTML = info;
+        }
+    }
+
+    xhr.open("GET", '/admin/user/' + username, true);
+    xhr.send();
+}
+
+function showCars(){
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            var i;
+            var info ="<table class=\"table table-striped\"><h2 class=\"form-std-heading\">Cars</h2>"
+                +"<thead> <tr>"
+                +"<th>Id</th> <th>Name</th> <th>Color</th> <th>Release date</th>"
+                +"<th>Price</th> <th>Status</th>"
+                +"</tr> </thead>"
+                +"<tbody>";
+            var json = JSON.parse(this.responseText);
+
+            for(i = 0; i<json.length; i++){
+                info += "<tr>"
+                    + "<td><a href=\"#\" onclick=\"showCarById("+json[i].car_id + "); return false;\">"+json[i].car_id+"</a></td>"
+                    + "<td><a href=\"#\" onclick=\"showCarById("+json[i].car_id + "); return false;\">"+json[i].name+"</a></td>"
+                    + "<td><a href=\"#\" onclick=\"showCarById("+json[i].car_id + "); return false;\">"+json[i].color+"</a></td>"
+                    + "<td><a href=\"#\" onclick=\"showCarById("+json[i].car_id + "); return false;\">"+json[i].release_date+"</a></td>"
+                    + "<td><a href=\"#\" onclick=\"showCarById("+json[i].car_id + "); return false;\">"+json[i].price+"</a></td>"
+                    + "<td><a href=\"#\" onclick=\"showCarById("+json[i].car_id + "); return false;\">"+json[i].status+"</a></td>"
+                    + "</tr>"
+            }
+
+            info += "</tbody>";
+            document.getElementById("info_div").innerHTML = info;
+        }
+    }
+    xhr.open("GET", '/admin/car/show_all', true);
+    xhr.send();
+
+}
+
+//TODO: test it
 function newCar(){
     var info = ""
         + "<div class=\"container\">"
-        + "<form class=\"form-std\" name=\"car\">"
-        + "<h2 class=\"form-std-heading\">Add new car</h2>"
-        + "<label for=\"name\" class=\"sr-only\">Mark</label>"
-        + "<input type=\"text\" id=\"name\" class=\"form-control\" placeholder=\"Mark and model\" required autofocus>"
-        + "<label for=\"price\" class=\"sr-only\">Price</label>"
-        + "<input type=\"number\" min=\"0\" id=\"price\" class=\"form-control\" placeholder=\"0.00\" required>"
-        + "<label for=\"releaseDate\" class=\"sr-only\">Year</label>"
-        + "<input type=\"date\" id=\"releaseDate\" class=\"form-control\" required>"
-        + "<input class=\"btn btn-lg btn-primary btn-block\" value=\"save\" type=\"button\" onclick=\"registerNewCar()\">"
+        + "<form class=\"form-horizontal\" name=\"car\">"
+        + "<h2 id=\"form_head\" class=\"\">Add new car</h2>"
+        + "<div class=\"form-inline form-group\"><label for=\"name\" class=\"control-label col-sm-4\">Car name: </label>"
+        + "<div class=\"col-sm-8\"><input type=\"text\" id=\"name\" class=\"form-control\" placeholder=\"Car name\" required autofocus></div></div>"
+        + "<div class=\"form-inline form-group\"><label for=\"color\" class=\"control-label col-sm-4\">Color: </label>"
+        + "<div class=\"col-sm-8\"><input type=\"text\" id=\"color\" class=\"form-control\" placeholder=\"Color\" required></div></div>"
+        + "<div class=\"form-inline form-group\"><label for=\"description\" class=\"control-label col-sm-4\">Description: </label>"
+        + "<div class=\"col-sm-8\"><input type=\"text\" id=\"description\" class=\"form-control\" placeholder=\"Description\" required></div></div>"
+        + "<div class=\"form-inline form-group\"><label for=\"price\" class=\"control-label col-sm-4\">Price: </label>"
+        + "<div class=\"col-sm-8\"><input type=\"number\" min=\"0\" id=\"price\" class=\"form-control\" placeholder=\"0.00\" required></div></div>"
+        + "<div class=\"form-inline form-group\"><label for=\"releaseDate\" class=\"control-label col-sm-4\">Year: </label>"
+        + "<div class=\"col-sm-8\"><input type=\"date\" id=\"releaseDate\" class=\"form-control\" required></div></div>"
+        + "<div class=\"form-inline form-group\"><label for=\"statusValues\" class=\"control-label col-sm-4\">Status: </label>"
+        + "<div class=\"col-sm-8\"><select id=\"statusValues\"></select></div></div>"
+        + "<input class=\"btn btn-lg btn-secondary btn-block\" value=\"save\" type=\"button\" onclick=\"registerNewCar()\">"
         + "</form></div>";
+
     document.getElementById("info_div").innerHTML = info;
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            var values = document.getElementById("statusValues").innerHTML;
+            var i, json = JSON.parse(this.responseText);
+            for(i =0; i<json.length; i++){
+                values += "<option>" + json[i].toString + "</option>";
+            }
+            document.getElementById("statusValues").innerHTML = values;
+            document.getElementById("statusValues").selectedIndex = 1;
+        }
+    }
+
+    xhr.open("GET", '/admin/car/status_values', true);
+    xhr.send();
+}
+//TODO: test it
+function showCarById(id){
+    newCar();
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            var json = JSON.parse(this.responseText);
+            document.getElementById("form_head").innerHTML = json.name + " info";
+            document.getElementById("name").value = json.name;
+            document.getElementById("color").value = json.color;
+            document.getElementById("description").value = json.description;
+            document.getElementById("price").value = json.price;
+            document.getElementById("releaseDate").value = json.release_date;
+            document.getElementById("statusValues").selectedIndex = json.status;
+        }
+    }
+
+    xhr.open("GET", '/admin/car/' + id, true);
+    xhr.send();
+}
+
+//TODO: test it
+function registerNewCar(){
+    var xhr = new XMLHttpRequest();
+	var i = 0, json = "", form = document.forms["car"], text = "no";
+    json = "{";
+    for(i=0; i<form.length; i++){
+        var element = form.elements[i];
+    	if(element.type == "button"){
+    		continue;
+        }
+        if(element.id == "statusValues"){
+            json += "\"status\"" + ":" +"\""+ element.selectedIndex +"\""+ ",";
+            continue;
+        }
+
+        json += "\"" + element.id + "\"" + ":" +"\""+ element.value +"\""+ ",";
+    }
+
+    json = json.slice(0, -1);
+    json += "}";
+
+    xhr.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status==200){
+            text = this.responseText;
+            alert(text);
+            if(text == "success"){
+                registerNewCar();
+            }
+        }
+    }
+	xhr.open("POST", '/admin/car/save', true);
+	xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+	xhr.send(json);
 }
 
 function showInvoices(){
@@ -62,102 +249,6 @@ function showInvoices(){
     xhr.send();
 }
 
-function showUsers(){
-    var xhr = new XMLHttpRequest();
-
-    xhr.onreadystatechange = function(){
-        if(this.readyState == 4 && this.status == 200){
-            var i;
-            var info = "<table class=\"table table-striped\"><h2 class=\"form-std-heading\">Users</h2>"
-                +"<thead> <tr>"
-                +"<th>User name</th> <th>Roles</th> <th>First name</th> <th>Second name</th>"
-                +"<th>Birthday</th> <th>Address</th> <th>Status</th>"
-                +"</tr> </thead>"
-                +"<tbody>";
-            var json = JSON.parse(this.responseText);
-
-            for(i = 0; i<json.length; i++){
-                info += "<tr>"
-                    + "<td><a href=\"/admin/user/"+json[i].username + "\">"+json[i].username+"</a></td>"
-                    + "<td><a href=\"/admin/user/"+json[i].username + "\">"+json[i].roles+"</a></td>"
-                    + "<td><a href=\"/admin/user/"+json[i].username + "\">"+json[i].firstname+"</a></td>"
-                    + "<td><a href=\"/admin/user/"+json[i].username + "\">"+json[i].secondname+"</a></td>"
-                    + "<td><a href=\"/admin/user/"+json[i].username + "\">"+json[i].birthday+"</a></td>"
-                    + "<td><a href=\"/admin/user/"+json[i].username + "\">"+json[i].address+"</a></td>"
-                    + "<td><a href=\"/admin/user/"+json[i].username + "\">"+json[i].status+"</a></td>"
-                    + "</tr></a>"
-            }
-
-            info += "</tbody>";
-            document.getElementById("info_div").innerHTML = info;
-        }
-    }
-    xhr.open("GET", '/admin/user/show_all', true);
-    xhr.send();
-}
-
-function showCars(){
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function(){
-        if(this.readyState == 4 && this.status == 200){
-            var i;
-            var info ="<table class=\"table table-striped\"><h2 class=\"form-std-heading\">Cars</h2>"
-                +"<thead> <tr>"
-                +"<th>Id</th> <th>Name</th> <th>Color</th> <th>Release date</th>"
-                +"<th>Price</th> <th>Status</th>"
-                +"</tr> </thead>"
-                +"<tbody>";
-            var json = JSON.parse(this.responseText);
-
-            for(i = 0; i<json.length; i++){
-                info += "<tr>"
-                    + "<td><a href=\"/admin/car/"+json[i].car_id + "\">"+json[i].car_id+"</a></td>"
-                    + "<td><a href=\"/admin/car/"+json[i].car_id + "\">"+json[i].name+"</a></td>"
-                    + "<td><a href=\"/admin/car/"+json[i].car_id + "\">"+json[i].color+"</a></td>"
-                    + "<td><a href=\"/admin/car/"+json[i].car_id + "\">"+json[i].release_date+"</a></td>"
-                    + "<td><a href=\"/admin/car/"+json[i].car_id + "\">"+json[i].price+"</a></td>"
-                    + "<td><a href=\"/admin/car/"+json[i].car_id + "\">"+json[i].status+"</a></td>"
-                    + "</tr>"
-            }
-
-            info += "</tbody>";
-            document.getElementById("info_div").innerHTML = info;
-        }
-    }
-    xhr.open("GET", '/admin/car/show_all', true);
-    xhr.send();
-
-}
-
-
-function registerNewCar(){
-    var xhr = new XMLHttpRequest();
-	var i = 0, json = "", form = document.forms["car"], text = "no";
-    json = "{";
-    for(i=0; i<form.length; i++){
-        var element = form.elements[i];
-    	if(element.type != "button"){
-    		json += "\"" + element.id + "\"" + ":" +"\""+ element.value +"\""+ ",";
-        } else {
-        	json = json.slice(0, -1);
-        }
-    }
-    json += "}";
-
-    xhr.onreadystatechange = function(){
-        if(this.readyState == 4 && this.status==200){
-            text = this.responseText;
-            alert(text);
-            if(text == "success"){
-                registerNewCar();
-            }
-        }
-    }
-	xhr.open("POST", '/admin/car/save', true);
-	xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-	xhr.send(json);
-}
-
 function showInvoiceById(id){
     var xhr = new XMLHttpRequest();
 
@@ -183,7 +274,7 @@ function showInvoiceById(id){
                 info+= "<option>" + json.statusValues[i].toString+ "</option>";
             }
             info+= "</select></p>"
-                    +"<p><a id=\"button\" class=\"btn btn-lg btn-block btn-primary\" onclick=\"updateInvoice();return false;\">Confirm</a></p>";
+                    +"<p><a id=\"button\" class=\"btn btn-lg btn-block btn-secondary\" onclick=\"updateInvoice();return false;\" href=\"#\">Confirm</a></p>";
 
             info += "</div>";
             document.getElementById("info_div").innerHTML = info;
@@ -225,24 +316,25 @@ function updateAndCreate(){
     basedInvoice();
 }
 
+//TODO: test it
 function newInvoice(){
     var xhr = new XMLHttpRequest();
     var info = "<div class=\"container\">"
-        + "<form class=\"form-std\" id=\"invoice\">"
-        + "<h2 class=\"form-std-heading\">New invoice</h2>"
-        + "<p><label for=\"username\" >Username: </label>"
-        + "<input type=\"text\" id=\"username\" class=\"form-control\" placeholder=\"Username\" required autofocus></p>"
-        + "<p><label for=\"car_id\">Car id: </label>"
-        + "<input type=\"text\" id=\"car_id\" class=\"form-control\" placeholder=\"car id\" required></p>"
-        + "<p><label for=\"car_name\">Car name: </label>"
-        + "<input type=\"text\" id=\"car_name\" class=\"form-control\" placeholder=\"car name\" required></p>"
-        + "<p><label for=\"on_date\">On date: </label>"
-        + "<input type=\"date\" id=\"on_date\" class=\"form-control\" required></p>"
-        + "<p><label for=\"invoice_price\">Price: </label>"
-        + "<input type=\"number\" id=\"invoice_price\" class=\"form-control\" required></p>"
-        + "<p><label for=\"statusValues\">Status: </label> <select id=\"statusValues\"></select></p>"
-        + "<p><label for=\"description\">Description: </label>"
-        + "<input type=\"text\" id=\"description\" class=\"form-control\" placeholder=\"Description\" required></p>"
+        + "<form class=\"form-horizontal\" id=\"invoice\">"
+        + "<h2 class=\"\">New invoice</h2>"
+        + "<div class=\"form-inline\"><label class=\"label-control col-sm-4\" for=\"username\" >Username: </label>"
+        + "<div class=\"col-sm-8\"><input type=\"text\" id=\"username\" class=\"form-control\" placeholder=\"Username\" required autofocus></div></div>"
+        + "<div class=\"form-inline form-group\"><label class=\"control-label col-sm-4\" for=\"car_id\">Car id:</label>"
+        + "<div class=\"col-sm-8\"><input type=\"text\" id=\"car_id\" class=\"form-control\" placeholder=\"car id\" required></div></div>"
+        + "<div class=\"form-inline form-group\"><label class=\"control-label col-sm-4\" for=\"car_name\">Car name: </label>"
+        + "<div class=\"col-sm-4\"><input type=\"text\" id=\"car_name\" class=\"form-control\" placeholder=\"car name\" required></div></div>"
+        + "<div class=\"form-inline form-group\"><label class=\"control-label col-sm-4\" for=\"on_date\">On date: </label>"
+        + "<div class=\"col-sm-4\"><input type=\"date\" id=\"on_date\" class=\"form-control\" required></div></div>"
+        + "<div class=\"form-inline form-group\"><label class=\"control-label col-sm-4\" for=\"invoice_price\">Price: </label>"
+        + "<div class=\"col-sm-4\"><input type=\"number\" id=\"invoice_price\" class=\"form-control\" required></div></div>"
+        + "<div class=\"col-sm-12\"><label class=\"control-label col-sm-4\" for=\"statusValues\">Status: </label> <select id=\"statusValues\"></select></div>"
+        + "<div class=\"form-inline form-group\"><label class=\"control-label col-sm-4\" for=\"description\">Description: </label>"
+        + "<div class=\"col-sm-4\"><input type=\"text\" id=\"description\" class=\"form-control\" placeholder=\"Description\" required></</div></div>>"
         + "<input type=\"button\" class\"btn btn-block btn-primary\" value=\"Submit\" onclick=\"registerNewInvoice()\">"
         + "</form></div>";
 
@@ -259,14 +351,15 @@ function newInvoice(){
             }
 
             document.getElementById("statusValues").innerHTML = values;
+            document.getElementById("statusValues").selectedIndex = 3;
         }
     }
 
-    xhr.open("GET", '/admin/status_values', true);
+    xhr.open("GET", '/admin/invoice/status_values', true);
     xhr.send();
 }
-//TODO: debug it
-// id username already bounded with login-block
+
+
 function basedInvoice(){
         var car_name = String(document.getElementById("car_name").innerHTML);
         var car_id = String (document.getElementById("car_id").innerHTML);
@@ -281,7 +374,6 @@ function basedInvoice(){
         document.getElementById("description").value = description;
 }
 
-//TODO: test it
 function registerNewInvoice(){
 
     var i, json = "{";
@@ -296,6 +388,10 @@ function registerNewInvoice(){
             json += "\"status\" : \"" + element.selectedIndex + "\",";
             continue;
         }
+        if(element.type == "date"){
+            json += "\"on_date\" : \"" + (new Date(element.value)).getTime() + "\",";
+            continue;
+        }
 
         json += "\"" + element.id + "\" : \"" + element.value + "\",";
     }
@@ -306,15 +402,13 @@ function registerNewInvoice(){
 
     xhr.onreadystatechange = function(){
         if(this.readyState == 4&& this.status == 200){
-            showOrders();
+            showInvoices();
         }
     }
-//    TODO controller
+
     xhr.open("POST", '/admin/invoice/save', true);
 	xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     xhr.send(json);
 }
 
-//TODO: Write showUserByUsername(username) method
 
-//TODO: Write showCarById
