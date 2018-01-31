@@ -8,8 +8,8 @@ CREATE TABLE car (
     description TEXT,
     price DOUBLE NOT NULL,
     release_date DATE,
-    created_at DATE NOT NULL,
-    modified_at DATE NOT NULL,
+    created_at TIMESTAMP NOT NULL,
+    modified_at TIMESTAMP NOT NULL,
     status INT NOT NULL,
     PRIMARY KEY (car_id)
 );
@@ -25,8 +25,8 @@ CREATE TABLE user (
     about_me TEXT,
     birthday DATE NOT NULL,
     status INT NOT NULL,
-    created_at DATE NOT NULL,
-    modified_at DATE NOT NULL,
+    created_at TIMESTAMP NOT NULL,
+    modified_at TIMESTAMP NOT NULL,
     PRIMARY KEY (username)
 );
 
@@ -37,10 +37,10 @@ CREATE TABLE invoice (
     car_id INT NOT NULL,
     description TEXT NOT NULL,
     price DOUBLE NOT NULL,
-    created_at DATE NOT NULL,
-    modified_at DATE NOT NULL,
-    starts_at DATE NOT NULL,
-    expires_at DATE NOT NULL,
+    created_at TIMESTAMP NOT NULL,
+    modified_at TIMESTAMP NOT NULL,
+    starts_at TIMESTAMP NOT NULL,
+    expires_at TIMESTAMP NOT NULL,
     status INT NOT NULL,
     FOREIGN KEY (username) REFERENCES user(username),
     FOREIGN KEY (car_id) REFERENCES car(car_id),

@@ -3,6 +3,7 @@ package com.rockka.carrent.services.impl;
 import com.rockka.carrent.dao.CarDao;
 import com.rockka.carrent.domain.Car;
 import com.rockka.carrent.services.CarService;
+import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +44,7 @@ public class CarServiceImp implements CarService {
 	@Override
 	public Car update(Car car) {
 		if (car != null) {
-			carDao.update(car.setModifiedAt(new Date()));
+			carDao.update(car.setModifiedAt(new LocalDateTime()));
 		}
         return car;
 	}

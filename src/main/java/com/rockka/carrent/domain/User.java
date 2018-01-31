@@ -2,6 +2,8 @@ package com.rockka.carrent.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rockka.carrent.enums.UserStatus;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -31,18 +33,15 @@ public class User implements Serializable{
     @Column(name = "about_me")
     private String aboutMe;
     @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date birthday;
+    private LocalDate birthday;
     @Column(name = "status", nullable = false, length = 1)
     private int status = 1;
     @Transient
     private UserStatus userStatus;
     @Column(name = "created_at", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date createdAt = new Date();
+    private LocalDateTime createdAt = new LocalDateTime();
     @Column(name = "modified_at", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date modifiedAt = new Date();
+    private LocalDateTime modifiedAt = new LocalDateTime();
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Invoice> carOrders;
@@ -87,20 +86,20 @@ public class User implements Serializable{
         return userStatus;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public User setCreatedAt(Date createdAt) {
+    public User setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
         return this;
     }
 
-    public Date getModifiedAt() {
+    public LocalDateTime getModifiedAt() {
         return modifiedAt;
     }
 
-    public User setModifiedAt(Date modifiedAt) {
+    public User setModifiedAt(LocalDateTime modifiedAt) {
         this.modifiedAt = modifiedAt;
         return this;
     }
@@ -150,11 +149,11 @@ public class User implements Serializable{
         return this;
     }
 
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public User setBirthday(Date birthday) {
+    public User setBirthday(LocalDate birthday) {
         this.birthday = birthday;
         return this;
     }

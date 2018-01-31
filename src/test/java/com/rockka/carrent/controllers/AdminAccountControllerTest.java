@@ -12,6 +12,8 @@ import com.rockka.carrent.services.InvoiceService;
 import com.rockka.carrent.services.UserService;
 import com.rockka.carrent.test_categories.BasicTest;
 import com.rockka.carrent.test_categories.DetailTest;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -59,11 +61,9 @@ public class AdminAccountControllerTest {
 			.setPassword("123")
 			.setFirstName("Abdula")
 			.setSecondName("Abdurahman")
-			.setBirthday(new Date(1999, 1, 2))
+			.setBirthday(new LocalDate(1999, 1, 2))
 			.setRoles("ROLE_USER")
 			.setAddress("Sim salabim")
-			.setCreatedAt(new Date())
-			.setModifiedAt(new Date())
 			.setUserStatus(0);
 
 	private Car car = new Car()
@@ -71,13 +71,13 @@ public class AdminAccountControllerTest {
 			.setCountry("Mexico")
 			.setColor("Blackest")
 			.setPrice(9999)
-			.setReleaseDate(new Date(1939, 12, 02));
+			.setReleaseDate(new LocalDate(1939, 12, 02));
 
 	private Invoice invoice = new Invoice()
 			.setUser(user)
 			.setCar(car)
-			.setStartsAt(new Date(1990, 12, 15))
-			.setExpiresAt(new Date(2000, 12, 15))
+			.setStartsAt(new LocalDateTime(1990, 12, 15, 15, 30))
+			.setExpiresAt(new LocalDateTime(2000, 12, 15, 15, 30))
 			.setPrice(1000000000)
 			.setDescription("Veeeeryyyy loooong invoice")
 			.setInvoiceStatus(0);

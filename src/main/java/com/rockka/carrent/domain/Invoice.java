@@ -2,6 +2,7 @@ package com.rockka.carrent.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rockka.carrent.enums.InvoiceStatus;
+import org.joda.time.LocalDateTime;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -30,17 +31,13 @@ public class Invoice implements Serializable{
     @Column(nullable = false)
     private double price;
     @Column(name = "created_at", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date createdAt = new Date();
+    private LocalDateTime createdAt = new LocalDateTime();
     @Column(name = "modified_at", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date modifiedAt = new Date();
+    private LocalDateTime modifiedAt = new LocalDateTime();
     @Column(name = "starts_at", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date startsAt;
+    private LocalDateTime startsAt;
     @Column(name = "expires_at", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date expiresAt;
+    private LocalDateTime expiresAt;
     @Column(name ="status", length = 10, nullable = false)
     private int status = 2;
     @Transient
@@ -94,38 +91,38 @@ public class Invoice implements Serializable{
         return this;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public Invoice setCreatedAt(Date createdAt) {
+    public Invoice setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
         return this;
     }
 
-    public Date getModifiedAt() {
+    public LocalDateTime getModifiedAt() {
         return modifiedAt;
     }
 
-    public Invoice setModifiedAt(Date modifiedAt) {
+    public Invoice setModifiedAt(LocalDateTime modifiedAt) {
         this.modifiedAt = modifiedAt;
         return this;
     }
 
-    public Date getStartsAt() {
+    public LocalDateTime getStartsAt() {
         return startsAt;
     }
 
-    public Invoice setStartsAt(Date startsAt) {
+    public Invoice setStartsAt(LocalDateTime startsAt) {
         this.startsAt = startsAt;
         return this;
     }
 
-    public Date getExpiresAt() {
+    public LocalDateTime getExpiresAt() {
         return expiresAt;
     }
 
-    public Invoice setExpiresAt(Date expiresAt) {
+    public Invoice setExpiresAt(LocalDateTime expiresAt) {
         this.expiresAt = expiresAt;
         return this;
     }

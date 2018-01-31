@@ -3,6 +3,7 @@ package com.rockka.carrent.services.impl;
 import com.rockka.carrent.dao.UserDao;
 import com.rockka.carrent.domain.User;
 import com.rockka.carrent.services.UserService;
+import org.joda.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class UserServiceImp implements UserService{
     public User save(User user) {
         if(user != null ) {
             if(!isExists(user)) {
-                userDao.save(user.setModifiedAt(new Date()));
+                userDao.save(user);
             } else {
                 logger.error("UserServiceImp: USER IS EXISTS!");
             }
@@ -45,7 +46,7 @@ public class UserServiceImp implements UserService{
     public User update(User user) {
         if (user != null) {
             if(isExists(user)) {
-                userDao.update(user.setModifiedAt(new Date()));
+                userDao.update(user.setModifiedAt(new LocalDateTime()));
             } else {
                 logger.error("UserServiceImp: USER IS NOT EXISTS!");
             }

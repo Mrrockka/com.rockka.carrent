@@ -9,6 +9,7 @@ import com.rockka.carrent.domain.User;
 import com.rockka.carrent.services.InvoiceService;
 import com.rockka.carrent.services.UserService;
 import com.rockka.carrent.util.UserUtil;
+import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +66,7 @@ public class UserAccountController extends UserUtil {
                             .setLastName(node.get("lastname").asText())
                             .setAddress(node.get("address").asText())
                             .setAboutMe(node.get("about_me").asText())
-                            .setBirthday(new Date(node.get("birthday").asLong()))
+                            .setBirthday(new LocalDate(node.get("birthday").asLong()))
             );
             ans = "success";
         }

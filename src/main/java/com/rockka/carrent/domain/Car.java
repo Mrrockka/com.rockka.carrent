@@ -3,6 +3,9 @@ package com.rockka.carrent.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rockka.carrent.enums.CarStatus;
+import org.joda.time.Instant;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -29,14 +32,11 @@ public class Car implements Serializable {
     @Column(name = "price", nullable = false)
     private double price;
     @Column(name = "release_date")
-    @Temporal(TemporalType.DATE)
-    private Date releaseDate;
+    private LocalDate releaseDate;
     @Column(name = "created_at", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date createdAt = new Date();
+    private LocalDateTime createdAt = new LocalDateTime();
     @Column(name = "modified_at", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date modifiedAt = new Date();
+    private LocalDateTime modifiedAt = new LocalDateTime();
     @Column(name = "status", nullable = false)
     private int status = 1;
     @Transient
@@ -99,29 +99,29 @@ public class Car implements Serializable {
         return this;
     }
 
-    public Date getReleaseDate() {
+    public LocalDate getReleaseDate() {
         return releaseDate;
     }
 
-    public Car setReleaseDate(Date releaseDate) {
+    public Car setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
         return this;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public Car setCreatedAt(Date createdAt) {
+    public Car setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
         return this;
     }
 
-    public Date getModifiedAt() {
+    public LocalDateTime getModifiedAt() {
         return modifiedAt;
     }
 
-    public Car setModifiedAt(Date modifiedAt) {
+    public Car setModifiedAt(LocalDateTime modifiedAt) {
         this.modifiedAt = modifiedAt;
         return this;
     }

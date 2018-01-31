@@ -7,6 +7,7 @@ import com.rockka.carrent.domain.Car;
 import com.rockka.carrent.services.CarService;
 import com.rockka.carrent.test_categories.BasicTest;
 import org.hamcrest.Matchers;
+import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -56,7 +57,7 @@ public class ShowCarControllerTest {
 				.setColor("Double gray white")
 				.setName("Nested exception")
 				.setId(1)
-				.setReleaseDate(new Date())
+				.setReleaseDate(new LocalDate())
 				.setCarStatus(0);
 		Mockito.when(carService.getById(1)).thenReturn(car);
 		mockMvc.perform(MockMvcRequestBuilders.get("/car/1"))

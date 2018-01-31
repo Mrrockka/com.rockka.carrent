@@ -3,6 +3,7 @@ package com.rockka.carrent.services.impl;
 import com.rockka.carrent.dao.InvoiceDao;
 import com.rockka.carrent.domain.Invoice;
 import com.rockka.carrent.services.InvoiceService;
+import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -80,7 +81,7 @@ public class InvoiceServiceImp implements InvoiceService {
     @Override
     public Invoice update(Invoice invoice){
         if(invoice != null) {
-            invoiceDao.update(invoice.setModifiedAt(new Date()));
+            invoiceDao.update(invoice.setModifiedAt(new LocalDateTime()));
         }
         return invoice;
     }

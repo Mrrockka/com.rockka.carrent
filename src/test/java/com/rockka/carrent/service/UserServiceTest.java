@@ -9,6 +9,7 @@ import com.rockka.carrent.services.UserService;
 import com.rockka.carrent.test_categories.BasicTest;
 import com.rockka.carrent.test_categories.DetailTest;
 import com.rockka.carrent.test_categories.TransactionalTest;
+import org.joda.time.LocalDate;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -48,7 +49,7 @@ public class UserServiceTest extends Assert {
                         userService.save(
                                 new User().setUsername("Superman").setPassword("superman").setRoles("ROLE_USER")
                                 .setFirstName("Santa").setSecondName("Bremore").setAddress("LittleTinyOcean")
-                                .setBirthday(new Date(91,1,1))
+                                .setBirthday(new LocalDate(91,1,1))
                         )
                 )
         );

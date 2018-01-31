@@ -14,6 +14,8 @@ import com.rockka.carrent.services.CarService;
 import com.rockka.carrent.services.InvoiceService;
 import com.rockka.carrent.services.UserService;
 import com.rockka.carrent.util.UserUtil;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -179,7 +181,7 @@ public class AdminAccountController extends UserUtil {
         String answer = "failure";
         Car car = new Car()
 				.setName(node.get("name").asText())
-				.setReleaseDate(new Date(node.get("releaseDate").asLong()))
+				.setReleaseDate(new LocalDate(node.get("releaseDate").asLong()))
 				.setColor(node.get("color").asText())
 				.setCountry(node.get("country").asText())
 				.setPrice(node.get("price").asDouble())
@@ -201,7 +203,7 @@ public class AdminAccountController extends UserUtil {
 		Car car = new Car()
 				.setId(carId)
 				.setName(node.get("name").asText())
-				.setReleaseDate(new Date(node.get("releaseDate").asLong()))
+				.setReleaseDate(new LocalDate(node.get("releaseDate").asLong()))
 				.setColor(node.get("color").asText())
 				.setCountry(node.get("country").asText())
 				.setPrice(node.get("price").asDouble())
@@ -271,8 +273,8 @@ public class AdminAccountController extends UserUtil {
 				.setUser(user)
 				.setDescription(node.get("description").asText())
 				.setPrice(node.get("invoice_price").asDouble())
-				.setStartsAt(new Date(node.get("on_date").asLong()))
-				.setExpiresAt(new Date(node.get("on_date").asLong()))
+				.setStartsAt(new LocalDateTime(node.get("on_date").asLong()))
+				.setExpiresAt(new LocalDateTime(node.get("on_date").asLong()))
 				.setInvoiceStatus(node.get("status").asInt())
 				;
 
