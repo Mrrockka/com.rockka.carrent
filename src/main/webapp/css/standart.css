@@ -26,7 +26,7 @@ body{
 }
 
 label{
-    margin-top: 0.6rem;
+    /*margin-top: 0.6rem;*/
 }
 
 th, td{
@@ -34,8 +34,17 @@ th, td{
 }
 
 .card {
-    width: 16rem;
-    height: 20rem;
+    width: 14rem;
+    height: 18rem;
+    min-width: 15rem;
+    min-height: 12rem;
     padding: 1rem;
     margin: 0.5rem;
+}
+
+.card img{
+    width: 14rem;
+    height: 9rem;
+    min-width: 14rem;
+    min-height: 9rem;
 }

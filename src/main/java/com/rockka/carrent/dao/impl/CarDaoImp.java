@@ -18,7 +18,7 @@ public class CarDaoImp extends GenericDaoImp<Car> implements CarDao {
 
     public CarDaoImp(){super(Car.class);}
 
-//    TODO rewrite with criteria
+//    TODO: rewrite with criteria
     @Override
     public Car getById(final long car_id) {
         Car car = null;

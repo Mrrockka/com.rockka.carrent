@@ -10,8 +10,12 @@
 <body>
 <div class="col-sm-12 col-md-12 d-sm-block bg-light menu" th:fragment="menu">
     <ul class="nav nav-tabs">
-		<li class="nav-item dropdown">
-			<a id="dropdown-invoices" data-toggle="dropdown" role="tab" aria-expanded="false"
+		<li class="nav-item">
+			<a onclick="showInvoices(); return false;" class="nav-link active" data-toggle="tab" role="tab"
+			   aria-selected="true" href="#">Invoices</a>
+
+
+			<!--<a id="dropdown-invoices" data-toggle="dropdown" role="tab" aria-expanded="false"
 			   aria-selected="true" class="nav-link active dropdown-toggle" href="#">Orders</a>
 
 			<div class="dropdown-menu" aria-labelledby="dropdown-invoices">
@@ -19,12 +23,13 @@
 				aria-selected="true" href="#">Show invoices</a>
 				<a onclick="newInvoice(); return false;" class="dropdown-item" data-toggle="tab" role="tab"
 				aria-selected="false" href="#">New invoice</a>
-			</div>
+			</div>-->
 
 		</li>
 
 		<li class="nav-item">
-			<a onclick="showUsers(); return false;" data-toggle="tab" role="tab" aria-selected="false" class="nav-link" href="#">Users</a>
+			<a onclick="showUsers(); return false;" data-toggle="tab" role="tab" aria-selected="false"
+			   class="nav-link" href="#">Users</a>
 		</li>
 
 		<li class="nav-item dropdown">

@@ -58,7 +58,7 @@ public class AdminAccountController extends UserUtil {
 
 	@GetMapping("/invoice/{id}")
     @ResponseBody
-	public JsonNode showInvoicerById(@PathVariable("id") long id) {
+	public JsonNode showInvoiceById(@PathVariable("id") long id) {
 	    Invoice invoice = invoiceService.getById(id);
 	    ObjectNode node = mapper.createObjectNode();
 		ArrayNode arrayNode = mapper.createArrayNode();
@@ -120,7 +120,7 @@ public class AdminAccountController extends UserUtil {
 
 	@GetMapping("/user/{username}")
     @ResponseBody
-	public JsonNode showByUsername(@PathVariable("username") String username) {
+	public JsonNode showUserByUsername(@PathVariable("username") String username) {
         User user = userService.getByUsername(username);
         ObjectNode node = mapper.createObjectNode();
 
@@ -163,6 +163,7 @@ public class AdminAccountController extends UserUtil {
 		node.put("car_id",car.getId())
                 .put("name", car.getName())
                 .put("color", car.getColor())
+                .put("country", car.getCountry())
                 .put("release_date", car.getReleaseDate().toString())
                 .put("price", car.getPrice())
 				.put("description", car.getDescription())
@@ -174,25 +175,41 @@ public class AdminAccountController extends UserUtil {
 
     @RequestMapping("/car/save")
     @ResponseBody
-    public String saveCar(@RequestBody Car car) {
+    public String saveCar(@RequestBody ObjectNode node) {
         String answer = "failure";
+        Car car = new Car()
+				.setName(node.get("name").asText())
+				.setReleaseDate(new Date(node.get("releaseDate").asLong()))
+				.setColor(node.get("color").asText())
+				.setCountry(node.get("country").asText())
+				.setPrice(node.get("price").asDouble())
+				.setCarStatus(node.get("status").asInt())
+				.setDescription(node.get("description").asText());
         try {
             carService.save(car);
-            answer = "Success";
+            answer = "success";
         } catch (Exception ex) {
             logger.error("Save exception " + ex);
         }
         return answer;
     }
 
-	@RequestMapping("/car/update/{id}/")
+	@RequestMapping("/car/update/{car_id}")
 	@ResponseBody
-	public String updateCar(@PathVariable("id") long id) {
+	public String updateCar(@RequestBody ObjectNode node, @PathVariable("car_id") long carId) {
 		String answer = "failure";
+		Car car = new Car()
+				.setId(carId)
+				.setName(node.get("name").asText())
+				.setReleaseDate(new Date(node.get("releaseDate").asLong()))
+				.setColor(node.get("color").asText())
+				.setCountry(node.get("country").asText())
+				.setPrice(node.get("price").asDouble())
+				.setCarStatus(node.get("status").asInt())
+				.setDescription(node.get("description").asText());
 		try {
-			Car car = carService.getById(id);
 			carService.update(car);
-			answer = "Success";
+			answer = "success";
 		} catch (Exception ex) {
 			logger.error("Save exception " + ex);
 		}
@@ -249,7 +266,6 @@ public class AdminAccountController extends UserUtil {
 		Car car = carService.getById(node.get("car_id").asLong());
 		User user = userService.getByUsername(node.get("username").asText());
 
-//		TODO: debug date parsing
 		Invoice invoice = new Invoice()
 				.setCar(car)
 				.setUser(user)

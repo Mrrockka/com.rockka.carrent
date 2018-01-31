@@ -52,33 +52,20 @@ public class UserAccountController extends UserUtil {
 
         return node;
     }
-
-    @RequestMapping("/update" +
-            "/firstname/{firstname}" +
-            "/secondname/{secondname}" +
-            "/lastname/{lastname}" +
-            "/address/{address}" +
-            "/birthday/{birthday}" +
-            "/about_me/{about_me}")
+//TODO: test it
+    @RequestMapping("/update")
     @ResponseBody
-    public String updateUser(
-            @PathVariable("firstname") String firstname
-            , @PathVariable("secondname") String secondname
-            , @PathVariable("lastname") String lastname
-            , @PathVariable("address") String address
-            , @PathVariable("birthday") String birthday
-            , @PathVariable("about_me") String about_me
-    ){
+    public String updateUser(@RequestBody ObjectNode node){
         String ans = "failure";
         User user = userService.getByUsername(getPrincipal().getUsername());
         if(user != null){
             userService.update(
-                    user.setFirstName(firstname)
-                            .setSecondName(secondname)
-                            .setLastName(lastname)
-                            .setAddress(address)
-                            .setAboutMe(about_me)
-//                            .setBirthday(new Date(birthday))
+                    user.setFirstName(node.get("firstname").asText())
+                            .setSecondName(node.get("secondname").asText())
+                            .setLastName(node.get("lastname").asText())
+                            .setAddress(node.get("address").asText())
+                            .setAboutMe(node.get("about_me").asText())
+                            .setBirthday(new Date(node.get("birthday").asLong()))
             );
             ans = "success";
         }

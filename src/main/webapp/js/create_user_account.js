@@ -12,27 +12,25 @@ function showAccount(){
         if(this.readyState == 4 && this.status == 200){
             var json = JSON.parse(this.responseText);
 
-            var info = "<div class=\"col-md-5 col-sm-6\">"
+            var info = "<div class=\"col-md-9 col-sm-8\">"
                     + "<form class=\"form-horizontal\" id=\"user_info\">"
-                    + "<h2 class=\"form-std-heading\">Account info</h2>"
-                    + "<div class=\"col-sm-4\"><img src=\"/thumbs/users/" + username + ".jpg\" class=\"img-rounded thumb\" alt=\"user image\"></div>"
-                    + "<div class=\"form-inline form-group\"><label for=\"name\" class=\"control-label col-sm-4\">Username: </label>"
-                    + "<span id=\"username\" class=\"col-sm-8 form-control\">" + json.username + "</span></div>"
-                    + "<div class=\"form-inline form-group\"><label for=\"color\" class=\"control-label col-sm-4\">Roles: </label>"
-                    + "<span id=\"roles\" class=\"col-sm-8 form-control\">" + json.roles + "</span></div>"
-                    + "<div class=\"form-inline form-group\"><label for=\"firstname\" class=\"control-label col-sm-4\">First name: </label>"
-                    + "<span id=\"firstname\" class=\"col-sm-8 form-control\">" + json.firstname + "</span></div>"
-                    + "<div class=\"form-inline form-group\"><label for=\"secondname\" class=\"control-label col-sm-4\">Second name: </label>"
-                    + "<span id=\"secondname\" class=\"col-sm-8 form-control\">" + json.secondname + "</span></div>"
-                    + "<div class=\"form-inline form-group\"><label for=\"lastname\" class=\"control-label col-sm-4\">Last name: </label>"
-                    + "<span id=\"lastname\" class=\"col-sm-8 form-control\">" + json.lastname + "</span></div>"
-                    + "<div class=\"form-inline form-group\"><label for=\"birthday\" class=\"control-label col-sm-4\">Birthday: </label>"
-                    + "<span id=\"birthday\" class=\"col-sm-8 form-control\">" + json.birthday + "</span></div>"
-                    + "<div class=\"form-inline form-group\"><label for=\"address\" class=\"control-label col-sm-4\">Address: </label>"
-                    + "<span id=\"address\" class=\"col-sm-8 form-control\">" + json.address + "</span></div>"
-                    + "<div class=\"form-inline form-group\"><label for=\"about_me\" class=\"control-label col-sm-4\">About me: </label>"
-                    + "<span id=\"about_me\" class=\"col-sm-8 form-control\">" + json.about_me + "</span></div>"
-                    + "<input id=\"user_info_btn\" class=\"btn btn-lg btn-secondary\" type=\"button\" value=\"Edit\" onclick=\"setEnabled()\">"
+                    + "<h2 class=\"ml-sm-4 mt-sm-4 form-std-heading\">Account info</h2>"
+                    + "<div class=\"col-sm-4\"><img src=\"/thumbs/users/" + json.username + ".jpg\" class=\"img-rounded thumb\" alt=\"user image\"></div>"
+                    + "<div class=\"form-inline form-group\"><label for=\"username\" class=\"control-label col-md-6 col-sm-6\">Username: </label>"
+                    + "<span id=\"username\" class=\"col-md-6 col-sm-6\">" + json.username + "</span></div>"
+                    + "<div class=\"form-inline form-group\"><label for=\"firstname\" class=\"control-label col-md-6 col-sm-6\">First name: </label>"
+                    + "<span id=\"firstname\" class=\"col-md-6 col-sm-6\">" + json.firstname + "</span></div>"
+                    + "<div class=\"form-inline form-group\"><label for=\"secondname\" class=\"control-label col-md-6 col-sm-6\">Second name: </label>"
+                    + "<span id=\"secondname\" class=\"col-md-6 col-sm-6\">" + json.secondname + "</span></div>"
+                    + "<div class=\"form-inline form-group\"><label for=\"lastname\" class=\"control-label col-md-6 col-sm-6\">Last name: </label>"
+                    + "<span id=\"lastname\" class=\"col-md-6 col-sm-6\">" + json.lastname + "</span></div>"
+                    + "<div class=\"form-inline form-group\"><label for=\"birthday\" class=\"control-label col-md-6 col-sm-6\">Birthday: </label>"
+                    + "<span id=\"birthday\" class=\"col-md-6 col-sm-6\">" + json.birthday + "</span></div>"
+                    + "<div class=\"form-inline form-group\"><label for=\"address\" class=\"control-label col-md-6 col-sm-6\">Address: </label>"
+                    + "<span id=\"address\" class=\"col-md-6 col-sm-6\">" + json.address + "</span></div>"
+                    + "<div class=\"form-inline form-group\"><label for=\"about_me\" class=\"control-label col-md-6 col-sm-6\">About me: </label>"
+                    + "<span id=\"about_me\" class=\"col-md-6 col-sm-6\">" + json.about_me + "</span></div>"
+                    + "<input id=\"user_info_btn\" class=\"btn btn-lg btn-secondary btn-secondary\" type=\"button\" value=\"Edit\" onclick=\"setEnabled()\">"
                     + "</form></div>";
 
             document.getElementById("info_div").innerHTML = info;
@@ -43,15 +41,15 @@ function showAccount(){
     xhr.send();
 }
 
-//TODO: test it
+//TODO: doesn't work
 function setEnabled(){
 
     var form = document.getElementById("user_info");
     var i, info, element, labels = form.getElementsByClassName("control-label");
 
-    info = "<div class=\"col-md-5 col-sm-6\">"
+    info = "<div class=\"col-md-9 col-sm-8\">"
         + "<form class=\"form-horizontal\" id=\"user_info\">"
-        + "<h2 class=\"form-std-heading\">Account info</h2>"
+        + "<h2 class=\"ml-sm-4 mt-sm-4 form-std-heading\">Account info</h2>"
         + "<div class=\"col-sm-4\"><img src=\"/thumbs/users/" + username + ".jpg\" class=\"img-rounded thumb\" alt=\"user image\"></div>";
 
 
@@ -61,15 +59,21 @@ function setEnabled(){
         if(element.type == "button"){
             continue;
         }
+        if(element.type == "username"){
+            info += element;
+        }
+        if(element.type == "roles"){
+            info += element;
+        }
 
-        info += "<div class=\"form-inline form-group\"><label for=\"" + element.id + "\" class=\"control-label col-sm-4\">" + labels[i].innerHTML+ "</label>";
+        info += "<div class=\"form-inline form-group\">" + element.id;
 
         if(element.id == "birthday"){
-            info+= "<div class=\"col-sm-8\"><input type=\"text\" id=\"" + element.id +"\" class=\"col-sm-8 form-control\" value=\"" + element.innerHTML + "\" ></div></div>";
+            info+= "<div class=\"col-md-6 col-sm-6\"><input type=\"text\" id=\"" + element.id +"\" class=\"form-control\" value=\"" + element.innerHTML + "\" ></div></div>";
             continue;
         }
 
-        info += "<div class=\"col-sm-8\"><input type=\"text\" id=\"" + element.id +"\" class=\"col-sm-8 form-control\" value=\"" + element.innerHTML + "\" ></div></div>";
+        info += "<div class=\"col-md-6 col-sm-6\"><input type=\"text\" id=\"" + element.id +"\" class=\"form-control\" value=\"" + element.innerHTML + "\" ></div></div>";
     }
 
     info += "<div><input class=\"btn btn-lg btn-primary\" type=\"button\" value=\"Update\" onclick=\"updateUser()\">"
@@ -79,26 +83,27 @@ function setEnabled(){
     document.getElementById("info_div").innerHTML = info;
 }
 
-//TODO: change send type to JSON.
 function updateUser(){
-    var xhr = new XMLHttpRequest(), url = '/user/update/';
+    var xhr = new XMLHttpRequest(), url = '/user/update/', json = "{";
 
     var form = document.getElementById("user_info");
 
     var i, element;
 
     for(i = 0; i<form.length; i++){
-        element = form.elements[i];
+        element = form[i];
         if(element.type == "button"){
             continue;
         }
-        if(element.id == "username"){
+        if(element.type == "date"){
+            json += "\"" + element.id + "\" : \" " + (new Date(element.value)).getTime() + "\" , ";
             continue;
         }
-        url += element.id + "/" + element.value + "/";
+        json += "\"" + element.id + "\" : \" " + element.value + "\" , ";
     }
 
-    url = url.slice(0, -1);
+    json = json.slice(0, -1);
+    json += "}";
 
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
@@ -109,7 +114,7 @@ function updateUser(){
     }
 
     xhr.open("POST", url, true);
-    xhr.send();
+    xhr.send(json);
 }
 
 function showOrders(){
@@ -162,25 +167,23 @@ function showOrderById(id){
         if(this.readyState==4 && this.status==200){
             var i, json = JSON.parse(this.responseText);
 
-            var info = "<div class=\"col-md-5 col-sm-6\">"
-                    +"<h2>Rent car order</h2>"
-                    +"<p>Invoice id: "+json.invoice_id + "</p>"
-                    +"<p>Birthday: "+ json.birthday +"</p>"
-                    +"<pCar name: >"+json.car_name+"</p>"
-                    +"<p>Starts: "+ json.starts_at+"</p>"
-                    +"<p>Expires: "+ json.expires_at+"</p>"
-                    +"<p>Invoice price: " + json.invoice_price+"</p>"
-                    +"<p>Description: "+ json.description +"</p>"
-                    +"<p>Status: "+json.invoiceStatus +"</p>";
-//          2 - is CLOSED in OrderStatus enum, 0 - is new
-            if(json.status >0 && json.status<3){
-                if(json.status != 6){
-                    info += "<input type=\"button\" value=\"close order?\" onclick=\"changeOrderStatus("+id +", 1)\">";
-                }
-            } else {
-                if(json.status == 0){
-                    info += "<input type=\"button\" value=\"open order?\" onclick=\"changeOrderStatus("+id +", 3)\">";
-                }
+            var info = "<div class=\"mt-sm-4 col-md-9 col-sm-8\">"
+                    +"<h2 class=\"\">Rent car order</h2>"
+                    +"<dl class=\"row\">"
+                    +"<dt class=\"col-md-6 col-sm-6\">Invoice id: </dt><dd class=\"col-md-6 col-sm-6\">"+json.invoice_id + "</dd>"
+                    +"<dt class=\"col-md-6 col-sm-6\">Car name: </dt><dd class=\"col-md-6 col-sm-6\">"+json.car_name+"</dd>"
+                    +"<dt class=\"col-md-6 col-sm-6\">Starts: </dt><dd class=\"col-md-6 col-sm-6\">"+ json.starts_at+"</dd>"
+                    +"<dt class=\"col-md-6 col-sm-6\">Expires: </dt><dd class=\"col-md-6 col-sm-6\">"+ json.expires_at+"</dd>"
+                    +"<dt class=\"col-md-6 col-sm-6\">Invoice price: </dt><dd class=\"col-md-6 col-sm-6\">" + json.invoice_price+"</dd>"
+                    +"<dt class=\"col-md-6 col-sm-6\">Description: </dt><dd class=\"col-md-6 col-sm-6\">"+ json.description +"</dd>"
+                    +"<dt class=\"col-md-6 col-sm-6\">Status: </dt><dd class=\"col-md-6 col-sm-6\">"+json.invoiceStatus +"</dd>"
+                    +"</dl>";
+//          1 - is CLOSED in OrderStatus enum, 3 - is new
+            if(json.status == 3){
+                info += "<input type=\"button\" value=\"close order?\" onclick=\"changeOrderStatus("+ id +", 1)\">";
+            }
+            if(json.status == 1){
+                info += "<input type=\"button\" value=\"open order?\" onclick=\"changeOrderStatus("+ id +", 3)\">";
             }
 
             info += "</div>";
@@ -208,6 +211,3 @@ function changeOrderStatus(id, status){
 
 
 }
-
-
-

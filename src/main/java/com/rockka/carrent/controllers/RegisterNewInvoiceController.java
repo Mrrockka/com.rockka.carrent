@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/invoice")
-public class RegisterNewOrderController extends UserUtil{
+public class RegisterNewInvoiceController extends UserUtil{
     @Autowired
     private InvoiceService invoiceService;
     @Autowired
@@ -23,7 +23,7 @@ public class RegisterNewOrderController extends UserUtil{
     @Autowired
     private CarService carService;
 
-    private Logger logger = LoggerFactory.getLogger(RegisterNewOrderController.class);
+    private Logger logger = LoggerFactory.getLogger(RegisterNewInvoiceController.class);
 
     @GetMapping("/car/{id}")
     public String getOrderForCar(@PathVariable("id") long id, Model model){
@@ -37,14 +37,14 @@ public class RegisterNewOrderController extends UserUtil{
         return "user/register_new_invoice";
     }
 
-    @PostMapping("/save/{id}")
+    @PostMapping("/save/{car_id}")
     @ResponseBody
-    public String save(@RequestBody Invoice invoice, @PathVariable("id") long id){
-        invoice.setCar(carService.getById(id));
+    public String save(@RequestBody Invoice invoice, @PathVariable("car_id") long carId){
+        invoice.setCar(carService.getById(carId));
         invoice.setUser(userService.getByUsername(getPrincipal().getUsername()));
         invoice.setInvoiceStatus(3);
         invoiceService.save(invoice);
-        return "public/success";
+        return "success";
     }
 
 }
