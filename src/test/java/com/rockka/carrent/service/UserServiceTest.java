@@ -1,8 +1,6 @@
 package com.rockka.carrent.service;
 
 import com.rockka.carrent.config.AppConfig;
-import com.rockka.carrent.config.OrmConfig;
-import com.rockka.carrent.config.MvcConfig;
 import com.rockka.carrent.dao.UserDao;
 import com.rockka.carrent.domain.User;
 import com.rockka.carrent.services.UserService;
@@ -21,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.Date;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
         classes = {
@@ -72,7 +69,7 @@ public class UserServiceTest extends Assert {
                     + " user role " + user.getRoles()
                     + " created at " + user.getCreatedAt()
                     + " modified at " + user.getModifiedAt()
-                    + " status " + user.getUserStatus().toString()
+                    + " status " + user.getStatus().toString()
             );
         }
     }

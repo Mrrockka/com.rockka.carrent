@@ -1,6 +1,7 @@
 package com.rockka.carrent.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.rockka.carrent.converters.UserStatusConverter;
 import com.rockka.carrent.enums.UserStatus;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
@@ -34,10 +35,9 @@ public class User implements Serializable {
 	@Column(nullable = false)
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
 	private LocalDate birthday;
-	@Column(name = "status", nullable = false, length = 1)
-	private int status = 1;
-	@Transient
-	private UserStatus userStatus;
+	@Column(name = "status", nullable = false)
+	@Convert(converter = UserStatusConverter.class)
+	private UserStatus status;
 	@Column(name = "created_at", nullable = false)
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
 	private LocalDateTime createdAt = new LocalDateTime();
@@ -75,16 +75,16 @@ public class User implements Serializable {
 		return this;
 	}
 
-	public UserStatus getUserStatus() {
-		if (userStatus == null) {
-			userStatus = UserStatus.get(status);
-		}
-		return userStatus;
+	public UserStatus getStatus() {
+		return status;
 	}
 
-	public User setUserStatus(int i) {
-		userStatus = UserStatus.get(i);
-		status = userStatus.toInt();
+	public User setStatus(int i) {
+		status = UserStatus.get(i);
+		return this;
+	}
+	public User setStatus(UserStatus status) {
+		this.status = status;
 		return this;
 	}
 

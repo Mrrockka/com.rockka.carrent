@@ -43,7 +43,7 @@ public class AdminAccountController extends UserUtil {
 	public JsonNode showInvoices() {
 		ArrayNode node = mapper.createArrayNode();
 		for(Invoice invoice: invoiceService.getAll()){
-			if(invoice.getInvoiceStatus().toInt()>0) {
+			if(invoice.getStatus().toInt()>0) {
 				node.addObject()
 						.put("invoice_id", invoice.getId())
 						.put("car_name", invoice.getCar().getName())
@@ -51,7 +51,7 @@ public class AdminAccountController extends UserUtil {
 						.put("starts_at", invoice.getStartsAt().toString())
 						.put("expires_at", invoice.getExpiresAt().toString())
 						.put("price", invoice.getPrice())
-						.put("status", invoice.getInvoiceStatus().toString());
+						.put("status", invoice.getStatus().toString());
 			}
 		}
 		return node;
@@ -75,7 +75,7 @@ public class AdminAccountController extends UserUtil {
                 .put("expires_at", invoice.getExpiresAt().toString())
                 .put("invoice_price", invoice.getPrice())
                 .put("description", invoice.getDescription())
-                .put("status", invoice.getInvoiceStatus().toInt());
+                .put("status", invoice.getStatus().toInt());
 
 		node.set("statusValues", invoiceStatusValues());
 
@@ -93,7 +93,7 @@ public class AdminAccountController extends UserUtil {
 
 		Invoice invoice = invoiceService.getById(id);
 		if(invoice != null) {
-			invoiceService.update(invoice.setDescription(description).setInvoiceStatus(status));
+			invoiceService.update(invoice.setDescription(description).setStatus(status));
 			ans = "success";
 		}
 
@@ -113,7 +113,7 @@ public class AdminAccountController extends UserUtil {
                     .put("secondname", user.getSecondName())
 					.put("birthday", user.getBirthday().toString())
 					.put("address", user.getAddress())
-					.put("status", user.getUserStatus().toString())
+					.put("status", user.getStatus().toString())
 			;
 		}
 		return node;
@@ -133,7 +133,7 @@ public class AdminAccountController extends UserUtil {
 				.put("birthday", user.getBirthday().toString())
 				.put("address", user.getAddress())
                 .put("about_me", user.getAboutMe())
-                .put("status", user.getUserStatus().toString());
+                .put("status", user.getStatus().toString());
 
         return node;
 	}
@@ -149,7 +149,7 @@ public class AdminAccountController extends UserUtil {
 					.put("color", car.getColor())
 					.put("release_date", car.getReleaseDate().toString())
 					.put("price", car.getPrice())
-					.put("status", car.getCarStatus().toString())
+					.put("status", car.getStatus().toString())
 			;
 		}
 		return node;
@@ -168,7 +168,7 @@ public class AdminAccountController extends UserUtil {
                 .put("release_date", car.getReleaseDate().toString())
                 .put("price", car.getPrice())
 				.put("description", car.getDescription())
-                .put("status", car.getCarStatus().toInt());
+                .put("status", car.getStatus().toInt());
 		node.set("statusValues", carStatusValues());
 		return node;
 	}
@@ -184,7 +184,7 @@ public class AdminAccountController extends UserUtil {
 				.setColor(node.get("color").asText())
 				.setCountry(node.get("country").asText())
 				.setPrice(node.get("price").asDouble())
-				.setCarStatus(node.get("status").asInt())
+				.setStatus(node.get("status").asInt())
 				.setDescription(node.get("description").asText());
         try {
             carService.save(car);
@@ -206,7 +206,7 @@ public class AdminAccountController extends UserUtil {
 				.setColor(node.get("color").asText())
 				.setCountry(node.get("country").asText())
 				.setPrice(node.get("price").asDouble())
-				.setCarStatus(node.get("status").asInt())
+				.setStatus(node.get("status").asInt())
 				.setDescription(node.get("description").asText());
 		try {
 			carService.update(car);
@@ -274,7 +274,7 @@ public class AdminAccountController extends UserUtil {
 				.setPrice(node.get("invoice_price").asDouble())
 				.setStartsAt(new LocalDateTime(node.get("on_date").asLong()))
 				.setExpiresAt(new LocalDateTime(node.get("on_date").asLong()))
-				.setInvoiceStatus(node.get("status").asInt())
+				.setStatus(node.get("status").asInt())
 				;
 
 		try {

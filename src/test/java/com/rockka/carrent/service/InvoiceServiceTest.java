@@ -17,7 +17,6 @@ import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -112,9 +111,9 @@ public class InvoiceServiceTest extends Assert {
 							+ "| price: " + invoice.getPrice()
 							+ "| starts at: " + invoice.getStartsAt()
 							+ "| expires at: " + invoice.getExpiresAt()
-							+ "| status: " + invoice.getInvoiceStatus().toString()
-							+ "| orderStatus int: " + invoice.getInvoiceStatus().toInt()
-							+ "| orderStatus string: " + invoice.getInvoiceStatus().toString()
+							+ "| status: " + invoice.getStatus().toString()
+							+ "| orderStatus int: " + invoice.getStatus().toInt()
+							+ "| orderStatus string: " + invoice.getStatus().toString()
 			);
 		}
 	}
@@ -133,9 +132,9 @@ public class InvoiceServiceTest extends Assert {
 							+ "| price: " + invoice.getPrice()
 							+ "| starts at: " + invoice.getStartsAt()
 							+ "| expires at: " + invoice.getExpiresAt()
-							+ "| status: " + invoice.getInvoiceStatus().toString()
-							+ "| orderStatus int: " + invoice.getInvoiceStatus().toInt()
-							+ "| orderStatus string: " + invoice.getInvoiceStatus().toString()
+							+ "| status: " + invoice.getStatus().toString()
+							+ "| orderStatus int: " + invoice.getStatus().toInt()
+							+ "| orderStatus string: " + invoice.getStatus().toString()
 			);
 		}
 	}
@@ -155,9 +154,9 @@ public class InvoiceServiceTest extends Assert {
 							+ "| price: " + invoice.getPrice()
 							+ "| starts at: " + invoice.getStartsAt()
 							+ "| expires at: " + invoice.getExpiresAt()
-							+ "| status: " + invoice.getInvoiceStatus().toString()
-							+ "| orderStatus int: " + invoice.getInvoiceStatus().toInt()
-							+ "| orderStatus string: " + invoice.getInvoiceStatus().toString()
+							+ "| status: " + invoice.getStatus().toString()
+							+ "| orderStatus int: " + invoice.getStatus().toInt()
+							+ "| orderStatus string: " + invoice.getStatus().toString()
 			);
 		}
 	}

@@ -21,15 +21,10 @@ public class CarDaoImp extends GenericDaoImp<Car> implements CarDao {
 
     public CarDaoImp(){super(Car.class);}
 
-//    TODO: rewrite with criteria
     @Override
     public Car getById(final long car_id) {
         Criteria criteria = getSession().createCriteria(Car.class);
-        try {
-            criteria.add(Restrictions.eq("id", car_id));
-        }catch(Exception e){
-            logger.error("" + e);
-        }
+        criteria.add(Restrictions.eq("id", car_id));
         return (Car) criteria.uniqueResult();
     }
 

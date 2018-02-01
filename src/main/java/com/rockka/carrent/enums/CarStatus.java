@@ -2,7 +2,7 @@ package com.rockka.carrent.enums;
 /*
 	CarStatus enum for clear representation of status variable
 */
-public enum CarStatus {
+public enum CarStatus{
 
 	DELETED(0, "deleted")
 	, ACTIVE(1, "active")
@@ -29,11 +29,9 @@ public enum CarStatus {
 				return ACTIVE;
 		}
 	}
-
 	public int toInt() {
 		return this.status;
 	}
-
 	public String toString() {
 		return this.representation;
 	}

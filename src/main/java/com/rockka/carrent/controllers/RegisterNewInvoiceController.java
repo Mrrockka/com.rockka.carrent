@@ -42,7 +42,7 @@ public class RegisterNewInvoiceController extends UserUtil{
     public String save(@RequestBody Invoice invoice, @PathVariable("car_id") long carId){
         invoice.setCar(carService.getById(carId));
         invoice.setUser(userService.getByUsername(getPrincipal().getUsername()));
-        invoice.setInvoiceStatus(3);
+        invoice.setStatus(3);
         invoiceService.save(invoice);
         return "success";
     }

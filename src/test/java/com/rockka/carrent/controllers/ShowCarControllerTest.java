@@ -55,7 +55,7 @@ public class ShowCarControllerTest {
 				.setName("Nested exception")
 				.setId(1)
 				.setReleaseDate(new LocalDate())
-				.setCarStatus(0);
+				.setStatus(0);
 		Mockito.when(carService.getById(1)).thenReturn(car);
 		mockMvc.perform(MockMvcRequestBuilders.get("/car/1"))
 				.andExpect(MockMvcResultMatchers.status().isOk())

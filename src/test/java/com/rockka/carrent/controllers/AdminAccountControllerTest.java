@@ -1,6 +1,5 @@
 package com.rockka.carrent.controllers;
 
-import com.rockka.carrent.config.AppConfig;
 import com.rockka.carrent.config.MvcConfig;
 import com.rockka.carrent.config.OrmConfig;
 import com.rockka.carrent.config.TestConfig;
@@ -30,8 +29,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-
-import java.util.Date;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
@@ -64,14 +61,15 @@ public class AdminAccountControllerTest {
 			.setBirthday(new LocalDate(1999, 1, 2))
 			.setRoles("ROLE_USER")
 			.setAddress("Sim salabim")
-			.setUserStatus(0);
+			.setStatus(0);
 
 	private Car car = new Car()
 			.setName("Batmobile v1000")
 			.setCountry("Mexico")
 			.setColor("Blackest")
 			.setPrice(9999)
-			.setReleaseDate(new LocalDate(1939, 12, 02));
+			.setReleaseDate(new LocalDate(1939, 12, 02))
+			.setStatus(0);
 
 	private Invoice invoice = new Invoice()
 			.setUser(user)
@@ -80,7 +78,7 @@ public class AdminAccountControllerTest {
 			.setExpiresAt(new LocalDateTime(2000, 12, 15, 15, 30))
 			.setPrice(1000000000)
 			.setDescription("Veeeeryyyy loooong invoice")
-			.setInvoiceStatus(0);
+			.setStatus(0);
 
 	@Before
 	public void startUp() {

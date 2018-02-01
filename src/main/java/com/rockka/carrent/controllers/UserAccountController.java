@@ -17,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -84,7 +83,7 @@ public class UserAccountController extends UserUtil {
                     .put("starts_at", invoice.getStartsAt().toString())
                     .put("expires_at", invoice.getExpiresAt().toString())
                     .put("invoice_price", invoice.getPrice())
-                    .put("invoiceStatus", invoice.getInvoiceStatus().toString());
+                    .put("invoiceStatus", invoice.getStatus().toString());
         }
         return node;
     }
@@ -102,8 +101,8 @@ public class UserAccountController extends UserUtil {
                 .put("starts_at", invoice.getStartsAt().toString())
                 .put("expires_at", invoice.getExpiresAt().toString())
                 .put("description", invoice.getDescription())
-                .put("invoiceStatus", invoice.getInvoiceStatus().toString())
-                .put("status", invoice.getInvoiceStatus().toInt());
+                .put("invoiceStatus", invoice.getStatus().toString())
+                .put("status", invoice.getStatus().toInt());
 
         return node;
     }
@@ -113,7 +112,7 @@ public class UserAccountController extends UserUtil {
     public String updateInvoice(@PathVariable("id") long id, @PathVariable("status") int status){
         String ans = "failure";
         try{
-            Invoice invoice = invoiceService.getById(id).setInvoiceStatus(status);
+            Invoice invoice = invoiceService.getById(id).setStatus(status);
             invoiceService.update(invoice);
             ans = "Success";
         }catch(Exception ex){

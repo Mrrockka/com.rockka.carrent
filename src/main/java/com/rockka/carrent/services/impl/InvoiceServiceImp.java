@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 @Service("invoiceService")
@@ -76,7 +75,7 @@ public class InvoiceServiceImp implements InvoiceService {
     @Override
     public Invoice delete(Invoice invoice) {
         if(invoice != null) {
-            update(invoice.setInvoiceStatus(0));
+            update(invoice.setStatus(0));
         } else {
             logger.error("invoice is null");
         }

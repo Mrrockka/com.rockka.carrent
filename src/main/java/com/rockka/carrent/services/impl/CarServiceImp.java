@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 @Service("carService")
@@ -45,7 +44,7 @@ public class CarServiceImp implements CarService {
 	@Override
 	public Car delete(Car car) {
 		if (car != null) {
-			update(car.setCarStatus(0));
+			update(car.setStatus(0));
 		}else {
 			logger.error("Car is null");
 		}

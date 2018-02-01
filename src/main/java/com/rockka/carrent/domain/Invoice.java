@@ -1,6 +1,7 @@
 package com.rockka.carrent.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.rockka.carrent.converters.InvoiceStatusConverter;
 import com.rockka.carrent.enums.InvoiceStatus;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDateTime;
@@ -40,10 +41,9 @@ public class Invoice implements Serializable {
 	@Column(name = "expires_at", nullable = false)
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
 	private LocalDateTime expiresAt;
-	@Column(name = "status", length = 10, nullable = false)
-	private int status = 2;
-	@Transient
-	private InvoiceStatus invoiceStatus;
+	@Column(name = "status", nullable = false)
+	@Convert(converter = InvoiceStatusConverter.class)
+	private InvoiceStatus status;
 /*    @OneToMany()
     private List<Invoice> invoices;*/
 
@@ -129,22 +129,17 @@ public class Invoice implements Serializable {
 		return this;
 	}
 
-	public Invoice setInvoiceStatus(int i) {
-		invoiceStatus = InvoiceStatus.get(i);
-		status = invoiceStatus.toInt();
+	public Invoice setStatus(int i) {
+		status = InvoiceStatus.get(i);
 		return this;
 	}
 
-	public InvoiceStatus getInvoiceStatus() {
-		if (invoiceStatus == null) {
-			invoiceStatus = InvoiceStatus.get(status);
-		}
-		return invoiceStatus;
+	public InvoiceStatus getStatus() {
+		return status;
 	}
 
-	public Invoice setInvoiceStatus(InvoiceStatus invoiceStatus) {
-		this.invoiceStatus = invoiceStatus;
-		status = invoiceStatus.toInt();
+	public Invoice setStatus(InvoiceStatus status) {
+		this.status = status;
 		return this;
 	}
 

@@ -4,7 +4,7 @@ package com.rockka.carrent.enums;
 	OrderStatus enum for clear representation of status variable
 */
 
-public enum InvoiceStatus {
+public enum InvoiceStatus{
 	DELETED(0, "deleted")
 	, CLOSED(1, "closed")
 	, EXPIRED(2, "expired")
@@ -46,7 +46,6 @@ public enum InvoiceStatus {
 	public int toInt() {
 		return this.status;
 	}
-
 	public String toString() {
 		return this.representation;
 	}

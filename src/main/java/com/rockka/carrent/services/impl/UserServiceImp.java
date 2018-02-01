@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 @Service("userService")
@@ -64,7 +63,7 @@ public class UserServiceImp implements UserService{
     @Override
     public User delete(User user) {
         if(user != null) {
-            update(user.setUserStatus(0));
+            update(user.setStatus(0));
         } else{
             logger.error("USER IS NULL");
         }

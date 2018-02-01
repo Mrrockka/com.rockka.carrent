@@ -2,6 +2,7 @@ package com.rockka.carrent.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.rockka.carrent.converters.CarStatusConverter;
 import com.rockka.carrent.enums.CarStatus;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
@@ -39,9 +40,8 @@ public class Car implements Serializable {
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
 	private LocalDateTime modifiedAt = new LocalDateTime();
 	@Column(name = "status", nullable = false)
-	private int status = 1;
-	@Transient
-	private CarStatus carStatus;
+	@Convert(converter = CarStatusConverter.class)
+	private CarStatus status;
 	@JsonIgnore
 	@OneToMany(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Invoice> carOrders;
@@ -127,17 +127,17 @@ public class Car implements Serializable {
 		return this;
 	}
 
-	public CarStatus getCarStatus() {
-		if (carStatus == null) {
-			carStatus = CarStatus.get(status);
-		}
-
-		return carStatus;
+	public CarStatus getStatus() {
+		return status;
 	}
 
-	public Car setCarStatus(int i) {
-		carStatus = CarStatus.get(i);
-		status = carStatus.toInt();
+	public Car setStatus(int i) {
+		status = CarStatus.get(i);
+		return this;
+	}
+
+	public Car setStatus(CarStatus status) {
+		this.status = status;
 		return this;
 	}
 
