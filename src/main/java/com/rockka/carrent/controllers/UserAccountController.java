@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 import java.util.List;
 
-//TODO: change java.util.Date to JodaTime
 @Controller
 @RequestMapping("/user")
 public class UserAccountController extends UserUtil {
@@ -94,11 +93,10 @@ public class UserAccountController extends UserUtil {
     @ResponseBody
     public JsonNode showInvoiceById(@PathVariable("id") long id){
         ObjectNode node = mapper.createObjectNode();
-        String username = getPrincipal().getUsername();
-        Invoice invoice = invoiceService.getByIdWithUser(id, username);
+        Invoice invoice = invoiceService.getById(id);
 
         node.put("invoice_id", invoice.getId())
-                .put("username", username)
+                .put("username", invoice.getUser().getUsername())
                 .put("car_name", invoice.getCar().getName())
                 .put("invoice_price", invoice.getPrice())
                 .put("starts_at", invoice.getStartsAt().toString())

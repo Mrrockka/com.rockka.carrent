@@ -1,8 +1,6 @@
 package com.rockka.carrent.service;
 
 import com.rockka.carrent.config.AppConfig;
-import com.rockka.carrent.config.OrmConfig;
-import com.rockka.carrent.config.MvcConfig;
 import com.rockka.carrent.dao.CarDao;
 import com.rockka.carrent.domain.Car;
 import com.rockka.carrent.services.CarService;
@@ -65,8 +63,9 @@ public class CarServiceTest extends Assert {
     @Category(DetailTest.class)
     @DisplayName("test get all operations")
     public void testGetAll() {
+        logger.info("\nCarServiceTest: TEST_GET_ALL\n");
         for (Car car : carService.getAll()) {
-            logger.warn("id " + car.getId() + " color " + car.getColor() + " created at " + car.getCreatedAt() + " modified at " + car.getModifiedAt() + " status " + car.getCarStatus().toString());
+            logger.info("id " + car.getId() + " color " + car.getColor() + " created at " + car.getCreatedAt() + " modified at " + car.getModifiedAt() + " status " + car.getCarStatus().toString());
         }
     }
 }

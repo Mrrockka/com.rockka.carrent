@@ -2,11 +2,14 @@ package com.rockka.carrent.dao.impl;
 
 import com.rockka.carrent.dao.CarDao;
 import com.rockka.carrent.domain.Car;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.beans.Expression;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,16 +24,13 @@ public class CarDaoImp extends GenericDaoImp<Car> implements CarDao {
 //    TODO: rewrite with criteria
     @Override
     public Car getById(final long car_id) {
-        Car car = null;
+        Criteria criteria = getSession().createCriteria(Car.class);
         try {
-            car = (Car) getSession()
-                    .createQuery("from Car where car_id = :car_id")
-                    .setParameter("car_id", car_id)
-                    .uniqueResult();
+            criteria.add(Restrictions.eq("id", car_id));
         }catch(Exception e){
-            logger.error("Exception " + e);
+            logger.error("" + e);
         }
-        return car;
+        return (Car) criteria.uniqueResult();
     }
 
 }

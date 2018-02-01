@@ -2,6 +2,8 @@ package com.rockka.carrent.dao.impl;
 
 import com.rockka.carrent.dao.UserDao;
 import com.rockka.carrent.domain.User;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -17,15 +19,8 @@ public class UserDaoImp extends GenericDaoImp<User> implements UserDao {
 
     @Override
     public User getByUsername(String username) {
-        User user = null;
-        try {
-            user = (User) getSession()
-                    .createQuery("from User where username = :username")
-                    .setParameter("username", username)
-                    .uniqueResult();
-        } catch (Exception ex) {
-            logger.error("User get by username " + ex);
-        }
-        return user;
+        Criteria criteria = getSession().createCriteria(User.class);
+        criteria.add(Restrictions.eq("username", username));
+        return (User) criteria.uniqueResult();
     }
 }

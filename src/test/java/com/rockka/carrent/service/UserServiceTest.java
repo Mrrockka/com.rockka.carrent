@@ -66,8 +66,9 @@ public class UserServiceTest extends Assert {
     @Test
     @Category(DetailTest.class)
     public void testGetDetails() {
+        logger.info("\nUserServiceTest: TEST_GET_DETAILS\n");
         for (User user : userService.getAll()) {
-            logger.warn(" nickname " + user.getUsername()
+            logger.info(" nickname " + user.getUsername()
                     + " user role " + user.getRoles()
                     + " created at " + user.getCreatedAt()
                     + " modified at " + user.getModifiedAt()

@@ -18,8 +18,13 @@ public class UserServiceImp implements UserService{
     private UserDao userDao;
     private Logger logger = LoggerFactory.getLogger(UserServiceImp.class);
     @Override
-    public User getByUsername(String nickname) {
-        return userDao.getByUsername(nickname);
+    public User getByUsername(String username) {
+        if(username != null && !username.equals("")) {
+            return userDao.getByUsername(username);
+        } else {
+            logger.error("Username is null");
+        }
+         return null;
     }
 
     @Override
@@ -34,10 +39,10 @@ public class UserServiceImp implements UserService{
             if(!isExists(user)) {
                 userDao.save(user);
             } else {
-                logger.error("UserServiceImp: USER IS EXISTS!");
+                logger.error("USER IS EXISTS!");
             }
         } else{
-            logger.error("UserServiceImp: USER IS NULL");
+            logger.error("USER IS NULL");
         }
         return user;
     }
@@ -46,12 +51,12 @@ public class UserServiceImp implements UserService{
     public User update(User user) {
         if (user != null) {
             if(isExists(user)) {
-                userDao.update(user.setModifiedAt(new LocalDateTime()));
+                userDao.update(user.setModifiedAt(LocalDateTime.now()));
             } else {
-                logger.error("UserServiceImp: USER IS NOT EXISTS!");
+                logger.error("USER IS NOT EXISTS!");
             }
         } else{
-            logger.error("UserServiceImp: USER IS NULL");
+            logger.error("USER IS NULL");
         }
         return user;
     }
@@ -61,7 +66,7 @@ public class UserServiceImp implements UserService{
         if(user != null) {
             update(user.setUserStatus(0));
         } else{
-            logger.error("UserServiceImp: USER IS NULL");
+            logger.error("USER IS NULL");
         }
         return user;
     }

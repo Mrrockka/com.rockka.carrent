@@ -2,6 +2,11 @@ package com.rockka.carrent.dao.impl;
 
 import com.rockka.carrent.dao.InvoiceDao;
 import com.rockka.carrent.domain.Invoice;
+import com.rockka.carrent.domain.User;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Example;
+import org.hibernate.criterion.Property;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -21,59 +26,24 @@ public class InvoiceDaoImp extends GenericDaoImp<Invoice> implements InvoiceDao 
 
     @Override
     public Invoice getById(long invoice_id) {
-        Invoice invoice = null;
-        try{
-            invoice = (Invoice) getSession()
-                    .createQuery("from Invoice where invoice_id =:invoice_id")
-                    .setParameter("invoice_id", invoice_id)
-                    .uniqueResult();
-        }catch(Exception ex){
-            logger.error("InvoiceDaoImp: getById " + ex);
-        }
-        return invoice;
+        Criteria criteria = getSession().createCriteria(Invoice.class);
+        criteria.add(Restrictions.eq("id", invoice_id));
+        return (Invoice) criteria.uniqueResult();
     }
 
     @Override
     public List<Invoice> getAllWithUser(String username, boolean withDeleted){
-        List<Invoice> orders = null;
-        try{
-            orders = getSession()
-                    .createQuery("from Invoice where username  =:username")
-                    .setParameter("username", username)
-                    .list();
-        } catch(Exception ex){
-            logger.error("Invoice_DAO_IMP: getAllWithUser - query exception!!!" + ex);
-        }
-        return orders;
+        Criteria criteria = getSession().createCriteria(Invoice.class);
+        criteria.createCriteria("user").add(Restrictions.eq("username", username));
+        return criteria.list();
     }
 
     @Override
     public List<Invoice> getAllWithCar(long car_id, boolean withDeleted){
-        List<Invoice> orders = null;
-        try{
-            orders = getSession()
-                    .createQuery("from Invoice where car_id  =:car_id")
-                    .setParameter("car_id", car_id)
-                    .list();
-        } catch(Exception ex){
-            logger.error("Invoice_DAO_IMP: getAllWithCar - query exception!!!" + ex);
-        }
-        return orders;
+        Criteria criteria = getSession().createCriteria(Invoice.class);
+        criteria.createCriteria("car").add(Restrictions.idEq(car_id));
+        return criteria.list();
     }
 
-    @Override
-    public Invoice getByIdWithUser(long invoice_id, String username) {
-        Invoice invoice = null;
-        try{
-            invoice = (Invoice) getSession()
-                    .createQuery("from Invoice where invoice_id =:invoice_id and username  =:username")
-                    .setParameter("invoice_id", invoice_id)
-                    .setParameter("username", username)
-                    .uniqueResult();
-        } catch(Exception ex){
-            logger.error("Invoice_DAO_IMP: getByIdWithUser - query exception!!!" + ex);
-        }
-        return invoice;
-    }
 }
 

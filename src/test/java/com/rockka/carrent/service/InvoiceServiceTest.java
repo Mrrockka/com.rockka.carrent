@@ -13,11 +13,11 @@ import com.rockka.carrent.services.UserService;
 import com.rockka.carrent.test_categories.BasicTest;
 import com.rockka.carrent.test_categories.DetailTest;
 import com.rockka.carrent.test_categories.TransactionalTest;
-import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -102,11 +102,12 @@ public class InvoiceServiceTest extends Assert {
 	@Test
 	@Category(DetailTest.class)
 	public void testGetAll() {
+		logger.info("\nInvoiceServiceTest: TEST_GET_ALL\n");
 		for (Invoice invoice : invoiceService.getAll()) {
-			System.out.println(
+			logger.info(
 					"Invoice id: " + invoice.getId()
 							+ "| car id: " + invoice.getCar().getId()
-							+ "| user nickname: " + invoice.getUser().getUsername()
+							+ "| username: " + invoice.getUser().getUsername()
 							+ "| description: " + invoice.getDescription()
 							+ "| price: " + invoice.getPrice()
 							+ "| starts at: " + invoice.getStartsAt()
@@ -120,14 +121,14 @@ public class InvoiceServiceTest extends Assert {
 
 	@Test
 	@Category(DetailTest.class)
-	public void testGetAllWithUser() {
-		String username = "somebody";
+	public void testGetAllWithUsername() {
+		String username = "Zmei";
+		logger.info("\nInvoiceServiceTest: TEST_GET_ALL_WITH_USERNAME\n");
 		for (Invoice invoice : invoiceService.getAllWithUser(username)) {
-			System.out.println(
-					"Username: " + username
-							+ "| invoice id: " + invoice.getId()
+			logger.info(
+					"| invoice id: " + invoice.getId()
 							+ "| car id: " + invoice.getCar().getId()
-							+ "| invoice user username: " + invoice.getUser().getUsername()
+							+ "| user username: " + invoice.getUser().getUsername()
 							+ "| description: " + invoice.getDescription()
 							+ "| price: " + invoice.getPrice()
 							+ "| starts at: " + invoice.getStartsAt()
@@ -137,7 +138,28 @@ public class InvoiceServiceTest extends Assert {
 							+ "| orderStatus string: " + invoice.getInvoiceStatus().toString()
 			);
 		}
+	}
 
+	@Test
+	@Category(DetailTest.class)
+//	@Ignore("Doesn't work")
+	public void testGetAllWithCar() {
+		long car_id = 1;
+		logger.info("\nInvoiceServiceTest: TEST_GET_ALL_WITH_CAR\n");
+		for (Invoice invoice : invoiceService.getAllWithCar(car_id)) {
+			logger.info(
+					"Car id: " + invoice.getCar().getId()
+							+ "| invoice id: " + invoice.getId()
+							+ "| username: " + invoice.getUser().getUsername()
+							+ "| description: " + invoice.getDescription()
+							+ "| price: " + invoice.getPrice()
+							+ "| starts at: " + invoice.getStartsAt()
+							+ "| expires at: " + invoice.getExpiresAt()
+							+ "| status: " + invoice.getInvoiceStatus().toString()
+							+ "| orderStatus int: " + invoice.getInvoiceStatus().toInt()
+							+ "| orderStatus string: " + invoice.getInvoiceStatus().toString()
+			);
+		}
 	}
 
 }

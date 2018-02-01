@@ -9,7 +9,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
-//TODO: change java.util.Date to JodaTime
 @Entity
 @Table(name = "invoice")
 public class Invoice implements Serializable {

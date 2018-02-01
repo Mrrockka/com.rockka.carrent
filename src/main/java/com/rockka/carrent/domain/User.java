@@ -11,7 +11,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-//TODO: change java.util.Date to JodaTime
 @Entity
 @Table(name = "user")
 public class User implements Serializable {

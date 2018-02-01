@@ -4,6 +4,8 @@ import com.rockka.carrent.dao.InvoiceDao;
 import com.rockka.carrent.domain.Invoice;
 import com.rockka.carrent.services.InvoiceService;
 import org.joda.time.LocalDateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +16,13 @@ import java.util.List;
 public class InvoiceServiceImp implements InvoiceService {
     @Autowired
     private InvoiceDao invoiceDao;
+    private Logger logger = LoggerFactory.getLogger(InvoiceServiceImp.class);
     @Override
     public Invoice getById(long id) {
         if(id > 0) {
             return invoiceDao.getById(id);
+        }else {
+            logger.error("Id is negative");
         }
         return null;
     }
@@ -32,6 +37,8 @@ public class InvoiceServiceImp implements InvoiceService {
     public List<Invoice> getAllWithUser(String username, boolean withDeleted) {
         if(username != null && !username.equals("")){
             return invoiceDao.getAllWithUser(username, withDeleted);
+        }else {
+            logger.error("Username is null");
         }
         return null;
     }
@@ -39,15 +46,9 @@ public class InvoiceServiceImp implements InvoiceService {
     @Override
     public List<Invoice> getAllWithCar(long carId, boolean withDeleted) {
         if(carId >0){
-            invoiceDao.getAllWithCar(carId, withDeleted);
-        }
-        return null;
-    }
-
-    @Override
-    public Invoice getByIdWithUser(long orderId, String username) {
-        if(orderId>0 && username != null && !username.equals("")){
-            return invoiceDao.getByIdWithUser(orderId, username);
+            return invoiceDao.getAllWithCar(carId, withDeleted);
+        } else {
+            logger.error("car_id is negative");
         }
         return null;
     }
@@ -66,6 +67,8 @@ public class InvoiceServiceImp implements InvoiceService {
     public Invoice save(Invoice invoice) {
         if(invoice != null){
             invoiceDao.save(invoice);
+        }else {
+            logger.error("invoice is null");
         }
         return invoice;
     }
@@ -74,6 +77,8 @@ public class InvoiceServiceImp implements InvoiceService {
     public Invoice delete(Invoice invoice) {
         if(invoice != null) {
             update(invoice.setInvoiceStatus(0));
+        } else {
+            logger.error("invoice is null");
         }
         return invoice;
     }
@@ -81,7 +86,9 @@ public class InvoiceServiceImp implements InvoiceService {
     @Override
     public Invoice update(Invoice invoice){
         if(invoice != null) {
-            invoiceDao.update(invoice.setModifiedAt(new LocalDateTime()));
+            invoiceDao.update(invoice.setModifiedAt(LocalDateTime.now()));
+        }else {
+            logger.error("invoice is null");
         }
         return invoice;
     }
