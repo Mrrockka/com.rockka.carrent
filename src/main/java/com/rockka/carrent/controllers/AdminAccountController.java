@@ -23,7 +23,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-//TODO: datetime representations
 @Controller
 @RequestMapping("/admin")
 public class AdminAccountController extends UserUtil {

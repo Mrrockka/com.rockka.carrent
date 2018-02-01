@@ -207,7 +207,7 @@ function updateCar(url){
 function registerNewCar(){
     updateCar('/admin/car/save');
 }
-
+//TODO: rewrite with many to many
 function showInvoices(){
     var xhr = new XMLHttpRequest();
 
