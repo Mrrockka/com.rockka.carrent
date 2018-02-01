@@ -1,7 +1,6 @@
 package com.rockka.carrent.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.rockka.carrent.converters.InvoiceStatusConverter;
 import com.rockka.carrent.enums.InvoiceStatus;
 import org.hibernate.annotations.Type;
@@ -9,6 +8,7 @@ import org.joda.time.LocalDateTime;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -45,8 +45,13 @@ public class Invoice implements Serializable {
 	@Column(name = "status", nullable = false)
 	@Convert(converter = InvoiceStatusConverter.class)
 	private InvoiceStatus status;
-/*    @OneToMany()
-    private List<Invoice> invoices;*/
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "invoice_invoice",
+            joinColumns = @JoinColumn(name = "first_id", referencedColumnName = "invoice_id"),
+            inverseJoinColumns = @JoinColumn(name = "second_id", referencedColumnName = "invoice_id")
+    )
+    private List<Invoice> boundedInvoices;
 
 
 	public long getId() {
@@ -144,7 +149,15 @@ public class Invoice implements Serializable {
 		return this;
 	}
 
-	@Override
+    public List<Invoice> getBoundedInvoices() {
+        return boundedInvoices;
+    }
+
+    public void setBoundedInvoices(List<Invoice> boundedInvoices) {
+        this.boundedInvoices = boundedInvoices;
+    }
+
+    @Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;

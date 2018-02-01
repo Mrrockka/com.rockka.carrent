@@ -112,9 +112,11 @@ public class InvoiceServiceTest extends Assert {
 							+ "| starts at: " + invoice.getStartsAt()
 							+ "| expires at: " + invoice.getExpiresAt()
 							+ "| status: " + invoice.getStatus().toString()
-							+ "| orderStatus int: " + invoice.getStatus().toInt()
-							+ "| orderStatus string: " + invoice.getStatus().toString()
+							+ "| status int: " + invoice.getStatus().toInt()
 			);
+            for(Invoice inv :invoice.getBoundedInvoices()){
+                logger.info("Bounded with id:" + inv.getId());
+            }
 		}
 	}
 
@@ -133,15 +135,13 @@ public class InvoiceServiceTest extends Assert {
 							+ "| starts at: " + invoice.getStartsAt()
 							+ "| expires at: " + invoice.getExpiresAt()
 							+ "| status: " + invoice.getStatus().toString()
-							+ "| orderStatus int: " + invoice.getStatus().toInt()
-							+ "| orderStatus string: " + invoice.getStatus().toString()
+                            + "| status int: " + invoice.getStatus().toInt()
 			);
 		}
 	}
 
 	@Test
 	@Category(DetailTest.class)
-//	@Ignore("Doesn't work")
 	public void testGetAllWithCar() {
 		long car_id = 1;
 		logger.info("\nInvoiceServiceTest: TEST_GET_ALL_WITH_CAR\n");
@@ -155,8 +155,7 @@ public class InvoiceServiceTest extends Assert {
 							+ "| starts at: " + invoice.getStartsAt()
 							+ "| expires at: " + invoice.getExpiresAt()
 							+ "| status: " + invoice.getStatus().toString()
-							+ "| orderStatus int: " + invoice.getStatus().toInt()
-							+ "| orderStatus string: " + invoice.getStatus().toString()
+							+ "| status int: " + invoice.getStatus().toInt()
 			);
 		}
 	}
