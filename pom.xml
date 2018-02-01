@@ -17,7 +17,7 @@
         <mysql-version>5.1.45</mysql-version>
         <org.apache.tomcat-version>8.5.23</org.apache.tomcat-version>
         <org.thymeleaf-version>3.0.9.RELEASE</org.thymeleaf-version>
-        <jackson-version>2.9.3</jackson-version>
+        <jackson-version>2.9.4</jackson-version>
         <org.thymeleaf-version>3.0.9.RELEASE</org.thymeleaf-version>
         <!--<org.thymeleaf-security-version>3.0.2.RELEASE</org.thymeleaf-security-version>-->
         <org.mockito-version>2.13.0</org.mockito-version>
@@ -118,7 +118,11 @@
             <artifactId>jackson-databind</artifactId>
             <version>${jackson-version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-joda</artifactId>
+            <version>${jackson-version}</version>
+        </dependency>
         <!-- Logging -->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -285,7 +289,7 @@
                             <include>/**/*TestCase.java</include>
                         </includes>
                         <groups>com.rockka.carrent.test_categories.BasicTest</groups>
-                        <groups>com.rockka.carrent.test_categories.DetailTest</groups>
+                        <!--<groups>com.rockka.carrent.test_categories.DetailTest</groups>-->
                         <!--<groups>com.rockka.carrent.test_categories.TransactionalTest</groups>-->
                         <!--<groups>com.rockka.carrent.test_categories.SecurityTest</groups>-->
                     </configuration>

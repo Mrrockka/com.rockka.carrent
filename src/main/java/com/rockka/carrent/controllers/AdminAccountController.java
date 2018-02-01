@@ -48,8 +48,8 @@ public class AdminAccountController extends UserUtil {
 						.put("invoice_id", invoice.getId())
 						.put("car_name", invoice.getCar().getName())
 						.put("username", invoice.getUser().getUsername())
-						.put("starts_at", invoice.getStartsAt().toString())
-						.put("expires_at", invoice.getExpiresAt().toString())
+						.put("starts_at", invoice.getStartsAt().toString("yyyy-MM-dd : kk-mm"))
+						.put("expires_at", invoice.getExpiresAt().toString("yyyy-MM-dd : kk-mm"))
 						.put("price", invoice.getPrice())
 						.put("status", invoice.getStatus().toString());
 			}
@@ -71,8 +71,8 @@ public class AdminAccountController extends UserUtil {
                 .put("car_name", invoice.getCar().getName())
                 .put("username", invoice.getUser().getUsername())
                 .put("car_price", invoice.getCar().getPrice())
-                .put("starts_at", invoice.getStartsAt().toString())
-                .put("expires_at", invoice.getExpiresAt().toString())
+                .put("starts_at", invoice.getStartsAt().toString("yyyy-MM-dd : kk-mm"))
+                .put("expires_at", invoice.getExpiresAt().toString("yyyy-MM-dd : kk-mm"))
                 .put("invoice_price", invoice.getPrice())
                 .put("description", invoice.getDescription())
                 .put("status", invoice.getStatus().toInt());

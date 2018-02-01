@@ -1,6 +1,7 @@
 package com.rockka.carrent.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.rockka.carrent.converters.InvoiceStatusConverter;
 import com.rockka.carrent.enums.InvoiceStatus;
 import org.hibernate.annotations.Type;

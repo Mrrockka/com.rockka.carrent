@@ -80,8 +80,8 @@ public class UserAccountController extends UserUtil {
             node.addObject()
                     .put("invoice_id", invoice.getId())
                     .put("car_name", invoice.getCar().getName())
-                    .put("starts_at", invoice.getStartsAt().toString())
-                    .put("expires_at", invoice.getExpiresAt().toString())
+                    .put("starts_at", invoice.getStartsAt().toString("yyyy-MM-dd : kk-mm"))
+                    .put("expires_at", invoice.getExpiresAt().toString("yyyy-MM-dd : kk-mm"))
                     .put("invoice_price", invoice.getPrice())
                     .put("invoiceStatus", invoice.getStatus().toString());
         }
@@ -98,8 +98,8 @@ public class UserAccountController extends UserUtil {
                 .put("username", invoice.getUser().getUsername())
                 .put("car_name", invoice.getCar().getName())
                 .put("invoice_price", invoice.getPrice())
-                .put("starts_at", invoice.getStartsAt().toString())
-                .put("expires_at", invoice.getExpiresAt().toString())
+                .put("starts_at", invoice.getStartsAt().toString("yyyy-MM-dd : kk-mm"))
+                .put("expires_at", invoice.getExpiresAt().toString("yyyy-MM-dd : kk-mm"))
                 .put("description", invoice.getDescription())
                 .put("invoiceStatus", invoice.getStatus().toString())
                 .put("status", invoice.getStatus().toInt());

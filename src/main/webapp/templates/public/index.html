@@ -10,6 +10,7 @@
 <body>
 <header th:replace="fragments/header :: header"></header>
 <main role="main">
+    <!--TODO: carousel-->
     <div class="jumbotron text-center">
         <div class="container">
             <h1 class="jumbotron-heading">We offer our best cars</h1>
@@ -21,10 +22,11 @@
             </p>
         </div>
     </div>
+    <!--TODO: parameters of pictures-->
     <div class="album text-muted">
         <div class="container">
             <div class="row">
-                <div class="card" th:each="car: ${cars}" th:if="${car.carStatus.toInt()}>0">
+                <div class="card" th:each="car: ${cars}" th:if="${car.status.toInt()}>0">
                     <div>
                         <a th:href="@{'/car/'+${car.id}}">
                             <img class="img-rounded" th:src="@{'/thumbs/cars/'+${car.id}+'.png'}" alt="car image">

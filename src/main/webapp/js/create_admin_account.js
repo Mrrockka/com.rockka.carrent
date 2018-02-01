@@ -37,7 +37,7 @@ function showUsers(){
     xhr.open("GET", '/admin/user/show_all', true);
     xhr.send();
 }
-//TODO: rewrite with dt and dd
+
 function showUserByUsername(username) {
     var xhr = new XMLHttpRequest();
 
@@ -48,25 +48,17 @@ function showUserByUsername(username) {
                     + "<form class=\"form-horizontal\" id=\"user_info\">"
                     + "<h2 class=\"form-std-heading ml-sm-4 mt-sm-4\">User info</h2>"
                     + "<div class=\"col-sm-6\"><img src=\"/thumbs/users/" + username + ".jpg\" class=\"img-rounded thumb\" alt=\"user image\"></div>"
-                    + "<div class=\"form-inline form-group\"><label for=\"name\" class=\"control-label col-sm-6\">Username: </label>"
-                    + "<span id=\"username\" class=\"col-sm-6\">" + json.username + "</span></div>"
-                    + "<div class=\"form-inline form-group\"><label for=\"color\" class=\"control-label col-sm-6\">Roles: </label>"
-                    + "<span id=\"roles\" class=\"col-sm-6\">" + json.roles + "</span></div>"
-                    + "<div class=\"form-inline form-group\"><label for=\"firstname\" class=\"control-label col-sm-6\">First name: </label>"
-                    + "<span id=\"firstname\" class=\"col-sm-6\">" + json.firstname + "</span></div>"
-                    + "<div class=\"form-inline form-group\"><label for=\"secondname\" class=\"control-label col-sm-6\">Second name: </label>"
-                    + "<span id=\"secondname\" class=\"col-sm-6\">" + json.secondname + "</span></div>"
-                    + "<div class=\"form-inline form-group\"><label for=\"lastname\" class=\"control-label col-sm-6\">Last name: </label>"
-                    + "<span id=\"lastname\" class=\"col-sm-6\">" + json.lastname + "</span></div>"
-                    + "<div class=\"form-inline form-group\"><label for=\"birthday\" class=\"control-label col-sm-6\">Birthday: </label>"
-                    + "<span id=\"birthday\" class=\"col-sm-6\">" + json.birthday + "</span></div>"
-                    + "<div class=\"form-inline form-group\"><label for=\"address\" class=\"control-label col-sm-6\">Address: </label>"
-                    + "<span id=\"address\" class=\"col-sm-6\">" + json.address + "</span></div>"
-                    + "<div class=\"form-inline form-group\"><label for=\"about_me\" class=\"control-label col-sm-6\">About me: </label>"
-                    + "<span id=\"about_me\" class=\"col-sm-6\">" + json.about_me + "</span></div>"
-                    + "<div class=\"form-inline form-group\"><label for=\"status\" class=\"control-label col-sm-6\">Status: </label>"
-                    + "<span id=\"status\" class=\"col-sm-6\">" + json.status + "</span></div>"
-                    + "</form></div>";
+                    + "<div><dl class=\"row\">"
+                    + "<dt class=\"col-sm-6\">Username: </dt><dd class=\"col-sm-6\">" + json.username + "</dd>"
+                    + "<dt class=\"col-sm-6\">Roles: </dt><dd class=\"col-sm-6\">" + json.roles + "</dd>"
+                    + "<dt class=\"col-sm-6\">First name: </dt><dd class=\"col-sm-6\">" + json.firstname + "</dd>"
+                    + "<dt class=\"col-sm-6\">Second name: </dt><dd class=\"col-sm-6\">" + json.secondname + "</dd>"
+                    + "<dt class=\"col-sm-6\">Last name: </dt><dd class=\"col-sm-6\">" + json.lastname + "</dd>"
+                    + "<dt class=\"col-sm-6\">Birthday: </dt><dd class=\"col-sm-6\">" + json.birthday + "</dd>"
+                    + "<dt class=\"col-sm-6\">Address: </dt><dd class=\"col-sm-6\">" + json.address + "</dd>"
+                    + "<dt class=\"col-sm-6\">About me: </dt><dd class=\"col-sm-6\">" + json.about_me + "</dd>"
+                    + "<dt class=\"col-sm-6\">Status: </dt><dd class=\"col-sm-6\">" + json.status + "</dd>"
+                    + "</dl></div>";
 
             document.getElementById("info_div").innerHTML = info;
         }
@@ -344,7 +336,7 @@ function newInvoice(){
         + "<div class=\"form-inline form-group\"><label class=\"control-label col-md-6 col-sm-6\" for=\"car_name\">Car name: </label>"
         + "<div class=\"col-sm-6\"><input type=\"text\" id=\"car_name\" class=\"form-control\" placeholder=\"car name\" required></div></div>"
         + "<div class=\"form-inline form-group\"><label class=\"control-label col-md-6 col-sm-6\" for=\"on_date\">On date: </label>"
-        + "<div class=\"col-sm-6\"><input type=\"date\" id=\"on_date\" class=\"form-control\" required></div></div>"
+        + "<div class=\"col-sm-6\"><input type=\"datetime-local\" id=\"on_date\" class=\"form-control\" required></div></div>"
         + "<div class=\"form-inline form-group\"><label class=\"control-label col-md-6 col-sm-6\" for=\"invoice_price\">Price: </label>"
         + "<div class=\"col-sm-6\"><input type=\"number\" id=\"invoice_price\" class=\"form-control\" required></div></div>"
         + "<div class=\"form-inline form-group\"><label class=\"control-label col-md-6 col-sm-6\" for=\"statusValues\">Status: </label>"
