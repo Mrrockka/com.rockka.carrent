@@ -12,6 +12,9 @@ function showAccount(){
         if(this.readyState == 4 && this.status == 200){
             var json = JSON.parse(this.responseText);
 
+            json.lastname = json.lastname == null ? "" : json.lastname;
+            json.about_me = json.about_me == null ? "" : json.about_me;
+
             var info = "<div class=\"col-md-9 col-sm-8\">"
                     + "<form class=\"form-horizontal\" id=\"user_info\">"
                     + "<h2 class=\"ml-sm-4 mt-sm-4 form-std-heading\">Account info</h2>"
@@ -41,11 +44,10 @@ function showAccount(){
     xhr.send();
 }
 
-//TODO: doesn't work
 function setEnabled(){
 
     var form = document.getElementById("user_info");
-    var i, info, element, labels = form.getElementsByClassName("control-label");
+    var i, info, elements =form.getElementsByTagName("span"), labels = form.getElementsByTagName("label");
 
     info = "<div class=\"col-md-9 col-sm-8\">"
         + "<form class=\"form-horizontal\" id=\"user_info\">"
@@ -53,27 +55,21 @@ function setEnabled(){
         + "<div class=\"col-sm-4\"><img src=\"/thumbs/users/" + username + ".jpg\" class=\"img-rounded thumb\" alt=\"user image\"></div>";
 
 
-    for(i=0; i<form.length; i++){
-        element = form[i];
+    for(i=0; i<elements.length; i++){
 
-        if(element.type == "button"){
-            continue;
-        }
-        if(element.type == "username"){
-            info += element;
-        }
-        if(element.type == "roles"){
-            info += element;
+
+        info += "<div class=\"form-inline form-group\">" + labels[i].outerHTML;
+
+        if(elements[i].type == "username"){
+            info += elements[i].outerHTML;
         }
 
-        info += "<div class=\"form-inline form-group\">" + element.id;
-
-        if(element.id == "birthday"){
-            info+= "<div class=\"col-md-6 col-sm-6\"><input type=\"text\" id=\"" + element.id +"\" class=\"form-control\" value=\"" + element.innerHTML + "\" ></div></div>";
+        if(elements[i].id == "birthday"){
+            info+= "<div class=\"col-md-6 col-sm-6\"><input type=\"date\" id=\"" + elements[i].id +"\" class=\"form-control\" value=\"" + elements[i].innerHTML + "\" ></div></div>";
             continue;
         }
 
-        info += "<div class=\"col-md-6 col-sm-6\"><input type=\"text\" id=\"" + element.id +"\" class=\"form-control\" value=\"" + element.innerHTML + "\" ></div></div>";
+        info += "<div class=\"col-md-6 col-sm-6\"><input type=\"text\" id=\"" + elements[i].id +"\" class=\"form-control\" value=\"" + elements[i].innerHTML + "\" ></div></div>";
     }
 
     info += "<div><input class=\"btn btn-lg btn-primary\" type=\"button\" value=\"Update\" onclick=\"updateUser()\">"
@@ -95,11 +91,8 @@ function updateUser(){
         if(element.type == "button"){
             continue;
         }
-        if(element.type == "date"){
-            json += "\"" + element.id + "\" : \" " + (new Date(element.value)).getTime() + "\" , ";
-            continue;
-        }
-        json += "\"" + element.id + "\" : \" " + element.value + "\" , ";
+
+        json += "\"" + element.id + "\" : \" " + element.value + "\",";
     }
 
     json = json.slice(0, -1);
@@ -114,6 +107,7 @@ function updateUser(){
     }
 
     xhr.open("POST", url, true);
+	xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     xhr.send(json);
 }
 

@@ -57,7 +57,7 @@ public class UserAccountController extends UserUtil {
     public String updateUser(@RequestBody ObjectNode node){
         String ans = "failure";
         User user = userService.getByUsername(getPrincipal().getUsername());
-        if(user != null){
+        try {
             userService.update(
                     user.setFirstName(node.get("firstname").asText())
                             .setSecondName(node.get("secondname").asText())
@@ -67,6 +67,8 @@ public class UserAccountController extends UserUtil {
                             .setBirthday(new LocalDate(node.get("birthday").asLong()))
             );
             ans = "success";
+        }catch(Exception ex){
+            logger.error("" +ex);
         }
         return ans;
     }
