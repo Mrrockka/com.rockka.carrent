@@ -6,6 +6,9 @@ import com.rockka.carrent.config.TestConfig;
 import com.rockka.carrent.domain.Car;
 import com.rockka.carrent.domain.Invoice;
 import com.rockka.carrent.domain.User;
+import com.rockka.carrent.enums.CarStatus;
+import com.rockka.carrent.enums.InvoiceStatus;
+import com.rockka.carrent.enums.UserStatus;
 import com.rockka.carrent.services.CarService;
 import com.rockka.carrent.services.InvoiceService;
 import com.rockka.carrent.services.UserService;
@@ -14,6 +17,7 @@ import com.rockka.carrent.test_categories.DetailTest;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -39,7 +43,7 @@ import org.springframework.web.context.WebApplicationContext;
 		})
 @WebAppConfiguration
 public class AdminAccountControllerTest {
-//	Bounding by hand because @Qualifier doesn't work
+//	INFO: @Qualifier doesn't work
 	@Autowired
 	@Qualifier("userServiceTest")
 	private UserService userService;
@@ -61,7 +65,7 @@ public class AdminAccountControllerTest {
 			.setBirthday(new LocalDate(1999, 1, 2))
 			.setRoles("ROLE_USER")
 			.setAddress("Sim salabim")
-			.setStatus(0);
+			.setStatus(UserStatus.DELETED);
 
 	private Car car = new Car()
 			.setName("Batmobile v1000")
@@ -69,16 +73,17 @@ public class AdminAccountControllerTest {
 			.setColor("Blackest")
 			.setPrice(9999)
 			.setReleaseDate(new LocalDate(1939, 12, 02))
-			.setStatus(0);
+			.setStatus(CarStatus.DELETED);
 
 	private Invoice invoice = new Invoice()
+			.setId(1)
 			.setUser(user)
 			.setCar(car)
 			.setStartsAt(new LocalDateTime(1990, 12, 15, 15, 30))
 			.setExpiresAt(new LocalDateTime(2000, 12, 15, 15, 30))
 			.setPrice(1000000000)
 			.setDescription("Veeeeryyyy loooong invoice")
-			.setStatus(0);
+			.setStatus(InvoiceStatus.DELETED);
 
 	@Before
 	public void startUp() {
@@ -89,7 +94,7 @@ public class AdminAccountControllerTest {
 
 	@Test
 	@Category(BasicTest.class)
-	public void show_all_orders() throws Exception {
+	public void show_all_invoices() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.get("/admin/invoice/show_all"))
 				.andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8))
@@ -159,6 +164,7 @@ public class AdminAccountControllerTest {
 
 	@Test
     @Category(BasicTest.class)
+	@Ignore
     public void account() throws Exception{
 	    mockMvc.perform(MockMvcRequestBuilders.get("/admin/account"))
                 .andExpect(MockMvcResultMatchers.status().isOk())

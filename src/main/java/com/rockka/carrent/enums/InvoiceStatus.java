@@ -8,10 +8,9 @@ public enum InvoiceStatus{
 	DELETED(0, "deleted")
 	, CLOSED(1, "closed")
 	, EXPIRED(2, "expired")
-	, NEW(3, "new")
-	, ACTIVE(4, "active")
-	, DENIED(5, "denied")
-	, DEBT(6, "debt")
+	, DENIED(3, "denied")
+	, NOT_PAID(4, "not paid")
+	, ACTIVE(5, "active")
 	;
 
 	private int status;
@@ -31,15 +30,13 @@ public enum InvoiceStatus{
 			case 2:
 				return EXPIRED;
 			case 3:
-				return NEW;
-			case 4:
-				return ACTIVE;
-			case 5:
 				return DENIED;
-			case 6:
-				return DEBT;
-			default:
+			case 4:
+				return NOT_PAID;
+			case 5:
 				return ACTIVE;
+			default:
+				return NOT_PAID;
 		}
 	}
 

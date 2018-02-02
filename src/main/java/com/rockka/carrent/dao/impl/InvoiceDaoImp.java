@@ -3,6 +3,7 @@ package com.rockka.carrent.dao.impl;
 import com.rockka.carrent.dao.InvoiceDao;
 import com.rockka.carrent.domain.Invoice;
 import com.rockka.carrent.domain.User;
+import com.rockka.carrent.enums.InvoiceStatus;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Property;
@@ -32,14 +33,14 @@ public class InvoiceDaoImp extends GenericDaoImp<Invoice> implements InvoiceDao 
     }
 
     @Override
-    public List<Invoice> getAllWithUser(String username, boolean withDeleted){
+    public List<Invoice> getAllWithUser(String username, InvoiceStatus status, int way){
         Criteria criteria = getSession().createCriteria(Invoice.class);
         criteria.createCriteria("user").add(Restrictions.eq("username", username));
         return criteria.list();
     }
 
     @Override
-    public List<Invoice> getAllWithCar(long car_id, boolean withDeleted){
+    public List<Invoice> getAllWithCar(long car_id, InvoiceStatus status, int way){
         Criteria criteria = getSession().createCriteria(Invoice.class);
         criteria.createCriteria("car").add(Restrictions.idEq(car_id));
         return criteria.list();

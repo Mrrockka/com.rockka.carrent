@@ -2,6 +2,7 @@ package com.rockka.carrent.services.impl;
 
 import com.rockka.carrent.dao.UserDao;
 import com.rockka.carrent.domain.User;
+import com.rockka.carrent.enums.UserStatus;
 import com.rockka.carrent.services.UserService;
 import org.joda.time.LocalDateTime;
 import org.slf4j.Logger;
@@ -63,7 +64,7 @@ public class UserServiceImp implements UserService{
     @Override
     public User delete(User user) {
         if(user != null) {
-            update(user.setStatus(0));
+            update(user.setStatus(UserStatus.DELETED));
         } else{
             logger.error("USER IS NULL");
         }

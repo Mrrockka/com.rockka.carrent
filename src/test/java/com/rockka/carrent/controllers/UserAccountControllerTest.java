@@ -6,6 +6,7 @@ import com.rockka.carrent.config.TestConfig;
 import com.rockka.carrent.services.UserService;
 import com.rockka.carrent.test_categories.BasicTest;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -33,18 +34,15 @@ public class UserAccountControllerTest {
 	@Autowired
 	private WebApplicationContext webContext;
 
-	@Autowired
-	private UserService userService;
-
 	@Before
 	public void startUp() {
 //		Mockito.reset(carServiceTest, userService, invoiceServiceTest);
 
 		mockMvc = MockMvcBuilders.webAppContextSetup(webContext).build();
 	}
-
 	@Test
 	@Category(BasicTest.class)
+	@Ignore
 	public void account() throws Exception{
 		mockMvc.perform(MockMvcRequestBuilders.get("/user/account"))
 				.andExpect(MockMvcResultMatchers.status().isOk())

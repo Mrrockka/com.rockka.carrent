@@ -8,6 +8,7 @@ import org.joda.time.LocalDateTime;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -45,6 +46,7 @@ public class Invoice implements Serializable {
 	@Column(name = "status", nullable = false)
 	@Convert(converter = InvoiceStatusConverter.class)
 	private InvoiceStatus status;
+	@JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "invoice_invoice",
@@ -153,11 +155,19 @@ public class Invoice implements Serializable {
         return boundedInvoices;
     }
 
-    public void setBoundedInvoices(List<Invoice> boundedInvoices) {
+    public Invoice setBoundedInvoices(List<Invoice> boundedInvoices) {
         this.boundedInvoices = boundedInvoices;
+        return this;
+    }
+    public Invoice boundWith(Invoice bounded) {
+		if(boundedInvoices == null){
+			boundedInvoices = new ArrayList<Invoice>();
+		}
+        this.boundedInvoices.add(bounded);
+        return this;
     }
 
-    @Override
+	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;

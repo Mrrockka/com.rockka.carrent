@@ -44,7 +44,7 @@ public class CarServiceTest extends Assert {
         assertNotNull(
                 car = carService.delete(
                         carService.save(
-                                new Car().setColor("blue").setStatus(0).setName("Supercar")
+                                new Car().setColor("blue").setName("Supercar")
                         )
                 )
         );

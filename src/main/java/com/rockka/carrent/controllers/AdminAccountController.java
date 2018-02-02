@@ -23,7 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/admin")
 public class AdminAccountController extends UserUtil {
 	@Autowired
@@ -38,7 +38,6 @@ public class AdminAccountController extends UserUtil {
 	private Logger logger = LoggerFactory.getLogger(AdminAccountController.class);
 
 	@GetMapping("/invoice/show_all")
-	@ResponseBody
 	public JsonNode showInvoices() {
 		ArrayNode node = mapper.createArrayNode();
 		for(Invoice invoice: invoiceService.getAll()){
@@ -57,7 +56,6 @@ public class AdminAccountController extends UserUtil {
 	}
 
 	@GetMapping("/invoice/{id}")
-    @ResponseBody
 	public JsonNode showInvoiceById(@PathVariable("id") long id) {
 	    Invoice invoice = invoiceService.getById(id);
 	    ObjectNode node = mapper.createObjectNode();
@@ -76,31 +74,40 @@ public class AdminAccountController extends UserUtil {
                 .put("description", invoice.getDescription())
                 .put("status", invoice.getStatus().toInt());
 
+	    ArrayNode statusValues = mapper.createArrayNode();
 		node.set("statusValues", invoiceStatusValues());
+
+		ArrayNode bounded = mapper.createArrayNode();
+	    if(invoice.getBoundedInvoices()!= null) {
+			for (Invoice inv : invoice.getBoundedInvoices()) {
+				bounded.add(inv.getId());
+			}
+		}
+		node.set("bounded_with", bounded);
 
 	    return node;
 	}
 
-	@RequestMapping("/invoice/update/{id}/description/{description}/status/{status}")
-	@ResponseBody
-	public String updateInvoiceById(
-			@PathVariable("id") long id
-			, @PathVariable("description") String description
-			, @PathVariable int status
-	){
+	@RequestMapping("/invoice/update")
+	public String updateInvoiceById(ObjectNode node){
 		String ans = "failure";
 
-		Invoice invoice = invoiceService.getById(id);
-		if(invoice != null) {
-			invoiceService.update(invoice.setDescription(description).setStatus(status));
+		Invoice invoice = invoiceService.getById(node.get("invoice_id").asInt());
+		try{
+			invoiceService.update(
+					invoice
+							.setDescription(node.get("description").asText())
+							.setStatus(node.get("status").asInt())
+			);
 			ans = "success";
+		}catch(Exception ex){
+			logger.error("" +ex);
 		}
 
 		return ans;
 	}
 
 	@GetMapping("/user/show_all")
-	@ResponseBody
 	public JsonNode showUsers() {
 		ArrayNode node = mapper.createArrayNode();
 		for(User user: userService.getAll()){
@@ -119,7 +126,6 @@ public class AdminAccountController extends UserUtil {
 	}
 
 	@GetMapping("/user/{username}")
-    @ResponseBody
 	public JsonNode showUserByUsername(@PathVariable("username") String username) {
         User user = userService.getByUsername(username);
         ObjectNode node = mapper.createObjectNode();
@@ -138,7 +144,6 @@ public class AdminAccountController extends UserUtil {
 	}
 
 	@GetMapping("/car/show_all")
-	@ResponseBody
 	public JsonNode showCars(Model model) {
 		ArrayNode node = mapper.createArrayNode();
 		for(Car car: carService.getAll()){
@@ -155,7 +160,6 @@ public class AdminAccountController extends UserUtil {
 	}
 
 	@GetMapping("/car/{id}")
-    @ResponseBody
 	public JsonNode showCarById(@PathVariable("id") long id) {
         Car car = carService.getById(id);
         ObjectNode node = mapper.createObjectNode();
@@ -174,7 +178,6 @@ public class AdminAccountController extends UserUtil {
 
 
     @RequestMapping("/car/save")
-    @ResponseBody
     public String saveCar(@RequestBody ObjectNode node) {
         String answer = "failure";
         Car car = new Car()
@@ -195,7 +198,6 @@ public class AdminAccountController extends UserUtil {
     }
 
 	@RequestMapping("/car/update/{car_id}")
-	@ResponseBody
 	public String updateCar(@RequestBody ObjectNode node, @PathVariable("car_id") long carId) {
 		String answer = "failure";
 		Car car = new Car()
@@ -216,13 +218,7 @@ public class AdminAccountController extends UserUtil {
 		return answer;
 	}
 
-	@GetMapping("/account")
-	public String account(){
-		return "admin/account";
-	}
-
 	@GetMapping("/invoice/status_values")
-	@ResponseBody
 	public JsonNode invoiceStatusValues(){
 		ArrayNode node = mapper.createArrayNode();
 		for(InvoiceStatus status : InvoiceStatus.values()){
@@ -234,7 +230,6 @@ public class AdminAccountController extends UserUtil {
 	}
 
 	@GetMapping("/car/status_values")
-	@ResponseBody
 	public JsonNode carStatusValues(){
 		ArrayNode node = mapper.createArrayNode();
 		for(CarStatus status: CarStatus.values()){
@@ -246,7 +241,6 @@ public class AdminAccountController extends UserUtil {
 	}
 
 	@GetMapping("/user/status_values")
-	@ResponseBody
 	public JsonNode userStatusValues(){
 		ArrayNode node = mapper.createArrayNode();
 
@@ -259,22 +253,32 @@ public class AdminAccountController extends UserUtil {
 	}
 
 	@RequestMapping("/invoice/save")
-	@ResponseBody
 	public String registerNewInvoice(@RequestBody ObjectNode node){
 		String ans = "failure";
 
 		Car car = carService.getById(node.get("car_id").asLong());
 		User user = userService.getByUsername(node.get("username").asText());
-
+		LocalDateTime onDate = null;
+		if(node.get("on_date").asText() != null && !node.get("on_date").asText().equals("")){
+			onDate = new LocalDateTime(node.get("on_date").asText());
+		} else {
+			return ans = "Invalid date";
+		}
 		Invoice invoice = new Invoice()
 				.setCar(car)
 				.setUser(user)
 				.setDescription(node.get("description").asText())
 				.setPrice(node.get("invoice_price").asDouble())
-				.setStartsAt(new LocalDateTime(node.get("on_date").asLong()))
-				.setExpiresAt(new LocalDateTime(node.get("on_date").asLong()))
+				.setStartsAt(onDate)
+				.setExpiresAt(onDate)
 				.setStatus(node.get("status").asInt())
 				;
+		if(node.get("based_on").asText() != null && !node.get("based_on").asText().equals("")){
+			Invoice bounded = invoiceService.getById(node.get("based_on").asInt());
+			if(bounded != null){
+				invoice.boundWith(bounded);
+			}
+		}
 
 		try {
 			invoiceService.save(invoice);

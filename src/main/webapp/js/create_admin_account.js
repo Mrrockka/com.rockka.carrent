@@ -207,7 +207,7 @@ function updateCar(url){
 function registerNewCar(){
     updateCar('/admin/car/save');
 }
-//TODO: rewrite with many to many
+
 function showInvoices(){
     var xhr = new XMLHttpRequest();
 
@@ -267,23 +267,32 @@ function showInvoiceById(id){
                     +"<dt class=\"col-sm-6\">Car price: </dt><dd class=\"col-sm-6\">" + json.car_price+"</dd>"
                     +"<dt class=\"col-sm-6\">Starts: </dt><dd class=\"col-sm-6\">"+ json.starts_at+"</dd>"
                     +"<dt class=\"col-sm-6\">Expires: </dt><dd class=\"col-sm-6\">"+ json.expires_at+"</dd>"
-                    +"<dt class=\"col-sm-6\">Invoice price: </dt><dd class=\"col-sm-6\">" + json.invoice_price+"</dd>"
-                    +"<dt class=\"col-sm-6\">Status: </dt><dd class=\"col-sm-6\"><select id=\"statusValues\" onchange=\"checkInvoice()\">";
+                    +"<dt class=\"col-sm-6\">Invoice price: </dt><dd class=\"col-sm-6\">" + json.invoice_price+"</dd>";
+            var y;
+            if(json.bounded_with.length>0){
+                info+="<dt class=\"col-sm-6\">Bounded with: </dt><dd class=\"col-sm-6\">";
+                for(y=0; y<json.bounded_with.length; y++){
+                    info += "<a href=\"#\" onclick=\"showInvoiceById(" + json.bounded_with[y]+")\">" + json.bounded_with[y]+ " </a>";
+                }
+                info += "</dd>";
+            }
+
+            info+= "<dt class=\"col-sm-6\">Status: </dt><dd class=\"col-sm-6\"><select id=\"statusValues\">";
 
             var i;
             for(i=0; i<json.statusValues.length; i++){
                 info+= "<option>" + json.statusValues[i].toString+ "</option>";
             }
             info+= "</select></dd>"
-                    +"<dt class=\"col-sm-6\">Description: </dt><dd id=\"description\" class=\"col-sm-6\">" + json.description+"</dd>"
-                    +"<a id=\"invoiceBtn\" class=\"btn btn-lg btn-block btn-secondary\" onclick=\"updateInvoice();return false;\" href=\"#\">Update</a>";
+                    +"<dt class=\"col-sm-6\">Description: </dt><input type=\"text\" value=\"" + json.description+ "\" id=\"description\" class=\"col-sm-6\">"
+                    +"<a id=\"invoiceBtn\" class=\"btn btn-lg btn-block btn-primary\" onclick=\"updateInvoice();return false;\" href=\"#\">Update this invoice</a>"
+                    +"<a id=\"boundBtn\" class=\"btn btn-lg btn-block btn-secondary\" onclick=\"basedInvoice();return false;\" href=\"#\">Bound new with this</a>";
 
             info += "</dl></div>";
             document.getElementById("info_div").innerHTML = info;
             document.getElementById("statusValues").selectedIndex = json.status;
-            checkInvoice();
-            }
         }
+    }
 
     xhr.open("GET", '/admin/invoice/'+id, true);
     xhr.send();
@@ -291,9 +300,14 @@ function showInvoiceById(id){
 
 function updateInvoice(){
     var xhr = new XMLHttpRequest();
-    var description = document.getElementById("description").innerHTML;
-    var status = document.getElementById("statusValues").selectedIndex;
-    var id = document.getElementById("invoice_id").innerHTML;
+    var json;
+    var status = ;
+    var id = ;
+
+    json = "{\"description\" : \""+document.getElementById("description").value
+            + "\", \"status\" : \"" +document.getElementById("statusValues").selectedIndex
+            + "\", \"invoice_id\" : \"" + document.getElementById("invoice_id").innerHTML
+            + "\"}";
 
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 && this.status ==200){
@@ -301,29 +315,11 @@ function updateInvoice(){
         }
     }
 
-    xhr.open("UPDATE", '/admin/invoice/update/'+ id +'/description/'+description+'/status/'+status);
-    xhr.send();
-}
-// TODO: rewrite with good idea or when issue with one invoice to many invoices will be solved
-function checkInvoice(){
-    var index = document.getElementById("statusValues").selectedIndex;
-    if(index == 6){
-        var button = document.getElementById("invoiceBtn");
-        button.innerHTML = "Update and create";
-        button.setAttribute("onclick", "updateAndCreate()");
-    } else {
-        var button = document.getElementById("invoiceBtn");
-        button.innerHTML = "Update";
-        button.setAttribute("onclick", "updateInvoice()");
-    }
+    xhr.open("UPDATE", '/admin/invoice/update', true);
+    xhr.send(json);
 }
 
-function updateAndCreate(){
-    updateInvoice();
-    basedInvoice();
-}
-
-//INFO: used only with basedInvoice() method, right now.
+//INFO: used only with basedInvoice() method.
 function newInvoice(){
     var xhr = new XMLHttpRequest();
     var info = "<div class=\"col-md-5    col-sm-6\">"
@@ -342,7 +338,9 @@ function newInvoice(){
         + "<div class=\"form-inline form-group\"><label class=\"control-label col-md-6 col-sm-6\" for=\"statusValues\">Status: </label>"
         + "<div class=\"col-sm-6\"><select id=\"statusValues\"></select></div></div>"
         + "<div class=\"form-inline form-group\"><label class=\"control-label col-md-6 col-sm-6\" for=\"description\">Description: </label>"
-        + "<div class=\"col-sm-6\"><input type=\"text\" id=\"description\" class=\"form-control\" placeholder=\"Description\" required></</div></div>"
+        + "<div class=\"col-sm-6\"><input type=\"text\" id=\"description\" class=\"form-control\" placeholder=\"Description\" required></div></div>"
+        + "<div class=\"form-inline form-group\"><label class=\"control-label col-md-6 col-sm-6\" for=\"based_on\">Based on: </label>"
+        + "<div class=\"col-sm-6\"><input type=\"number\" id=\"based_on\" class=\"form-control\" placeholder=\"--\" required></div></div>"
         + "<input type=\"button\" class=\"btn btn-block btn-primary\" value=\"Submit\" onclick=\"registerNewInvoice()\">"
         + "</form></div>";
 
@@ -372,7 +370,8 @@ function basedInvoice(){
         var car_name = String(document.getElementById("car_name").innerHTML);
         var car_id = String (document.getElementById("car_id").innerHTML);
         var username = String (document.getElementById("username").innerHTML);
-        var description = "Based on " + document.getElementById("invoice_id").innerHTML + " invoice.";
+        var invoice_id = document.getElementById("invoice_id").innerHTML;
+        var description = "Based on " + invoice_id + " invoice.";
 
         newInvoice();
 
@@ -380,6 +379,7 @@ function basedInvoice(){
         document.getElementById("car_name").value = car_name;
         document.getElementById("car_id").value = car_id;
         document.getElementById("description").value = description;
+        document.getElementById("based_on").value = invoice_id;
 }
 
 function registerNewInvoice(){
@@ -396,10 +396,6 @@ function registerNewInvoice(){
             json += "\"status\" : \"" + element.selectedIndex + "\",";
             continue;
         }
-        if(element.type == "date"){
-            json += "\"on_date\" : \"" + (new Date(element.value)).getTime() + "\",";
-            continue;
-        }
 
         json += "\"" + element.id + "\" : \"" + element.value + "\",";
     }
@@ -410,7 +406,12 @@ function registerNewInvoice(){
 
     xhr.onreadystatechange = function(){
         if(this.readyState == 4&& this.status == 200){
-            showInvoices();
+            var text = this.responseText;
+            alert(text);
+            if(text == "success"){
+                showInvoices();
+
+            }
         }
     }
 

@@ -2,6 +2,7 @@ package com.rockka.carrent.controllers;
 
 import com.rockka.carrent.domain.Invoice;
 import com.rockka.carrent.domain.User;
+import com.rockka.carrent.enums.InvoiceStatus;
 import com.rockka.carrent.services.CarService;
 import com.rockka.carrent.services.InvoiceService;
 import com.rockka.carrent.services.UserService;
@@ -25,8 +26,8 @@ public class RegisterNewInvoiceController extends UserUtil{
 
     private Logger logger = LoggerFactory.getLogger(RegisterNewInvoiceController.class);
 
-    @GetMapping("/car/{id}")
-    public String getOrderForCar(@PathVariable("id") long id, Model model){
+    @GetMapping("/car/{car_id}")
+    public String getOrderForCar(@PathVariable("car_id") long id, Model model){
         User user =userService.getByUsername((getPrincipal()).getUsername());
         String username = user.getFirstName() + " " + user.getSecondName();
         username += user.getLastName() != null ? " " +user.getLastName() : "";
@@ -38,13 +39,17 @@ public class RegisterNewInvoiceController extends UserUtil{
     }
 
     @PostMapping("/save/{car_id}")
-    @ResponseBody
-    public String save(@RequestBody Invoice invoice, @PathVariable("car_id") long carId){
+    public String save(@RequestBody Invoice invoice, @PathVariable("car_id") long carId, Model model){
         invoice.setCar(carService.getById(carId));
         invoice.setUser(userService.getByUsername(getPrincipal().getUsername()));
-        invoice.setStatus(3);
+        invoice.setStatus(InvoiceStatus.NOT_PAID);
         invoiceService.save(invoice);
-        return "success";
+
+        model.addAttribute("invoice_id", invoice.getId())
+                .addAttribute("username", invoice.getUser().getUsername())
+                .addAttribute("car_name", invoice.getCar().getName())
+                .addAttribute("invoice_price", invoice.getPrice());
+        return "user/payment";
     }
 
 }

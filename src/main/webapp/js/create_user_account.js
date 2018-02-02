@@ -172,7 +172,7 @@ function showOrderById(id){
                     +"<dt class=\"col-md-6 col-sm-6\">Description: </dt><dd class=\"col-md-6 col-sm-6\">"+ json.description +"</dd>"
                     +"<dt class=\"col-md-6 col-sm-6\">Status: </dt><dd class=\"col-md-6 col-sm-6\">"+json.invoiceStatus +"</dd>"
                     +"</dl>";
-//          1 - is CLOSED in OrderStatus enum, 3 - is new
+//          reference to InvoiceStatus enum
             if(json.status == 3){
                 info += "<input type=\"button\" value=\"close order?\" onclick=\"changeOrderStatus("+ id +", 1)\">";
             }
@@ -199,7 +199,7 @@ function changeOrderStatus(id, status){
             showOrderById(id);
         }
     }
-//    2 - is CLOSED in OrderStatus enum, 0 - is new
+
     xhr.open("POST", '/user/invoice/update/'+id+'/status/'+status, true);
     xhr.send();
 

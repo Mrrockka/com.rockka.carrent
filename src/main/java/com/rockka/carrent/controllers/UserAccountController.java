@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/user")
 public class UserAccountController extends UserUtil {
     private Logger logger = LoggerFactory.getLogger(UserAccountController.class);
@@ -30,13 +30,7 @@ public class UserAccountController extends UserUtil {
     @Autowired
     private ObjectMapper mapper;
 
-    @GetMapping("/account")
-    public String account(Model model){
-        return "user/account";
-    }
-
     @GetMapping("/info")
-    @ResponseBody
     public JsonNode userInfo() {
         ObjectNode node = mapper.createObjectNode();
         User user = userService.getByUsername(getPrincipal().getUsername());
@@ -51,9 +45,8 @@ public class UserAccountController extends UserUtil {
 
         return node;
     }
-//TODO: test it
+
     @RequestMapping("/update")
-    @ResponseBody
     public String updateUser(@RequestBody ObjectNode node){
         String ans = "failure";
         User user = userService.getByUsername(getPrincipal().getUsername());
@@ -74,7 +67,6 @@ public class UserAccountController extends UserUtil {
     }
 
     @GetMapping("/invoice/show_all")
-    @ResponseBody
     public JsonNode showInvoices(){
         ArrayNode node = mapper.createArrayNode();
         List<Invoice> invoices = invoiceService.getAllWithUser(getPrincipal().getUsername());
@@ -91,7 +83,6 @@ public class UserAccountController extends UserUtil {
     }
 
     @GetMapping("/invoice/{id}")
-    @ResponseBody
     public JsonNode showInvoiceById(@PathVariable("id") long id){
         ObjectNode node = mapper.createObjectNode();
         Invoice invoice = invoiceService.getById(id);
@@ -110,7 +101,6 @@ public class UserAccountController extends UserUtil {
     }
 
     @RequestMapping("/invoice/update/{id}/status/{status}")
-    @ResponseBody
     public String updateInvoice(@PathVariable("id") long id, @PathVariable("status") int status){
         String ans = "failure";
         try{

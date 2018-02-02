@@ -2,6 +2,7 @@ package com.rockka.carrent.services.impl;
 
 import com.rockka.carrent.dao.CarDao;
 import com.rockka.carrent.domain.Car;
+import com.rockka.carrent.enums.CarStatus;
 import com.rockka.carrent.services.CarService;
 import org.joda.time.LocalDateTime;
 import org.slf4j.Logger;
@@ -44,7 +45,7 @@ public class CarServiceImp implements CarService {
 	@Override
 	public Car delete(Car car) {
 		if (car != null) {
-			update(car.setStatus(0));
+			update(car.setStatus(CarStatus.DELETED));
 		}else {
 			logger.error("Car is null");
 		}

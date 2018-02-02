@@ -4,6 +4,7 @@ import com.rockka.carrent.config.MvcConfig;
 import com.rockka.carrent.config.OrmConfig;
 import com.rockka.carrent.config.TestConfig;
 import com.rockka.carrent.domain.Car;
+import com.rockka.carrent.enums.CarStatus;
 import com.rockka.carrent.services.CarService;
 import com.rockka.carrent.test_categories.BasicTest;
 import org.hamcrest.Matchers;
@@ -55,7 +56,7 @@ public class ShowCarControllerTest {
 				.setName("Nested exception")
 				.setId(1)
 				.setReleaseDate(new LocalDate())
-				.setStatus(0);
+				.setStatus(CarStatus.DELETED);
 		Mockito.when(carService.getById(1)).thenReturn(car);
 		mockMvc.perform(MockMvcRequestBuilders.get("/car/1"))
 				.andExpect(MockMvcResultMatchers.status().isOk())

@@ -2,6 +2,7 @@ package com.rockka.carrent.services.impl;
 
 import com.rockka.carrent.dao.InvoiceDao;
 import com.rockka.carrent.domain.Invoice;
+import com.rockka.carrent.enums.InvoiceStatus;
 import com.rockka.carrent.services.InvoiceService;
 import org.joda.time.LocalDateTime;
 import org.slf4j.Logger;
@@ -28,14 +29,14 @@ public class InvoiceServiceImp implements InvoiceService {
 
     @Override
     public List<Invoice> getAllWithUser(String username) {
-        return getAllWithUser(username, false);
+        return getAllWithUser(username, InvoiceStatus.get(3), 1);
 
     }
 
     @Override
-    public List<Invoice> getAllWithUser(String username, boolean withDeleted) {
+    public List<Invoice> getAllWithUser(String username, InvoiceStatus status, int way) {
         if(username != null && !username.equals("")){
-            return invoiceDao.getAllWithUser(username, withDeleted);
+            return invoiceDao.getAllWithUser(username, status, way);
         }else {
             logger.error("Username is null");
         }
@@ -43,9 +44,9 @@ public class InvoiceServiceImp implements InvoiceService {
     }
 
     @Override
-    public List<Invoice> getAllWithCar(long carId, boolean withDeleted) {
+    public List<Invoice> getAllWithCar(long carId, InvoiceStatus status, int way) {
         if(carId >0){
-            return invoiceDao.getAllWithCar(carId, withDeleted);
+            return invoiceDao.getAllWithCar(carId, status, way);
         } else {
             logger.error("car_id is negative");
         }
@@ -54,14 +55,13 @@ public class InvoiceServiceImp implements InvoiceService {
 
     @Override
     public List<Invoice> getAllWithCar(long carId) {
-        return getAllWithCar(carId, false);
+        return getAllWithCar(carId, InvoiceStatus.get(3), 1);
     }
 
     @Override
     public List<Invoice> getAll() {
         return invoiceDao.getAll();
     }
-
     @Override
     public Invoice save(Invoice invoice) {
         if(invoice != null){
@@ -75,7 +75,7 @@ public class InvoiceServiceImp implements InvoiceService {
     @Override
     public Invoice delete(Invoice invoice) {
         if(invoice != null) {
-            update(invoice.setStatus(0));
+            update(invoice.setStatus(InvoiceStatus.DELETED));
         } else {
             logger.error("invoice is null");
         }

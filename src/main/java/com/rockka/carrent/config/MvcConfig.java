@@ -42,6 +42,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode(TemplateMode.HTML);
         templateResolver.setCacheable(true);
+        templateResolver.setCharacterEncoding("UTF-8");
         return templateResolver;
     }
 
