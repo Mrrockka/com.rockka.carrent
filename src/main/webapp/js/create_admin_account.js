@@ -1,41 +1,52 @@
 'use strict'
 // TODO: rewrite with JQuery
 function createAdminAccount(){
-    showInvoices();
+    $(showInvoices());
 }
 
 function showUsers(){
-    var xhr = new XMLHttpRequest();
+		$.get('/admin/user/show_all', function(data, status){
 
-    xhr.onreadystatechange = function(){
-        if(this.readyState == 4 && this.status == 200){
-            var i;
-            var info = "<table class=\"table table-striped\"><h2 class=\"\">Users</h2>"
-                +"<thead> <tr>"
-                +"<th>User name</th> <th>Roles</th> <th>First name</th> <th>Second name</th>"
-                +"<th>Birthday</th> <th>Address</th> <th>Status</th>"
-                +"</tr> </thead>"
-                +"<tbody>";
-            var json = JSON.parse(this.responseText);
+            var h2 = $("<h2></h2>").text("Users");
 
-            for(i = 0; i<json.length; i++){
-                info += "<tr>"
-                    + "<td><a href=\"#\" onclick=\"showUserByUsername('"+json[i].username + "'); return false;\">"+json[i].username+"</a></td>"
-                    + "<td><a href=\"#\" onclick=\"showUserByUsername('"+json[i].username + "'); return false;\">"+json[i].roles+"</a></td>"
-                    + "<td><a href=\"#\" onclick=\"showUserByUsername('"+json[i].username + "'); return false;\">"+json[i].firstname+"</a></td>"
-                    + "<td><a href=\"#\" onclick=\"showUserByUsername('"+json[i].username + "'); return false;\">"+json[i].secondname+"</a></td>"
-                    + "<td><a href=\"#\" onclick=\"showUserByUsername('"+json[i].username + "'); return false;\">"+json[i].birthday+"</a></td>"
-                    + "<td><a href=\"#\" onclick=\"showUserByUsername('"+json[i].username + "'); return false;\">"+json[i].address+"</a></td>"
-                    + "<td><a href=\"#\" onclick=\"showUserByUsername('"+json[i].username + "'); return false;\">"+json[i].status+"</a></td>"
-                    + "</tr></a>"
+            var thead = $("<thead></thead>")
+				.append(
+					$("<tr></tr>")
+						.append(
+							$("<th></th>").text("User name"),
+							$("<th></th>").text("Roles"),
+							$("<th></th>").text("First name"),
+							$("<th></th>").text("Second name"),
+							$("<th></th>").text("Birthday"),
+							$("<th></th>").text("Address"),
+							$("<th></th>").text("Status")
+						)
+				);
+
+
+            var tbody = $("<tbody></tbody>"), tr, i, y;
+
+            for(i = 0; i<data.length; i++){
+                tr = $("<tr></tr>")
+						.append(
+							$("<td></td>").text(data[i].username),
+							$("<td></td>").text(data[i].roles),
+							$("<td></td>").text(data[i].firstname),
+							$("<td></td>").text(data[i].secondname),
+							$("<td></td>").text(data[i].birthday),
+							$("<td></td>").text(data[i].address),
+							$("<td></td>").text(data[i].status)
+						);
+
+				tr.click(function(){
+					showUserByUsername($(this).find("td:first").text());
+				});
+				tbody.append(tr);
             }
 
-            info += "</tbody>";
-            document.getElementById("info_div").innerHTML = info;
-        }
-    }
-    xhr.open("GET", '/admin/user/show_all', true);
-    xhr.send();
+			var table = $("<table class=\"table table-striped\"></table>").append(thead, tbody);
+            $("#info_div").html(h2).append(table);
+		});
 }
 
 function showUserByUsername(username) {
