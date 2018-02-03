@@ -5,78 +5,90 @@ function createAdminAccount(){
 }
 
 function showUsers(){
-		$.get('/admin/user/show_all', function(data, status){
 
-            var h2 = $("<h2></h2>").text("Users");
+	$.get('/admin/user/show_all', function(data, status){
 
-            var thead = $("<thead></thead>")
+        var h2 = $("<h2></h2>").text("Users");
+
+        var thead = $("<thead></thead>")
+			.append(
+				$("<tr></tr>")
+					.append(
+						$("<th></th>").text("User name"),
+						$("<th></th>").text("Roles"),
+						$("<th></th>").text("First name"),
+						$("<th></th>").text("Second name"),
+						$("<th></th>").text("Birthday"),
+						$("<th></th>").text("Address"),
+						$("<th></th>").text("Status")
+					)
+			);
+
+        var tbody = $("<tbody></tbody>"), tr, i, y;
+
+        for(i = 0; i<data.length; i++){
+            tr = $("<tr></tr>")
 				.append(
-					$("<tr></tr>")
-						.append(
-							$("<th></th>").text("User name"),
-							$("<th></th>").text("Roles"),
-							$("<th></th>").text("First name"),
-							$("<th></th>").text("Second name"),
-							$("<th></th>").text("Birthday"),
-							$("<th></th>").text("Address"),
-							$("<th></th>").text("Status")
-						)
+					$("<td></td>").text(data[i].username),
+					$("<td></td>").text(data[i].roles),
+					$("<td></td>").text(data[i].firstname),
+					$("<td></td>").text(data[i].secondname),
+					$("<td></td>").text(data[i].birthday),
+					$("<td></td>").text(data[i].address),
+					$("<td></td>").text(data[i].status)
 				);
 
+			tr.click(function(){
+				showUserByUsername($(this).find("td:first").text());
+			});
+			tr.mouseenter(function(){
+				$(this).addClass("chosen");
+			});
+			tr.mouseleave(function(){
+				$(this).removeClass("chosen");
+			});
+			tbody.append(tr);
+        }
 
-            var tbody = $("<tbody></tbody>"), tr, i, y;
-
-            for(i = 0; i<data.length; i++){
-                tr = $("<tr></tr>")
-						.append(
-							$("<td></td>").text(data[i].username),
-							$("<td></td>").text(data[i].roles),
-							$("<td></td>").text(data[i].firstname),
-							$("<td></td>").text(data[i].secondname),
-							$("<td></td>").text(data[i].birthday),
-							$("<td></td>").text(data[i].address),
-							$("<td></td>").text(data[i].status)
-						);
-
-				tr.click(function(){
-					showUserByUsername($(this).find("td:first").text());
-				});
-				tbody.append(tr);
-            }
-
-			var table = $("<table class=\"table table-striped\"></table>").append(thead, tbody);
-            $("#info_div").html(h2).append(table);
-		});
+		var table = $("<table></table>").append(thead, tbody).addClass("table table-striped");
+        $("#info_div").html(h2).append(table);
+	});
 }
 
 function showUserByUsername(username) {
-    var xhr = new XMLHttpRequest();
 
-    xhr.onreadystatechange = function (){
-        if(this.readyState == 4 && this.status ==200){
-            var json = JSON.parse(this.responseText);
-            var info = "<div class=\"col-md-6 col-sm-6\">"
-                    + "<form class=\"form-horizontal\" id=\"user_info\">"
-                    + "<h2 class=\"form-std-heading ml-sm-4 mt-sm-4\">User info</h2>"
-                    + "<div class=\"col-sm-6\"><img src=\"/thumbs/users/" + username + ".jpg\" class=\"img-rounded thumb\" alt=\"user image\"></div>"
-                    + "<div><dl class=\"row\">"
-                    + "<dt class=\"col-sm-6\">Username: </dt><dd class=\"col-sm-6\">" + json.username + "</dd>"
-                    + "<dt class=\"col-sm-6\">Roles: </dt><dd class=\"col-sm-6\">" + json.roles + "</dd>"
-                    + "<dt class=\"col-sm-6\">First name: </dt><dd class=\"col-sm-6\">" + json.firstname + "</dd>"
-                    + "<dt class=\"col-sm-6\">Second name: </dt><dd class=\"col-sm-6\">" + json.secondname + "</dd>"
-                    + "<dt class=\"col-sm-6\">Last name: </dt><dd class=\"col-sm-6\">" + json.lastname + "</dd>"
-                    + "<dt class=\"col-sm-6\">Birthday: </dt><dd class=\"col-sm-6\">" + json.birthday + "</dd>"
-                    + "<dt class=\"col-sm-6\">Address: </dt><dd class=\"col-sm-6\">" + json.address + "</dd>"
-                    + "<dt class=\"col-sm-6\">About me: </dt><dd class=\"col-sm-6\">" + json.about_me + "</dd>"
-                    + "<dt class=\"col-sm-6\">Status: </dt><dd class=\"col-sm-6\">" + json.status + "</dd>"
-                    + "</dl></div>";
+	$.get('/admin/user/' + username, function(data, status){
+		alert(status);
+		var col = "col-md-6 col-sm-6";
+		var div = $("<div></div>").attr({"class" : col}),
+			form = $("<form></form>").append($("<h2></h2>").text("User info").addClass("form-std-heading")).addClass("form-horizontal mt-md-4");
 
-            document.getElementById("info_div").innerHTML = info;
-        }
-    }
+		form.append(
+			$("<div></div>").addClass("col-sm-4")
+				.append(
+					$("<img>").attr({"src" : "/thumbs/users/" + username + ".jpg"}).addClass("img-rounded thumb")
+				)
+		);
 
-    xhr.open("GET", '/admin/user/' + username, true);
-    xhr.send();
+		form.append(
+			$("<dl></dl>").addClass("row")
+				.append(
+					$("<dt></dt>").addClass(col).text("Username: "), $("<dd></dd>").addClass(col).text(data.username),
+					$("<dt></dt>").addClass(col).text("Roles: "), $("<dd></dd>").addClass(col).text(data.roles),
+					$("<dt></dt>").addClass(col).text("First name: "), $("<dd></dd>").addClass(col).text(data.firstname),
+					$("<dt></dt>").addClass(col).text("Second name: "), $("<dd></dd>").addClass(col).text(data.secondname),
+					$("<dt></dt>").addClass(col).text("Last name: "), $("<dd></dd>").addClass(col).text(data.lastname),
+					$("<dt></dt>").addClass(col).text("Birthday: "), $("<dd></dd>").addClass(col).text(data.birthday),
+					$("<dt></dt>").addClass(col).text("Address: "), $("<dd></dd>").addClass(col).text(data.address),
+					$("<dt></dt>").addClass(col).text("About me: "), $("<dd></dd>").addClass(col).text(data.about_me),
+					$("<dt></dt>").addClass(col).text("Status: "), $("<dd></dd>").addClass(col).text(data.status)
+				)
+		);
+
+		div.append(form);
+		$("#info_div").html(div);
+
+	});
 }
 
 function showCars(){
@@ -312,8 +324,6 @@ function showInvoiceById(id){
 function updateInvoice(){
     var xhr = new XMLHttpRequest();
     var json;
-    var status = ;
-    var id = ;
 
     json = "{\"description\" : \""+document.getElementById("description").value
             + "\", \"status\" : \"" +document.getElementById("statusValues").selectedIndex

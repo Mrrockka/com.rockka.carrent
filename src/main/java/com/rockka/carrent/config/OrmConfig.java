@@ -63,10 +63,10 @@ public class OrmConfig {
     }
 
     @Bean
-    public HibernateTransactionManager transactionManager(SessionFactory sessionFactory){
+    public HibernateTransactionManager transactionManager(){
         logger.debug("ORM: in transaction manager");
         HibernateTransactionManager htm = new HibernateTransactionManager();
-        htm.setSessionFactory(sessionFactory);
+        htm.setSessionFactory(sessionFactory());
         return htm;
     }
 

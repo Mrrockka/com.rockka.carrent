@@ -60,14 +60,13 @@ public class MvcConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         logger.debug("MVCCONFIG: In viewResolver");
         ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
         viewResolver.setTemplateEngine(templateEngine());
-//        viewResolver.setCharacterEncoding("UTF-8");
+        viewResolver.setCharacterEncoding("UTF-8");
         return viewResolver;
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry){
         logger.debug("MVCCONFIG: In resourceRegistry");
-        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
         registry.addResourceHandler("/images/**").addResourceLocations("/images/");
         registry.addResourceHandler("/thumbs/**").addResourceLocations("/thumbnails/");
         registry.addResourceHandler("/css/**").addResourceLocations("/css/");

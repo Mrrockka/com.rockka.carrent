@@ -70,7 +70,7 @@ public class UserServiceImp implements UserService{
         }
         return user;
     }
-
+    
     @Override
     public boolean isExists(User user) {
         if(userDao.getByUsername(user.getUsername()) != null){

@@ -46,7 +46,7 @@ public class User implements Serializable {
 	private LocalDateTime modifiedAt = new LocalDateTime();
 	@JsonIgnore
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Invoice> carOrders;
+	private List<Invoice> invoices;
 
 	public String getRoles() {
 		return roles;
@@ -160,12 +160,12 @@ public class User implements Serializable {
 		return this;
 	}
 
-	public List<Invoice> getOrders() {
-		return carOrders;
+	public List<Invoice> getInvoices() {
+		return invoices;
 	}
 
-	public void setOrders(List<Invoice> carOrders) {
-		this.carOrders = carOrders;
+	public void setInvoices(List<Invoice> carOrders) {
+		this.invoices = carOrders;
 	}
 
 	@Override

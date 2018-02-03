@@ -15,7 +15,9 @@ import java.util.List;
 public class GenericDaoImp<T> implements GenericDao<T> {
     @Autowired
     private SessionFactory sessionFactory;
+
     private Class<T> type;
+
     private final Logger logger = LoggerFactory.getLogger(GenericDaoImp.class);
 
     public GenericDaoImp (Class<T> type) { this.type = type;}

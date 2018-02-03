@@ -21,8 +21,8 @@ public class UserDetailsServiceImp implements UserDetailsService {
     private UserService userService;
 
     @Override
-    public UserDetails loadUserByUsername(String nickname) throws UsernameNotFoundException {
-        User user = userService.getByUsername(nickname);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userService.getByUsername(username);
 
         if(user != null){
             List<GrantedAuthority> roles = Stream

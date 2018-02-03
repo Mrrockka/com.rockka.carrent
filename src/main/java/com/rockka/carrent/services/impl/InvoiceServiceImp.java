@@ -29,7 +29,7 @@ public class InvoiceServiceImp implements InvoiceService {
 
     @Override
     public List<Invoice> getAllWithUser(String username) {
-        return getAllWithUser(username, InvoiceStatus.get(3), 1);
+        return getAllWithUser(username, InvoiceStatus.ACTIVE, 1);
 
     }
 
@@ -55,7 +55,7 @@ public class InvoiceServiceImp implements InvoiceService {
 
     @Override
     public List<Invoice> getAllWithCar(long carId) {
-        return getAllWithCar(carId, InvoiceStatus.get(3), 1);
+        return getAllWithCar(carId, InvoiceStatus.ACTIVE, 1);
     }
 
     @Override

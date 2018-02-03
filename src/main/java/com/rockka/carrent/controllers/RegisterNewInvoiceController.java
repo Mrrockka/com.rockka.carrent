@@ -27,7 +27,7 @@ public class RegisterNewInvoiceController extends UserUtil{
     private Logger logger = LoggerFactory.getLogger(RegisterNewInvoiceController.class);
 
     @GetMapping("/car/{car_id}")
-    public String getOrderForCar(@PathVariable("car_id") long id, Model model){
+    public String getInvoiceForCar(@PathVariable("car_id") long id, Model model){
         User user =userService.getByUsername((getPrincipal()).getUsername());
         String username = user.getFirstName() + " " + user.getSecondName();
         username += user.getLastName() != null ? " " +user.getLastName() : "";
