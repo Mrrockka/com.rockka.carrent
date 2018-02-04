@@ -20,7 +20,7 @@
 			<!--id inoivce-->
 			<div class="form-inline form-group">
 				<label class="control-label">Invoice id: </label>
-				<span class="form-control" th:text="${invoice_id}"></span>
+				<span id="invoice_id" class="form-control" th:text="${invoice_id}"></span>
 			</div>
 			<!--username -->
 			<div class="form-inline form-group">
@@ -29,13 +29,13 @@
 			</div>
 			<!--car_name-->
 			<div class="form-inline form-group">
-				<label class="control-label" th:text="${car_name}"></label>
-				<span class="form-control"></span>
+				<label class="control-label">Car name: </label>
+				<span class="form-control" th:text="${car_name}"></span>
 			</div>
 			<!--invoice price-->
 			<div class="form-inline form-group">
-				<label class="control-label" th:text="${invoice_price}"></label>
-				<span class="form-control"></span>
+				<label class="control-label">Invoice price</label>
+				<span class="form-control" th:text="${invoice_price}"></span>
 			</div>
 			<!--payment amount-->
 			<div class="form-inline form-group">

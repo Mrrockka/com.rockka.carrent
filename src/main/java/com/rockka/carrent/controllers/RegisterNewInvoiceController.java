@@ -39,17 +39,14 @@ public class RegisterNewInvoiceController extends UserUtil{
     }
 
     @PostMapping("/save/{car_id}")
+	@ResponseBody
     public String save(@RequestBody Invoice invoice, @PathVariable("car_id") long carId, Model model){
         invoice.setCar(carService.getById(carId));
         invoice.setUser(userService.getByUsername(getPrincipal().getUsername()));
         invoice.setStatus(InvoiceStatus.NOT_PAID);
         invoiceService.save(invoice);
 
-        model.addAttribute("invoice_id", invoice.getId())
-                .addAttribute("username", invoice.getUser().getUsername())
-                .addAttribute("car_name", invoice.getCar().getName())
-                .addAttribute("invoice_price", invoice.getPrice());
-        return "user/payment";
+        return "" + invoice.getId();
     }
 
 }

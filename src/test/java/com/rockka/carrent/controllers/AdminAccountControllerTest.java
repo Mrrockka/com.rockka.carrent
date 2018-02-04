@@ -160,5 +160,4 @@ public class AdminAccountControllerTest {
 		Mockito.verify(invoiceService, Mockito.times(1)).getById(1);
 		Mockito.verifyNoMoreInteractions(invoiceService);
 	}
-
 }

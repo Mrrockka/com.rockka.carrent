@@ -34,5 +34,4 @@ public class UserAccountControllerTest {
 		mockMvc = MockMvcBuilders.webAppContextSetup(webContext).build();
 	}
 //    TODO: write tests
-
 }

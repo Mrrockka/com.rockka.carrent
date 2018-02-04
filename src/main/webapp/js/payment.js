@@ -1,6 +1,5 @@
 'use strict'
 
-//TODO: Write with JQuery
-function registerPayment(){
-	$.post('/payment/approve');
+function registerPayment(invoice_id){
+	$.post('/payment/approve/' + $("#invoice_id").text(), function(){window.location.href = '/account';});
 }
