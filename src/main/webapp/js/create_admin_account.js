@@ -301,8 +301,6 @@ function showInvoiceById(id){
 function updateInvoice(){
     var xhr = new XMLHttpRequest();
     var json;
-    var status = ;
-    var id = ;
 
     json = "{\"description\" : \""+document.getElementById("description").value
             + "\", \"status\" : \"" +document.getElementById("statusValues").selectedIndex

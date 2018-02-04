@@ -33,7 +33,7 @@ function showAccount(){
                     + "<span id=\"address\" class=\"col-md-6 col-sm-6\">" + json.address + "</span></div>"
                     + "<div class=\"form-inline form-group\"><label for=\"about_me\" class=\"control-label col-md-6 col-sm-6\">About me: </label>"
                     + "<span id=\"about_me\" class=\"col-md-6 col-sm-6\">" + json.about_me + "</span></div>"
-                    + "<input id=\"user_info_btn\" class=\"btn btn-lg btn-secondary btn-secondary\" type=\"button\" value=\"Edit\" onclick=\"setEnabled()\">"
+                    + "<div class=\"ml-md-4\"><input id=\"user_info_btn\" class=\"btn btn-lg btn-secondary btn-secondary\" type=\"button\" value=\"Edit\" onclick=\"setEnabled()\"></div>"
                     + "</form></div>";
 
             document.getElementById("info_div").innerHTML = info;
@@ -171,16 +171,18 @@ function showOrderById(id){
                     +"<dt class=\"col-md-6 col-sm-6\">Invoice price: </dt><dd class=\"col-md-6 col-sm-6\">" + json.invoice_price+"</dd>"
                     +"<dt class=\"col-md-6 col-sm-6\">Description: </dt><dd class=\"col-md-6 col-sm-6\">"+ json.description +"</dd>"
                     +"<dt class=\"col-md-6 col-sm-6\">Status: </dt><dd class=\"col-md-6 col-sm-6\">"+json.invoiceStatus +"</dd>"
-                    +"</dl>";
+                    +"</dl>"
+					+"<div class=\"form-inline form-group\">";
 //          reference to InvoiceStatus enum
-            if(json.status == 3){
-                info += "<input type=\"button\" value=\"close order?\" onclick=\"changeOrderStatus("+ id +", 1)\">";
+            if(json.status == 4){
+                info += "<input type=\"button\" value=\"Approve payment\" onclick=\"approvePayment("+id+")\">"
+					+"<input type=\"button\" value=\"close order?\" onclick=\"changeOrderStatus("+ id +", 1)\">";
             }
             if(json.status == 1){
-                info += "<input type=\"button\" value=\"open order?\" onclick=\"changeOrderStatus("+ id +", 3)\">";
+                info += "<input type=\"button\" value=\"open order?\" onclick=\"changeOrderStatus("+ id +", 4)\">";
             }
 
-            info += "</div>";
+            info += "</div></div>";
 
             document.getElementById("info_div").innerHTML = info;
         }
@@ -202,6 +204,8 @@ function changeOrderStatus(id, status){
 
     xhr.open("POST", '/user/invoice/update/'+id+'/status/'+status, true);
     xhr.send();
+}
 
-
+function approvePayment(invoice_id){
+	window.location.href = '/payment/get_form/' + invoice_id;
 }

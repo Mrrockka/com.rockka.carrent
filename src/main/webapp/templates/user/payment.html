@@ -6,6 +6,7 @@
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/css/standart.css">
 	<link rel="stylesheet" href="/css/form.css">
+	<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="/js/payment.js"></script>
 	<title>Pay page</title>
 </head>
@@ -18,7 +19,7 @@
 			<!--id inoivce-->
 			<div class="form-inline form-group">
 				<label class="control-label">Invoice id: </label>
-				<span class="form-control" th:text="${invoice_id}"></span>
+				<span id="invoice_id" class="form-control" th:text="${invoice_id}"></span>
 			</div>
 			<!--username -->
 			<div class="form-inline form-group">
@@ -27,20 +28,20 @@
 			</div>
 			<!--car_name-->
 			<div class="form-inline form-group">
-				<label class="control-label" th:text="${car_name}"></label>
-				<span class="form-control"></span>
+				<label class="control-label">Car name: </label>
+				<span class="form-control" th:text="${car_name}"></span>
 			</div>
 			<!--invoice price-->
 			<div class="form-inline form-group">
-				<label class="control-label" th:text="${invoice_price}"></label>
-				<span class="form-control"></span>
+				<label class="control-label">Invoice price</label>
+				<span class="form-control" th:text="${invoice_price}"></span>
 			</div>
 			<!--payment amount-->
 			<div class="form-inline form-group">
 				<label class="control-label">Payment amount: </label>
 				<input type="number" class="form-control" value="0" th:value="${invoice_price}" >
 			</div>
-			<input type="button" value="Submit" class="btn btn-lg btn-block btn-primary" onclick="registerPayment(${invoice_id})">
+			<input type="button" value="Submit" class="btn btn-lg btn-block btn-primary" onclick="registerPayment()">
 		</form>
 	</div>
 <footer th:replace="fragments/footer :: footer"></footer>

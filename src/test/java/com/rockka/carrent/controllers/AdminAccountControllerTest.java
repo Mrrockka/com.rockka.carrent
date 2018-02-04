@@ -17,7 +17,6 @@ import com.rockka.carrent.test_categories.DetailTest;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -161,14 +160,4 @@ public class AdminAccountControllerTest {
 		Mockito.verify(invoiceService, Mockito.times(1)).getById(1);
 		Mockito.verifyNoMoreInteractions(invoiceService);
 	}
-
-	@Test
-    @Category(BasicTest.class)
-	@Ignore
-    public void account() throws Exception{
-	    mockMvc.perform(MockMvcRequestBuilders.get("/admin/account"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("admin/account"));
-
-    }
 }
