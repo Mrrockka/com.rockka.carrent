@@ -20,7 +20,7 @@ public class PaymentController {
 
 	private Logger logger = LoggerFactory.getLogger(PaymentController.class);
 
-	@RequestMapping("/register_payment")
+	@RequestMapping("/approve")
 	public String registerPayment(@RequestBody ObjectNode node){
 		String ans = "failure";
 		Invoice invoice = invoiceService.getById(node.get("invoice_id").asInt());

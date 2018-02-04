@@ -92,110 +92,163 @@ function showUserByUsername(username) {
 }
 
 function showCars(){
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function(){
-        if(this.readyState == 4 && this.status == 200){
-            var i;
-            var info ="<table class=\"table table-striped\"><h2 class=\"\">Cars</h2>"
-                +"<thead> <tr>"
-                +"<th>Id</th> <th>Name</th> <th>Color</th> <th>Release date</th>"
-                +"<th>Price</th> <th>Status</th>"
-                +"</tr> </thead>"
-                +"<tbody>";
-            var json = JSON.parse(this.responseText);
 
-            for(i = 0; i<json.length; i++){
-                info += "<tr>"
-                    + "<td><a href=\"#\" onclick=\"showCarById("+json[i].car_id + "); return false;\">"+json[i].car_id+"</a></td>"
-                    + "<td><a href=\"#\" onclick=\"showCarById("+json[i].car_id + "); return false;\">"+json[i].name+"</a></td>"
-                    + "<td><a href=\"#\" onclick=\"showCarById("+json[i].car_id + "); return false;\">"+json[i].color+"</a></td>"
-                    + "<td><a href=\"#\" onclick=\"showCarById("+json[i].car_id + "); return false;\">"+json[i].release_date+"</a></td>"
-                    + "<td><a href=\"#\" onclick=\"showCarById("+json[i].car_id + "); return false;\">"+json[i].price+"</a></td>"
-                    + "<td><a href=\"#\" onclick=\"showCarById("+json[i].car_id + "); return false;\">"+json[i].status+"</a></td>"
-                    + "</tr>"
-            }
-
-            info += "</tbody>";
-            document.getElementById("info_div").innerHTML = info;
-        }
-    }
-    xhr.open("GET", '/admin/car/show_all', true);
-    xhr.send();
-
+	$.get('/admin/car/show_all',
+		function(data, status){
+			var h2 = $("<h2></h2>").text("Cars");
+			var thead = $("<thead></thead>")
+						.append(
+							$("<tr></tr>")
+								.append(
+									$("<th></th>").text("Id"),
+									$("<th></th>").text("Car name"),
+									$("<th></th>").text("Color"),
+									$("<th></th>").text("Release date"),
+									$("<th></th>").text("Price"),
+									$("<th></th>").text("Status")
+								)
+						), tbody = $("<tbody></tbody>");
+			var i, tr;
+			for(i=0; i<data.length; i++){
+				tr = $("<tr></tr>")
+						.append(
+							$("<td></td>").text(data[i].car_id),
+							$("<td></td>").text(data[i].name),
+							$("<td></td>").text(data[i].color),
+							$("<td></td>").text(data[i].release_date),
+							$("<td></td>").text(data[i].price),
+							$("<td></td>").text(data[i].status)
+						);
+				tr.click(function(){
+						showCarById($(this).find("td:first").text());
+				});
+				tr.mouseenter(function(){
+						$(this).addClass("chosen");
+				});
+				tr.mouseleave(function(){
+						$(this).removeClass("chosen");
+				});
+				tbody.append(tr);
+			}
+			var table = $("<table></table>").append(thead, tbody).addClass("table table-striped");
+			$("#info_div").html(h2).append(table);
+		}
+	);
 }
 
 function newCar(){
-    var info = ""
-        + "<div class=\"col-md-6 col-sm-6\">"
-        + "<form class=\"form-horizontal\" name=\"car\">"
-        + "<h2 id=\"form_head\" class=\"ml-sm-4 mt-sm-4\">New car</h2>"
-        + "<div class=\"form-inline form-group\"><label for=\"name\" class=\"control-label col-md-6 col-sm-6\">Car name: </label>"
-        + "<div class=\"col-md-6 col-sm-6\"><input type=\"text\" id=\"name\" class=\"form-control\" placeholder=\"Car name\" required autofocus></div></div>"
-        + "<div class=\"form-inline form-group\"><label for=\"color\" class=\"control-label col-md-6 col-sm-6\">Color: </label>"
-        + "<div class=\"col-md-6 col-sm-6\"><input type=\"text\" id=\"color\" class=\"form-control\" placeholder=\"Color\" required></div></div>"
-        + "<div class=\"form-inline form-group\"><label for=\"country\" class=\"control-label col-md-6 col-sm-6\">Country: </label>"
-        + "<div class=\"col-md-6 col-sm-6\"><input type=\"text\" id=\"country\" class=\"form-control\" placeholder=\"Country\" required></div></div>"
-        + "<div class=\"form-inline form-group\"><label for=\"description\" class=\"control-label col-md-6 col-sm-6\">Description: </label>"
-        + "<div class=\"col-md-6 col-sm-6\"><input type=\"text\" id=\"description\" class=\"form-control\" placeholder=\"Description\" required></div></div>"
-        + "<div class=\"form-inline form-group\"><label for=\"price\" class=\"control-label col-md-6 col-sm-6\">Price: </label>"
-        + "<div class=\"col-md-6 col-sm-6\"><input type=\"number\" min=\"0\" id=\"price\" class=\"form-control\" placeholder=\"0.00\" required></div></div>"
-        + "<div class=\"form-inline form-group\"><label for=\"releaseDate\" class=\"control-label col-md-6 col-sm-6\">Year: </label>"
-        + "<div class=\"col-md-6 col-sm-6\"><input type=\"date\" id=\"releaseDate\" class=\"form-control\" required></div></div>"
-        + "<div class=\"form-inline form-group\"><label for=\"statusValues\" class=\"control-label col-md-6 col-sm-6\">Status: </label>"
-        + "<div class=\"col-md-6 col-sm-6\"><select id=\"statusValues\"></select></div></div>"
-        + "<input id=\"carBtn\" class=\"btn btn-lg btn-secondary btn-block ml-sm-4\" value=\"save\" type=\"button\" onclick=\"registerNewCar()\">"
-        + "</form></div>";
 
-    document.getElementById("info_div").innerHTML = info;
+	var form = $("<form></form>").addClass("form-horizontal").attr({"name" : "car"});
+	var classLabel = "control-label col-md-6 col-sm-6", classDiv = "col-md-6 col-sm-6";
+	form.append(
+		$("<h2></h2>").text("New car").attr({"id":"form_head"}),
+		$("<div></div>").addClass("form-inline form-group")
+			.append(
+				$("<label></label>").text("Car name: ").addClass(classLabel).attr({"for" : "name"}),
+				$("<div><div>").addClass(classDiv)
+					.append(
+						$("<input>").attr({"type" : "text", "id" : "name", "placeholder" : "Car name","class" : "form-control"})
+					)
+			),
+		$("<div></div>").addClass("form-inline form-group")
+			.append(
+				$("<label></label>").text("Color: ").addClass(classLabel).attr({"for" : "color"}),
+				$("<div><div>").addClass(classDiv)
+					.append(
+						$("<input>").attr({"type" : "text", "id" : "color", "placeholder" : "Color","class" : "form-control"})
+					)
+			),
+		$("<div></div>").addClass("form-inline form-group")
+			.append(
+				$("<label></label>").text("Country: ").addClass(classLabel).attr({"for" : "country"}),
+				$("<div><div>").addClass(classDiv)
+					.append(
+						$("<input>").attr({"type" : "text", "id" : "country", "placeholder" : "Country","class" : "form-control"})
+					)
+			),
+		$("<div></div>").addClass("form-inline form-group")
+			.append(
+				$("<label></label>").text("Description: ").addClass(classLabel).attr({"for" : "description"}),
+				$("<div><div>").addClass(classDiv)
+					.append(
+						$("<input>").attr({"type" : "text", "id" : "description", "placeholder" : "Description","class" : "form-control"})
+					)
+			),
+		$("<div></div>").addClass("form-inline form-group")
+			.append(
+				$("<label></label>").text("price").addClass(classLabel).attr({"for" : "price"}),
+				$("<div><div>").addClass(classDiv)
+					.append(
+						$("<input>").attr({"type" : "number", "id" : "price", "placeholder" : "0","class" : "form-control"})
+					)
+			),
+		$("<div></div>").addClass("form-inline form-group")
+			.append(
+				$("<label></label>").text("Year: ").addClass(classLabel).attr({"for" : "releaseDate"}),
+				$("<div><div>").addClass(classDiv)
+					.append(
+						$("<input>").attr({"type" : "date", "id" : "releaseDate", "placeholder" : "Year","class" : "form-control"})
+					)
+			),
+		$("<div></div>").addClass("form-inline form-group")
+			.append(
+				$("<label></label>").text("Status: ").addClass(classLabel).attr({"for" : "statusValues"}),
+				$("<div><div>").addClass(classDiv)
+					.append(
+						$("<select></select>").attr({"id" : "statusValues"})
+					)
+			),
+		$("<input>").attr({"type" : "button", "id" : "carBtn", "value" : "save","class" : "btn btn-secondary btn-block btn-lg", "onclick" : "registerNewCar()"})
+	);
 
-    var xhr = new XMLHttpRequest();
+	$("#info_div").html(form);
 
-    xhr.onreadystatechange = function(){
-        if(this.readyState == 4 && this.status == 200){
-            var values = document.getElementById("statusValues").innerHTML;
-            var i, json = JSON.parse(this.responseText);
-            for(i =0; i<json.length; i++){
-                values += "<option>" + json[i].toString + "</option>";
-            }
-            document.getElementById("statusValues").innerHTML = values;
-            document.getElementById("statusValues").selectedIndex = 1;
-        }
-    }
+	$.get('/admin/car/status_values', function(data, status){
+		var i, statusValues = $("#statusValues");
+		for(i=0; i<data.length; i++){
+			statusValues.append( $("<option></option>").text(data[i].toString));
+		}
+		statusValues[0].selectedIndex = 1;
+	});
 
-    xhr.open("GET", '/admin/car/status_values', true);
-    xhr.send();
 }
+/*
+	var form = $("<form></form>").addClass("form-horizontal").attr({"name" : "car"});
+	var classLabel = "control-label col-md-6 col-sm-6", classDiv = "col-md-6 col-sm-6";
+	form.append(
+		$("<h2></h2>").text("New car"),
+		$("<div></div>").addClass("form-inline form-group")
+			.append(
+				$("<label></label>").text("").addClass(classLabel).attr({"for" : ""}),
+				$("<div><div>").addClass(classDiv)
+					.append(
+						$("<input>").attr({"type" : "text", "id" : "", "placeholder" : "","class" : "form-control"})
+					)
+			),
+	);
+*/
+
 
 function showCarById(id){
     newCar();
 
-    var xhr = new XMLHttpRequest();
+	$.get('/admin/car/' + id, function(data, status){
+		$("#form_head").val("Car info");
+		$("#name").val(data.name);
+		$("#color").val(data.color);
+		$("#country").val(data.country);
+		$("#description").val(data.description);
+		$("#price").val(data.price);
+		$("#releaseDate").val(data.release_date);
+		$("#statusValues")[0].selectedIndex = data.status;
+		$("#carBtn").val("Update").attr({"onclick":"updateCar('/admin/car/update/" + id +"')"});
 
-    xhr.onreadystatechange = function(){
-        if(this.readyState == 4 && this.status == 200){
-            var json = JSON.parse(this.responseText);
-            document.getElementById("form_head").innerHTML = "Car info";
-            document.getElementById("name").value = json.name;
-            document.getElementById("color").value = json.color;
-            document.getElementById("country").value = json.country;
-            document.getElementById("description").value = json.description;
-            document.getElementById("price").value = json.price;
-            document.getElementById("releaseDate").value = json.release_date;
-            document.getElementById("statusValues").selectedIndex = json.status;
-            document.getElementById("carBtn").value = "Update";
-            var btnFun = "updateCar('/admin/car/update/" + id + "')";
-            document.getElementById("carBtn").setAttribute("onclick", btnFun);
-        }
-    }
 
-    xhr.open("GET", '/admin/car/' + id, true);
-    xhr.send();
+	});
 }
 
 function updateCar(url){
-
-    var xhr = new XMLHttpRequest();
-	var i = 0, json = "", form = document.forms["car"], text = "no";
+	var i = 0, json = "", form = document.forms["car"];
     json = "{";
     for(i=0; i<form.length; i++){
         var element = form.elements[i];
@@ -213,18 +266,18 @@ function updateCar(url){
     json = json.slice(0, -1);
     json += "}";
 
-    xhr.onreadystatechange = function(){
-        if(this.readyState == 4 && this.status==200){
-            text = this.responseText;
-            alert(text);
-            if(text == "success"){
-                showCars();
-            }
-        }
-    }
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-	xhr.send(json);
+	$.ajax({
+		url: url,
+		type: 'post',
+		data: json,
+		headers: {
+			'Content-type' : 'application/json; charset=utf-8'
+		},
+		dataType: 'text',
+		success: function () {
+			showCars();
+		}
+	});
 }
 
 function registerNewCar(){
