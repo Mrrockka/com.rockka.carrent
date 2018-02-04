@@ -1,6 +1,5 @@
 package com.rockka.carrent.controllers;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.rockka.carrent.domain.Invoice;
 import com.rockka.carrent.enums.InvoiceStatus;
 import com.rockka.carrent.services.InvoiceService;
@@ -8,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -20,10 +19,10 @@ public class PaymentController {
 
 	private Logger logger = LoggerFactory.getLogger(PaymentController.class);
 
-	@RequestMapping("/register_payment")
-	public String registerPayment(@RequestBody ObjectNode node){
+	@RequestMapping("/approve/{invoice_id}")
+	public String registerPayment(@PathVariable("invoice_id") long invoice_id){
 		String ans = "failure";
-		Invoice invoice = invoiceService.getById(node.get("invoice_id").asInt());
+		Invoice invoice = invoiceService.getById(invoice_id);
 		try{
 			invoiceService.update(invoice.setStatus(InvoiceStatus.ACTIVE));
 		}catch(Exception ex){
