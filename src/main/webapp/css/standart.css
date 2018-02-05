@@ -34,12 +34,12 @@ th, td{
 }
 
 .card {
-    width: 14rem;
+    width: 16rem;
     height: 18rem;
-    min-width: 15rem;
+    min-width: 16rem;
     min-height: 12rem;
     padding: 1rem;
-    margin: 0.5rem;
+    margin-top: 0.5rem;
 }
 
 .card img{
@@ -47,4 +47,17 @@ th, td{
     height: 9rem;
     min-width: 14rem;
     min-height: 9rem;
+}
+
+.carousel-inner{
+    height: 30rem;
+}
+
+.carousel-slide{
+    height: 500px;
+    width: 63rem;
+}
+.container .row{
+    padding-left: 5%;
+    padding-right: 5%;
 }

@@ -12,10 +12,16 @@ VALUES ('ROLE_USER', 'Zmei', '12345','Zmei', 'Gorinich', 'Russia, Moscow', 'Zavo
 
 #CAR
 INSERT INTO car (name, country, color, description, release_date, price, created_at, modified_at, status)
-VALUES ('Nissan Subzero', 'Japan', 'Gray', 'Very good car for riding', '2007-10-01', 200.00, now(), now(), 1);
+VALUES ('Nissan Qashqai', 'Japan', 'Red', 'Very good car for riding', '2007-10-01', 200.00, now(), now(), 1);
 
 INSERT INTO car (name, country, color, description, release_date, price, created_at, modified_at, status)
-VALUES ('Nissan Cashcai', 'Japan', 'Blue', 'Perfect car for riding', '2017-10-01', 500.00, now(), now(), 1);
+VALUES ('Audi A4', 'German', 'White', 'Perfect car for riding', '2017-10-01', 500.00, now(), now(), 1);
+
+INSERT INTO car (name, country, color, description, release_date, price, created_at, modified_at, status)
+VALUES ('BMW 2 series', 'German', 'Black', 'Perfect car for riding', '2012-10-01', 500.00, now(), now(), 1);
+
+INSERT INTO car (name, country, color, description, release_date, price, created_at, modified_at, status)
+VALUES ('Peugeot Traveler', 'France', 'Black', 'Perfect car for riding', '2013-10-01', 500.00, now(), now(), 1);
 
 #INVOICE
 INSERT INTO invoice (car_id, username, description, price, created_at, modified_at, starts_at, expires_at, status)
@@ -25,10 +31,10 @@ INSERT INTO invoice (car_id, username, description, price, created_at, modified_
 VALUES (2, 'admin', 'second order', 100.00, now(), now(), '2018-02-21', '2018-02-25', 2);
 #with debt and many-to-one relations
 INSERT INTO invoice (car_id, username, description, price, created_at, modified_at, starts_at, expires_at, status)
-VALUES (2, 'somebody', 'third order', 300.00, now(), now(), '2017-02-21', '2017-02-25', 4);
+VALUES (3, 'somebody', 'third order', 300.00, now(), now(), '2017-02-21', '2017-02-25', 4);
 #with debt and many-to-one relations
 INSERT INTO invoice (car_id, username, description, price, created_at, modified_at, starts_at, expires_at, status)
-VALUES (2, 'somebody', 'Repair car order', 100.00, now(), now(), '2017-02-25', '2018-02-25', 5);
+VALUES (4, 'somebody', 'Repair car order', 100.00, now(), now(), '2017-02-25', '2018-02-25', 5);
 
 INSERT INTO invoice (car_id, username, description, price, created_at, modified_at, starts_at, expires_at, status)
 VALUES (2, 'Zmei', 'zmei order', 1020.00, now(), now(), '2010-02-21', '2015-02-25', 3);

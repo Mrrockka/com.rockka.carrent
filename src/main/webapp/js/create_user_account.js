@@ -3,8 +3,9 @@
 
 function createUserAccount(){
     showAccount();
+    checkBadges();
 }
-
+//TODO: upload images function
 function showAccount(){
     var xhr = new XMLHttpRequest();
 
@@ -211,4 +212,8 @@ function changeOrderStatus(id, status){
 
 function approvePayment(invoice_id){
 	window.location.href = '/payment/get_form/' + invoice_id;
+}
+
+function checkBadges(){
+
 }

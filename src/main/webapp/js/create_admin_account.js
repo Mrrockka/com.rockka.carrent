@@ -2,6 +2,7 @@
 // TODO: rewrite with JQuery
 function createAdminAccount(){
     showInvoices();
+    checkBadges();
 }
 
 function showUsers(){
@@ -101,6 +102,7 @@ function showCars(){
 
 }
 
+//TODO: upload images function
 function newCar(){
     var info = ""
         + "<div class=\"col-md-6 col-sm-6\">"
@@ -420,3 +422,6 @@ function registerNewInvoice(){
 }
 
 
+function checkBadges(){
+
+}
