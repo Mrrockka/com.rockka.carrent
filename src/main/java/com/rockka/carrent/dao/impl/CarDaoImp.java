@@ -13,14 +13,18 @@ import java.beans.Expression;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+/*
+ ** Class for database selections with car
+ */
 @Transactional
 @Repository("carDao")
 public class CarDaoImp extends GenericDaoImp<Car> implements CarDao {
     private final Logger logger = LoggerFactory.getLogger(CarDaoImp.class);
 
     public CarDaoImp(){super(Car.class);}
-
+    /*
+     ** Selecting car entity by id
+     */
     @Override
     public Car getById(final long car_id) {
         Criteria criteria = getSession().createCriteria(Car.class);

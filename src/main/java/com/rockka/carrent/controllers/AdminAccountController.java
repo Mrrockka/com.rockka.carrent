@@ -22,7 +22,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
+/*
+** Working with admin/account view and js/create_admin_account script
+*/
 @RestController
 @RequestMapping("/admin")
 public class AdminAccountController extends UserUtil {
@@ -36,7 +38,9 @@ public class AdminAccountController extends UserUtil {
 	private ObjectMapper mapper;
 
 	private Logger logger = LoggerFactory.getLogger(AdminAccountController.class);
-
+	/*
+	** Creating json node with every invoice information and send it with response
+	*/
 	@GetMapping("/invoice/show_all")
 	public JsonNode showInvoices() {
 		ArrayNode node = mapper.createArrayNode();
@@ -54,7 +58,9 @@ public class AdminAccountController extends UserUtil {
 		}
 		return node;
 	}
-
+	/*
+	 ** Creating json node with invoice information and send it with response
+	 */
 	@GetMapping("/invoice/{id}")
 	public JsonNode showInvoiceById(@PathVariable("id") long id) {
 	    Invoice invoice = invoiceService.getById(id);
@@ -87,9 +93,11 @@ public class AdminAccountController extends UserUtil {
 
 	    return node;
 	}
-
+	/*
+	 ** Update operation for invoice information with request json node
+	 */
 	@RequestMapping("/invoice/update")
-	public String updateInvoiceById(ObjectNode node){
+	public String updateInvoice(ObjectNode node){
 		String ans = "failure";
 
 		Invoice invoice = invoiceService.getById(node.get("invoice_id").asInt());
@@ -106,7 +114,9 @@ public class AdminAccountController extends UserUtil {
 
 		return ans;
 	}
-
+	/*
+	** Creating json node with every user information (without password) and send it with response
+	*/
 	@GetMapping("/user/show_all")
 	public JsonNode showUsers() {
 		ArrayNode node = mapper.createArrayNode();
@@ -124,7 +134,9 @@ public class AdminAccountController extends UserUtil {
 		}
 		return node;
 	}
-
+	/*
+	 ** Creating json node with user information (without password) and send it with response
+	 */
 	@GetMapping("/user/{username}")
 	public JsonNode showUserByUsername(@PathVariable("username") String username) {
         User user = userService.getByUsername(username);
@@ -142,7 +154,9 @@ public class AdminAccountController extends UserUtil {
 
         return node;
 	}
-
+	/*
+	** Creating json node with every car information and send it with response
+	*/
 	@GetMapping("/car/show_all")
 	public JsonNode showCars(Model model) {
 		ArrayNode node = mapper.createArrayNode();
@@ -158,7 +172,9 @@ public class AdminAccountController extends UserUtil {
 		}
 		return node;
 	}
-
+	/*
+	 ** Creating json node with car information and send it with response
+	 */
 	@GetMapping("/car/{id}")
 	public JsonNode showCarById(@PathVariable("id") long id) {
         Car car = carService.getById(id);
@@ -175,9 +191,10 @@ public class AdminAccountController extends UserUtil {
 		node.set("statusValues", carStatusValues());
 		return node;
 	}
-
-
-    @RequestMapping("/car/save")
+	/*
+	 ** Save operation for car entity with request json node
+	 */
+    @RequestMapping("/car/registerInvoice")
     public String saveCar(@RequestBody ObjectNode node) {
         String answer = "failure";
         Car car = new Car()
@@ -196,7 +213,9 @@ public class AdminAccountController extends UserUtil {
         }
         return answer;
     }
-
+	/*
+	** Update operation for car entity with request json node
+    */
 	@RequestMapping("/car/update/{car_id}")
 	public String updateCar(@RequestBody ObjectNode node, @PathVariable("car_id") long carId) {
 		String answer = "failure";
@@ -217,7 +236,9 @@ public class AdminAccountController extends UserUtil {
 		}
 		return answer;
 	}
-
+	/*
+	** InvoiceStatus values selection
+	*/
 	@GetMapping("/invoice/status_values")
 	public JsonNode invoiceStatusValues(){
 		ArrayNode node = mapper.createArrayNode();
@@ -228,7 +249,9 @@ public class AdminAccountController extends UserUtil {
 		}
 		return node;
 	}
-
+	/*
+	 ** CarStatus values selection
+	 */
 	@GetMapping("/car/status_values")
 	public JsonNode carStatusValues(){
 		ArrayNode node = mapper.createArrayNode();
@@ -239,7 +262,9 @@ public class AdminAccountController extends UserUtil {
 		}
 		return node;
 	}
-
+	/*
+	 ** UserStatus values selection
+	 */
 	@GetMapping("/user/status_values")
 	public JsonNode userStatusValues(){
 		ArrayNode node = mapper.createArrayNode();
@@ -251,8 +276,10 @@ public class AdminAccountController extends UserUtil {
 		}
 		return node;
 	}
-
-	@RequestMapping("/invoice/save")
+	/*
+	 ** Save operation for invoice entity with request json node
+	 */
+	@RequestMapping("/invoice/registerInvoice")
 	public String registerNewInvoice(@RequestBody ObjectNode node){
 		String ans = "failure";
 

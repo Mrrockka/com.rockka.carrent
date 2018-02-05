@@ -10,7 +10,9 @@ import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.Filter;
-
+/*
+** Application initializer for start application on server
+*/
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	private final Logger logger = LoggerFactory.getLogger(AppInitializer.class);

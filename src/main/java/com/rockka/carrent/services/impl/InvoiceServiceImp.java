@@ -11,12 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+/*
+ ** InvoiceDao proxy
+ */
 @Service("invoiceService")
 public class InvoiceServiceImp implements InvoiceService {
     @Autowired
     private InvoiceDao invoiceDao;
     private Logger logger = LoggerFactory.getLogger(InvoiceServiceImp.class);
+    /*
+     ** Checks variables before dao call
+     */
     @Override
     public Invoice getById(long id) {
         if(id > 0) {
@@ -26,13 +31,17 @@ public class InvoiceServiceImp implements InvoiceService {
         }
         return null;
     }
-
+    /*
+     ** Overloaded method for convenience
+     */
     @Override
     public List<Invoice> getAllWithUser(String username) {
         return getAllWithUser(username, InvoiceStatus.get(3), 1);
 
     }
-
+    /*
+     ** Checks variables before dao call
+     */
     @Override
     public List<Invoice> getAllWithUser(String username, InvoiceStatus status, int way) {
         if(username != null && !username.equals("")){
@@ -42,7 +51,9 @@ public class InvoiceServiceImp implements InvoiceService {
         }
         return null;
     }
-
+    /*
+    ** Checks variables before dao call
+    */
     @Override
     public List<Invoice> getAllWithCar(long carId, InvoiceStatus status, int way) {
         if(carId >0){
@@ -52,16 +63,23 @@ public class InvoiceServiceImp implements InvoiceService {
         }
         return null;
     }
-
+    /*
+     ** Overloaded method for convenience
+     */
     @Override
     public List<Invoice> getAllWithCar(long carId) {
         return getAllWithCar(carId, InvoiceStatus.get(3), 1);
     }
-
+    /*
+     ** Calling dao method
+     */
     @Override
     public List<Invoice> getAll() {
         return invoiceDao.getAll();
     }
+    /*
+     ** Checks variables before dao call
+     */
     @Override
     public Invoice save(Invoice invoice) {
         if(invoice != null){
@@ -71,7 +89,9 @@ public class InvoiceServiceImp implements InvoiceService {
         }
         return invoice;
     }
-
+    /*
+     ** Checks variables and setts invoice status to deleted (Not deleting entity from DB)
+     */
     @Override
     public Invoice delete(Invoice invoice) {
         if(invoice != null) {
@@ -81,7 +101,9 @@ public class InvoiceServiceImp implements InvoiceService {
         }
         return invoice;
     }
-
+    /*
+     ** Checks variables before dao call
+     */
     @Override
     public Invoice update(Invoice invoice){
         if(invoice != null) {

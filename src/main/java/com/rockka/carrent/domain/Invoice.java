@@ -11,7 +11,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
+/*
+** Invoice entity
+*/
 @Entity
 @Table(name = "invoice")
 public class Invoice implements Serializable {

@@ -21,7 +21,7 @@ function registerNewUser(){
         if(this.readyState == 4 && this.status==200){
             var text = this.responseText;
             alert(text);
-            if(text == "welcome"){
+            if(text == "success"){
                 window.location.href = '/login';
             }
         }

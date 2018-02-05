@@ -18,7 +18,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+/*
+** Working with user view(user/account) and script(js/create_user_account)
+*/
 @RestController
 @RequestMapping("/user")
 public class UserAccountController extends UserUtil {
@@ -29,7 +31,9 @@ public class UserAccountController extends UserUtil {
     private InvoiceService invoiceService;
     @Autowired
     private ObjectMapper mapper;
-
+    /*
+    ** Creating json node with user info and send it with response
+    */
     @GetMapping("/info")
     public JsonNode userInfo() {
         ObjectNode node = mapper.createObjectNode();
@@ -45,7 +49,9 @@ public class UserAccountController extends UserUtil {
 
         return node;
     }
-
+    /*
+     ** Update operation for user info
+     */
     @RequestMapping("/update")
     public String updateUser(@RequestBody ObjectNode node){
         String ans = "failure";
@@ -65,7 +71,9 @@ public class UserAccountController extends UserUtil {
         }
         return ans;
     }
-
+    /*
+     ** Creating json node with every user invoices info and send it with response
+     */
     @GetMapping("/invoice/show_all")
     public JsonNode showInvoices(){
         ArrayNode node = mapper.createArrayNode();
@@ -81,7 +89,9 @@ public class UserAccountController extends UserUtil {
         }
         return node;
     }
-
+    /*
+     ** Creating json node with user invoice info and send it with response
+     */
     @GetMapping("/invoice/{id}")
     public JsonNode showInvoiceById(@PathVariable("id") long id){
         ObjectNode node = mapper.createObjectNode();
@@ -99,7 +109,9 @@ public class UserAccountController extends UserUtil {
 
         return node;
     }
-
+    /*
+     ** Update operation for user invoice info
+     */
     @RequestMapping("/invoice/update/{id}/status/{status}")
     public String updateInvoice(@PathVariable("id") long id, @PathVariable("status") int status){
         String ans = "failure";
@@ -112,8 +124,5 @@ public class UserAccountController extends UserUtil {
         }
         return ans;
     }
-
-
-
 }
 

@@ -14,8 +14,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
-
+/*
+ ** Class for database invoice selections
+ */
 @Transactional
 @Repository("invoiceDao")
 public class InvoiceDaoImp extends GenericDaoImp<Invoice> implements InvoiceDao {
@@ -24,21 +25,27 @@ public class InvoiceDaoImp extends GenericDaoImp<Invoice> implements InvoiceDao 
     public InvoiceDaoImp() {
         super(Invoice.class);
     }
-
+    /*
+     ** Selecting invoice entity by id
+     */
     @Override
     public Invoice getById(long invoice_id) {
         Criteria criteria = getSession().createCriteria(Invoice.class);
         criteria.add(Restrictions.eq("id", invoice_id));
         return (Invoice) criteria.uniqueResult();
     }
-
+    /*
+     ** Selecting invoice entity by username
+     */
     @Override
     public List<Invoice> getAllWithUser(String username, InvoiceStatus status, int way){
         Criteria criteria = getSession().createCriteria(Invoice.class);
         criteria.createCriteria("user").add(Restrictions.eq("username", username));
         return criteria.list();
     }
-
+    /*
+     ** Selecting invoice entity by car id
+     */
     @Override
     public List<Invoice> getAllWithCar(long car_id, InvoiceStatus status, int way){
         Criteria criteria = getSession().createCriteria(Invoice.class);

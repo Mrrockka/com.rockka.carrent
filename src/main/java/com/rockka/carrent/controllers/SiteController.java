@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+/*
+** For site default addresses
+*/
 @Controller
 public class SiteController extends UserUtil{
 
@@ -24,7 +26,9 @@ public class SiteController extends UserUtil{
     public String info(){
         return "public/info";
     }
-
+    /*
+    ** Return current user name and role
+    */
     @GetMapping("/username")
     public @ResponseBody String username(){
         String text = "unknown";
@@ -38,8 +42,9 @@ public class SiteController extends UserUtil{
         }
         return text;
     }
-
-
+    /*
+    ** Logout handler
+    */
     @RequestMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -53,11 +58,6 @@ public class SiteController extends UserUtil{
     @RequestMapping("/access_denied")
     public String accessDenied(){
         return "public/access_denied";
-    }
-
-    @RequestMapping("/success")
-    public String success(){
-        return "public/success";
     }
 
 }

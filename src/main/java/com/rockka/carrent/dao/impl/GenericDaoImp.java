@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
+/*
+ ** Generic class for database invoice selections
+ */
 @Transactional
 public class GenericDaoImp<T> implements GenericDao<T> {
     @Autowired
@@ -19,27 +21,37 @@ public class GenericDaoImp<T> implements GenericDao<T> {
     private final Logger logger = LoggerFactory.getLogger(GenericDaoImp.class);
 
     public GenericDaoImp (Class<T> type) { this.type = type;}
-
+    /*
+     ** Method for share sessions between children
+     */
     protected Session getSession() {return sessionFactory.getCurrentSession();}
-
+    /*
+     ** Save operation
+     */
     @Override
     public T save(T o) {
         getSession().save(o);
         return o;
     }
-
+    /*
+     ** Update operation
+     */
     @Override
     public T update(T o) {
         getSession().update(o);
         return o;
     }
-
+    /*
+     ** Delete operation
+     */
     @Override
     public T delete(T o) {
         getSession().delete(o);
         return o;
     }
-
+    /*
+     ** Selecting all entities
+     */
     @Override
     public List<T> getAll() {
         Criteria criteria = getSession().createCriteria(type);

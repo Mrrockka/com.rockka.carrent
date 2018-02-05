@@ -5,13 +5,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
+/*
+** Controller is mapping index page addresses, view(public/index)
+*/
 @Controller
 public class IndexController {
 
 	@Autowired
 	private CarService carService;
-
+	/*
+	** Return view with cars information
+	*/
 	@GetMapping("/")
 	public String without(Model model){
 		model.addAttribute("cars", carService.getAll());

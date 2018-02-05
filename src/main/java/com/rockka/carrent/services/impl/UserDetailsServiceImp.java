@@ -19,7 +19,10 @@ import java.util.stream.Stream;
 public class UserDetailsServiceImp implements UserDetailsService {
     @Autowired
     private UserService userService;
-
+    /*
+    ** Returns user security representation
+    ** Authorize user
+    */
     @Override
     public UserDetails loadUserByUsername(String nickname) throws UsernameNotFoundException {
         User user = userService.getByUsername(nickname);

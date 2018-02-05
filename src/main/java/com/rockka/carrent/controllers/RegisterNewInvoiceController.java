@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
+/*
+** Controlling user invoice registration
+*/
 @Controller
 @RequestMapping("/invoice")
 public class RegisterNewInvoiceController extends UserUtil{
@@ -25,7 +27,9 @@ public class RegisterNewInvoiceController extends UserUtil{
     private CarService carService;
 
     private Logger logger = LoggerFactory.getLogger(RegisterNewInvoiceController.class);
-
+    /*
+    ** Return invoice with car and user info for registration
+    */
     @GetMapping("/car/{car_id}")
     public String getOrderForCar(@PathVariable("car_id") long id, Model model){
         User user =userService.getByUsername((getPrincipal()).getUsername());
@@ -37,10 +41,12 @@ public class RegisterNewInvoiceController extends UserUtil{
         model.addAttribute("car", carService.getById(id));
         return "user/register_new_invoice";
     }
-
-    @PostMapping("/save/{car_id}")
+    /*
+    ** Registers invoice with NOT_PAID status, script(js/register_new_invoice)
+    */
+    @PostMapping("/registerInvoice/{car_id}")
 	@ResponseBody
-    public String save(@RequestBody Invoice invoice, @PathVariable("car_id") long carId, Model model){
+    public String registerInvoice(@RequestBody Invoice invoice, @PathVariable("car_id") long carId, Model model){
         invoice.setCar(carService.getById(carId));
         invoice.setUser(userService.getByUsername(getPrincipal().getUsername()));
         invoice.setStatus(InvoiceStatus.NOT_PAID);
