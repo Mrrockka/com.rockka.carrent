@@ -97,7 +97,7 @@ public class AdminAccountController extends UserUtil {
 	 ** Update operation for invoice information with request json node
 	 */
 	@RequestMapping("/invoice/update")
-	public String updateInvoice(ObjectNode node){
+	public String updateInvoice(@RequestBody ObjectNode node){
 		String ans = "failure";
 
 		Invoice invoice = invoiceService.getById(node.get("invoice_id").asInt());
@@ -194,7 +194,7 @@ public class AdminAccountController extends UserUtil {
 	/*
 	 ** Save operation for car entity with request json node
 	 */
-    @RequestMapping("/car/registerInvoice")
+    @RequestMapping("/car/register")
     public String saveCar(@RequestBody ObjectNode node) {
         String answer = "failure";
         Car car = new Car()
@@ -279,7 +279,7 @@ public class AdminAccountController extends UserUtil {
 	/*
 	 ** Save operation for invoice entity with request json node
 	 */
-	@RequestMapping("/invoice/registerInvoice")
+	@RequestMapping("/invoice/register")
 	public String registerNewInvoice(@RequestBody ObjectNode node){
 		String ans = "failure";
 

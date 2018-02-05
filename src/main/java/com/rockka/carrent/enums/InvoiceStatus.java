@@ -9,8 +9,9 @@ public enum InvoiceStatus{
 	, CLOSED(1, "closed")
 	, EXPIRED(2, "expired")
 	, DENIED(3, "denied")
-	, NOT_PAID(4, "not paid")
-	, ACTIVE(5, "active")
+	, PERMITTED(4, "permitted")
+	, PENDING(5, "not paid")
+	, PAID(6, "paid")
 	;
 
 	private int status;
@@ -34,11 +35,13 @@ public enum InvoiceStatus{
 			case 3:
 				return DENIED;
 			case 4:
-				return NOT_PAID;
+				return PERMITTED;
 			case 5:
-				return ACTIVE;
+				return PENDING;
+			case 6:
+				return PAID;
 			default:
-				return NOT_PAID;
+				return PENDING;
 		}
 	}
 	/*

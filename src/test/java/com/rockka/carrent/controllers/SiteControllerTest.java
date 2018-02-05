@@ -62,14 +62,6 @@ public class SiteControllerTest {
 	}
 
 	@Test
-	@Category(BasicTest.class)
-	public void success() throws Exception{
-		mockMvc.perform(MockMvcRequestBuilders.get("/success"))
-				.andExpect(MockMvcResultMatchers.status().isOk())
-				.andExpect(MockMvcResultMatchers.view().name("public/success"));
-	}
-
-	@Test
 	@Category(SecurityTest.class)
 	public void username() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.get("/username"))

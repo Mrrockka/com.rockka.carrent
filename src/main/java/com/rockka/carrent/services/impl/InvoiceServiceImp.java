@@ -3,6 +3,7 @@ package com.rockka.carrent.services.impl;
 import com.rockka.carrent.dao.InvoiceDao;
 import com.rockka.carrent.domain.Invoice;
 import com.rockka.carrent.enums.InvoiceStatus;
+import com.rockka.carrent.enums.Way;
 import com.rockka.carrent.services.InvoiceService;
 import org.joda.time.LocalDateTime;
 import org.slf4j.Logger;
@@ -36,14 +37,14 @@ public class InvoiceServiceImp implements InvoiceService {
      */
     @Override
     public List<Invoice> getAllWithUser(String username) {
-        return getAllWithUser(username, InvoiceStatus.get(3), 1);
+        return getAllWithUser(username, InvoiceStatus.PENDING, Way.Equals);
 
     }
     /*
      ** Checks variables before dao call
      */
     @Override
-    public List<Invoice> getAllWithUser(String username, InvoiceStatus status, int way) {
+    public List<Invoice> getAllWithUser(String username, InvoiceStatus status, Way way) {
         if(username != null && !username.equals("")){
             return invoiceDao.getAllWithUser(username, status, way);
         }else {
@@ -55,7 +56,7 @@ public class InvoiceServiceImp implements InvoiceService {
     ** Checks variables before dao call
     */
     @Override
-    public List<Invoice> getAllWithCar(long carId, InvoiceStatus status, int way) {
+    public List<Invoice> getAllWithCar(long carId, InvoiceStatus status, Way way) {
         if(carId >0){
             return invoiceDao.getAllWithCar(carId, status, way);
         } else {
@@ -68,7 +69,7 @@ public class InvoiceServiceImp implements InvoiceService {
      */
     @Override
     public List<Invoice> getAllWithCar(long carId) {
-        return getAllWithCar(carId, InvoiceStatus.get(3), 1);
+        return getAllWithCar(carId, InvoiceStatus.DENIED, Way.GreaterOrEquals);
     }
     /*
      ** Calling dao method

@@ -205,7 +205,7 @@ function updateCar(url){
 }
 
 function registerNewCar(){
-    updateCar('/admin/car/save');
+    updateCar('/admin/car/register');
 }
 
 function showInvoices(){
@@ -313,7 +313,8 @@ function updateInvoice(){
         }
     }
 
-    xhr.open("UPDATE", '/admin/invoice/update', true);
+    xhr.open("POST", '/admin/invoice/update', true);
+    xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     xhr.send(json);
 }
 
@@ -413,7 +414,7 @@ function registerNewInvoice(){
         }
     }
 
-    xhr.open("POST", '/admin/invoice/save', true);
+    xhr.open("POST", '/admin/invoice/register', true);
 	xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     xhr.send(json);
 }

@@ -3,7 +3,7 @@
 function registerNewInvoice(){
 	if(areDatesValid()){
 		var xhr = new XMLHttpRequest();
-		var url = '/invoice/save/' + document.getElementById("carid").innerHTML;
+		var url = '/invoice/register/' + document.getElementById("carid").innerHTML;
 		var i = 0, json = "", doc = document.forms["invoice"];
 		json = "{";
 		for(i=0; i<doc.length; i++){

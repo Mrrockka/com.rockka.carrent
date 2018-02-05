@@ -36,6 +36,8 @@ public class SecurityConfig
                 .antMatchers("/user/**","/invoice/**", "/payment/**").hasAnyRole("USER")
                 .and().formLogin().loginPage("/login").defaultSuccessUrl("/account").failureUrl("/login")
                 .and().logout().logoutSuccessUrl("/login")
+                .and().csrf().disable()
+                .exceptionHandling().accessDeniedPage("/access_denied")
         ;
     }
     /*

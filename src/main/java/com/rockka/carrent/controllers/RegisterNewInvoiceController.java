@@ -49,7 +49,7 @@ public class RegisterNewInvoiceController extends UserUtil{
     public String registerInvoice(@RequestBody Invoice invoice, @PathVariable("car_id") long carId, Model model){
         invoice.setCar(carService.getById(carId));
         invoice.setUser(userService.getByUsername(getPrincipal().getUsername()));
-        invoice.setStatus(InvoiceStatus.NOT_PAID);
+        invoice.setStatus(InvoiceStatus.PENDING);
         invoiceService.save(invoice);
 
         return "" + invoice.getId();

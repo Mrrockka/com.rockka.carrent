@@ -4,6 +4,7 @@ import com.rockka.carrent.dao.InvoiceDao;
 import com.rockka.carrent.domain.Invoice;
 import com.rockka.carrent.domain.User;
 import com.rockka.carrent.enums.InvoiceStatus;
+import com.rockka.carrent.enums.Way;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Property;
@@ -38,7 +39,7 @@ public class InvoiceDaoImp extends GenericDaoImp<Invoice> implements InvoiceDao 
      ** Selecting invoice entity by username
      */
     @Override
-    public List<Invoice> getAllWithUser(String username, InvoiceStatus status, int way){
+    public List<Invoice> getAllWithUser(String username, InvoiceStatus status, Way way){
         Criteria criteria = getSession().createCriteria(Invoice.class);
         criteria.createCriteria("user").add(Restrictions.eq("username", username));
         return criteria.list();
@@ -47,7 +48,7 @@ public class InvoiceDaoImp extends GenericDaoImp<Invoice> implements InvoiceDao 
      ** Selecting invoice entity by car id
      */
     @Override
-    public List<Invoice> getAllWithCar(long car_id, InvoiceStatus status, int way){
+    public List<Invoice> getAllWithCar(long car_id, InvoiceStatus status, Way way){
         Criteria criteria = getSession().createCriteria(Invoice.class);
         criteria.createCriteria("car").add(Restrictions.idEq(car_id));
         return criteria.list();

@@ -32,7 +32,7 @@ public class PaymentController {
 		String ans = "failure";
 		Invoice invoice = invoiceService.getById(invoice_id);
 		try{
-			invoiceService.update(invoice.setStatus(InvoiceStatus.ACTIVE));
+			invoiceService.update(invoice.setStatus(InvoiceStatus.PAID));
 		}catch(Exception ex){
 			logger.error("" + ex);
 		}
