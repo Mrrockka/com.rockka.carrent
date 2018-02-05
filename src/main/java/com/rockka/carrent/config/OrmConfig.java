@@ -34,7 +34,9 @@ public class OrmConfig {
     private String [] scanPackages;
     @Value("${hibernate.dialect}")
     private String dialect;
-
+    /*
+    ** Data source bean configuration for connection between server and Database
+    */
     @Bean
     public DataSource dataSource(){
         logger.debug("ORM: In datasource");
@@ -45,7 +47,9 @@ public class OrmConfig {
         dataSource.setPassword(password);
         return dataSource;
     }
-
+    /*
+    ** Hibernate properties
+    */
     @Bean
     public Properties hibernateProperties(){
         logger.debug("ORM: in properties");
@@ -53,7 +57,9 @@ public class OrmConfig {
         properties.put("hibernate.dialect", dialect);
         return properties;
     }
-
+    /*
+    ** Session factory for session handling
+    */
     @Bean
     @SuppressWarnings("deprecation")
     public SessionFactory sessionFactory(){
@@ -61,7 +67,9 @@ public class OrmConfig {
         return new LocalSessionFactoryBuilder(dataSource()).scanPackages(scanPackages)
                 .addProperties(hibernateProperties()).buildSessionFactory();
     }
-
+    /*
+    ** For changes in database without data crash
+    */
     @Bean
     public HibernateTransactionManager transactionManager(){
         logger.debug("ORM: in transaction manager");

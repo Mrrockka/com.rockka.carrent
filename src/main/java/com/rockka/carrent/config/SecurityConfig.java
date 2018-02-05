@@ -19,13 +19,16 @@ public class SecurityConfig
     @Autowired
     @Qualifier("userDetailsService")
     private UserDetailsService userDetailsService;
-
-
+    /*
+    ** Adding user roles to security bean
+    */
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
     }
-
+    /*
+    ** Adding address permits for user roles, configuring login and logout pages
+    */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/*","/car/*").permitAll()
@@ -33,19 +36,18 @@ public class SecurityConfig
                 .antMatchers("/user/**","/invoice/**", "/payment/**").hasAnyRole("USER")
                 .and().formLogin().loginPage("/login").defaultSuccessUrl("/account").failureUrl("/login")
                 .and().logout().logoutSuccessUrl("/login")
-                .and().csrf().disable()
         ;
     }
-
+    /*
+    ** Adding sharable addresses
+    */
     @Override
     public void configure(WebSecurity web){
         web.ignoring().antMatchers(
-                "/resources/**"
-                ,"/thumbs/**"
+                "/thumbs/**"
                 ,"/images/**"
                 ,"/css/**"
                 ,"/js/**"
         );
-//        web.debug(true);
     }
 }

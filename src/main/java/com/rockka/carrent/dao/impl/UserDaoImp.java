@@ -9,14 +9,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
-
-
+/*
+ ** Class for database user selections
+ */
 @Transactional
 @Repository("userDao")
 public class UserDaoImp extends GenericDaoImp<User> implements UserDao {
     private Logger logger = LoggerFactory.getLogger(UserDaoImp.class);
     public UserDaoImp(){super(User.class);}
-
+    /*
+     ** Selecting user entity by username
+     */
     @Override
     public User getByUsername(String username) {
         Criteria criteria = getSession().createCriteria(User.class);

@@ -12,7 +12,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
-
+/*
+** Car entity
+*/
 @Entity
 @Table(name = "car")
 public class Car implements Serializable {

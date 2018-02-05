@@ -11,7 +11,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
-
+/*
+ ** Invoice entity
+ */
 @Entity
 @Table(name = "user")
 public class User implements Serializable {

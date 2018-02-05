@@ -9,25 +9,29 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+/*
+** For user registration view(public/registration), script(js/register_new_user)
+*/
 @Controller
 public class RegisterNewUserController {
 
 	@Autowired
 	private UserService userService;
 	private Logger logger = LoggerFactory.getLogger(RegisterNewUserController.class);
-
+	/*
+	** Registering new user
+	*/
 	@RequestMapping("/register_new_user")
 	@ResponseBody
 	public String registerNewUser(@RequestBody User user){
 		String answer = "";
 		if(userService.isExists(user)){
 			answer = "User with this name already exist.";
-			logger.debug("user is exists, answer is : " + answer);
+			logger.error(answer);
 		} else{
 			user.setRoles("ROLE_USER");
 			userService.save(user);
-			answer = "welcome";
+			answer = "success";
 		}
 		return answer;
 	}

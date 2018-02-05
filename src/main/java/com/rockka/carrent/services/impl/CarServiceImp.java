@@ -11,17 +11,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+/*
+ ** CarDao proxy
+ */
 @Service("carService")
 public class CarServiceImp implements CarService {
 	@Autowired
 	private CarDao carDao;
 	private Logger logger = LoggerFactory.getLogger(CarServiceImp.class);
+	/*
+	 ** Calling dao method
+	 */
 	@Override
 	public List<Car> getAll() {
 		return carDao.getAll();
 	}
-
+	/*
+	 ** Checks variables before dao call
+	 */
 	@Override
 	public Car getById(long car_id) {
 		if(car_id >0) {
@@ -31,7 +38,9 @@ public class CarServiceImp implements CarService {
 		}
 		return null;
 	}
-
+	/*
+	 ** Checks variables before dao call
+	 */
 	@Override
 	public Car save(Car car) {
 		if (car != null) {
@@ -41,7 +50,9 @@ public class CarServiceImp implements CarService {
 		}
 		return car;
 	}
-
+	/*
+	 ** Checks variables and setts invoice status to deleted (Not deleting entity from DB)
+	 */
 	@Override
 	public Car delete(Car car) {
 		if (car != null) {
@@ -51,7 +62,9 @@ public class CarServiceImp implements CarService {
 		}
 		return car;
 	}
-
+	/*
+	 ** Checks variables before dao call
+	 */
 	@Override
 	public Car update(Car car) {
 		if (car != null) {

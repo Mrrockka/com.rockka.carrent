@@ -11,12 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+/*
+ ** UserDao proxy
+ */
 @Service("userService")
 public class UserServiceImp implements UserService{
     @Autowired
     private UserDao userDao;
     private Logger logger = LoggerFactory.getLogger(UserServiceImp.class);
+    /*
+     ** Checks variables before dao call
+     */
     @Override
     public User getByUsername(String username) {
         if(username != null && !username.equals("")) {
@@ -26,13 +31,16 @@ public class UserServiceImp implements UserService{
         }
          return null;
     }
-
+    /*
+     ** Calling dao method
+     */
     @Override
     public List<User> getAll() {
         return userDao.getAll();
     }
-
-
+    /*
+     ** Checks variables before dao call
+     */
     @Override
     public User save(User user) {
         if(user != null ) {
@@ -46,7 +54,9 @@ public class UserServiceImp implements UserService{
         }
         return user;
     }
-
+    /*
+     ** Checks variables before dao call
+     */
     @Override
     public User update(User user) {
         if (user != null) {
@@ -60,7 +70,9 @@ public class UserServiceImp implements UserService{
         }
         return user;
     }
-
+    /*
+     ** Checks variables and setts invoice status to deleted (Not deleting entity from DB)
+     */
     @Override
     public User delete(User user) {
         if(user != null) {
@@ -70,7 +82,9 @@ public class UserServiceImp implements UserService{
         }
         return user;
     }
-    
+    /*
+     ** Checking is user already exist
+     */
     @Override
     public boolean isExists(User user) {
         if(userDao.getByUsername(user.getUsername()) != null){

@@ -15,7 +15,9 @@ public enum UserStatus {
 		this.status = status;
 		this.representation = representation;
 	}
-
+	/*
+	 ** Returns object by number representation (for converter)
+	 */
 	public static UserStatus get(int i) {
 		switch (i) {
 			case 0:
@@ -27,10 +29,15 @@ public enum UserStatus {
 		}
 	}
 
+	/*
+	 ** Returns object number representation (for converter)
+	 */
 	public int toInt() {
 		return this.status;
 	}
-
+	/*
+	 ** Returns object string representation (for server response)
+	 */
 	public String toString() {
 		return this.representation;
 	}

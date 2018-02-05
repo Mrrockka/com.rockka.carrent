@@ -7,7 +7,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
+/*
+** For login operations
+*/
 @Controller
 public class LoginController extends UserUtil {
     private Logger logger = LoggerFactory.getLogger(LoginController.class);
@@ -16,7 +18,9 @@ public class LoginController extends UserUtil {
     public String login(){
         return "public/login";
     }
-
+    /*
+    ** Return page view based on user roles
+    */
     @GetMapping("/account")
     public String Welcome(Model model){
         UserDetails user = getPrincipal();
