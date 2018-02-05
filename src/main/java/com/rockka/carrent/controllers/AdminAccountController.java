@@ -195,11 +195,11 @@ public class AdminAccountController extends UserUtil {
 	 ** Save operation for car entity with request json node
 	 */
     @RequestMapping("/car/register")
-    public String saveCar(@RequestBody ObjectNode node) {
+    public String registerCar(@RequestBody ObjectNode node) {
         String answer = "failure";
         Car car = new Car()
 				.setName(node.get("name").asText())
-				.setReleaseDate(new LocalDate(node.get("releaseDate").asLong()))
+				.setReleaseDate(new LocalDate(node.get("releaseDate").asText()))
 				.setColor(node.get("color").asText())
 				.setCountry(node.get("country").asText())
 				.setPrice(node.get("price").asDouble())
@@ -222,7 +222,7 @@ public class AdminAccountController extends UserUtil {
 		Car car = new Car()
 				.setId(carId)
 				.setName(node.get("name").asText())
-				.setReleaseDate(new LocalDate(node.get("releaseDate").asLong()))
+				.setReleaseDate(new LocalDate(node.get("releaseDate").asText()))
 				.setColor(node.get("color").asText())
 				.setCountry(node.get("country").asText())
 				.setPrice(node.get("price").asDouble())

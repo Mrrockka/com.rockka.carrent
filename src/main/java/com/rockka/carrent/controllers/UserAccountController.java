@@ -63,7 +63,7 @@ public class UserAccountController extends UserUtil {
                             .setLastName(node.get("lastname").asText())
                             .setAddress(node.get("address").asText())
                             .setAboutMe(node.get("about_me").asText())
-                            .setBirthday(new LocalDate(node.get("birthday").asLong()))
+                            .setBirthday(new LocalDate(node.get("birthday").asText()))
             );
             ans = "success";
         }catch(Exception ex){

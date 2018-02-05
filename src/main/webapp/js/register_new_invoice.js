@@ -18,7 +18,7 @@ function registerNewInvoice(){
 
 		xhr.onreadystatechange= function(){
 			if(this.readyState==4 && this.status==200){
-				window.location.href = '/payment/get_form/' + this.responseText;
+				window.location.href = '/account";
 			}
 		}
 		xhr.open("POST", url, true);
@@ -35,7 +35,7 @@ function setPrice(){
 }
 
 function areDatesValid(){
-	var first = $("startsAt").val(), second = $("expiresAt").val();
+	var first = $("#startsAt").val(), second = $("#expiresAt").val();
 	if(first ==null && second == null){
 		alert("Invalid dates");
 		return false;

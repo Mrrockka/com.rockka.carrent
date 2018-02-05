@@ -175,11 +175,14 @@ function showOrderById(id){
 					+"<div class=\"form-inline form-group\">";
 //          reference to InvoiceStatus enum
             if(json.status == 4){
-                info += "<input type=\"button\" value=\"Approve payment\" onclick=\"approvePayment("+id+")\">"
-					+"<input type=\"button\" value=\"close order?\" onclick=\"changeOrderStatus("+ id +", 1)\">";
+                info += "<input type=\"button\" value=\"Approve payment\" onclick=\"approvePayment("+id+")\">";
             }
+            if(json.status == 5 || json.status == 4){
+                info += "<input type=\"button\" value=\"close order?\" onclick=\"changeOrderStatus("+ id +", 1)\">";
+            }
+
             if(json.status == 1){
-                info += "<input type=\"button\" value=\"open order?\" onclick=\"changeOrderStatus("+ id +", 4)\">";
+                info += "<input type=\"button\" value=\"open order?\" onclick=\"changeOrderStatus("+ id +", 5)\">";
             }
 
             info += "</div></div>";

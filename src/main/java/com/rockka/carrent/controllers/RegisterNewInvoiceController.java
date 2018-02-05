@@ -44,7 +44,7 @@ public class RegisterNewInvoiceController extends UserUtil{
     /*
     ** Registers invoice with NOT_PAID status, script(js/register_new_invoice)
     */
-    @PostMapping("/registerInvoice/{car_id}")
+    @PostMapping("/register/{car_id}")
 	@ResponseBody
     public String registerInvoice(@RequestBody Invoice invoice, @PathVariable("car_id") long carId, Model model){
         invoice.setCar(carService.getById(carId));
