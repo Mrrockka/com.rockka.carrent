@@ -18,7 +18,7 @@ function registerNewInvoice(){
 
 		xhr.onreadystatechange= function(){
 			if(this.readyState==4 && this.status==200){
-				window.location.href = '/account";
+				window.location.href = '/account';
 			}
 		}
 		xhr.open("POST", url, true);

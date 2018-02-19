@@ -17,7 +17,7 @@ function showAccount(){
             json.about_me = json.about_me == null ? "" : json.about_me;
 
             var info = "<div class=\"col-md-9 col-sm-8\">"
-                    + "<form class=\"form-horizontal\" id=\"user_info\">"
+                    + "<form class=\"form-horizontal float-left\" id=\"user_info\">"
                     + "<h2 class=\"ml-sm-4 mt-sm-4 form-std-heading\">Account info</h2>"
                     + "<div class=\"col-sm-4\"><img src=\"/thumbs/users/" + json.username + ".jpg\" class=\"img-rounded thumb\" alt=\"user image\"></div>"
                     + "<div class=\"form-inline form-group\"><label for=\"username\" class=\"control-label col-md-6 col-sm-6\">Username: </label>"
